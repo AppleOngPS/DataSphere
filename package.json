@@ -1,5 +1,6 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.21.1"
   },
   "name": "datasphere",
@@ -13,4 +14,10 @@
   "author": "",
   "license": "ISC",
   "description": ""
+=======
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mssql": "^11.0.1"
+  }
+>>>>>>> 9f9b4be174eb0cb7da2eb090801d7795779172af
 }
