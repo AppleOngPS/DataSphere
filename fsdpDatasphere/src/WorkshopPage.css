@@ -1,0 +1,142 @@
+/* WorkshopPage.css */
+
+.workshop {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.signature-programmes {
+  margin-bottom: 40px;
+  text-align: center; /* Center aligns the text */
+}
+
+h2 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 10px; /* Space below the heading */
+}
+
+p {
+  margin: 0 auto; /* Center align the paragraph */
+  max-width: 800px; /* Limit paragraph width for better readability */
+}
+
+.programme-cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.programme-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  width: calc(25% - 20px); /* Adjusted for 4 cards in a row */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.programme-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.public-speaking-workshops {
+  background-color: rgba(240, 226, 152, 0.6); /* Light yellow background with transparency */
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 40px; /* Add space below this section */
+}
+
+.svg-container {
+  margin-top: 20px; /* Space above the SVG */
+  position: relative; /* Keeps SVG in the flow of the document */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center horizontally */
+}
+
+.workshop-details {
+  display: flex; /* Use flexbox to arrange children in a row */
+  justify-content: space-between; /* Space out the cards evenly */
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  margin-top: 20px; /* Space above the cards */
+}
+
+.workshop-card {
+  background-color: white; /* Background color of cards */
+  border: 1px solid #ccc; /* Optional border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Internal spacing */
+  text-align: center; /* Center align text */
+  flex: 1; /* Allow cards to grow equally */
+  margin: 0 10px; /* Space between cards */
+  min-width: 200px; /* Minimum width for responsiveness */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.2s; /* Animation for scaling effect */
+}
+
+.workshop-card:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.testimonials {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: space-between; /* Distribute space evenly between items */
+  margin: 0 -10px; /* Adjust for card margins */
+}
+
+.testimonial-card {
+  flex: 0 0 calc(50% - 20px); /* Two cards per row, minus margins */
+  box-sizing: border-box; /* Ensure padding and borders are included in total width */
+  margin: 10px; /* Space around each card */
+}
+
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Footer styles */
+.footer {
+  background-color: white; /* Set footer background color to white */
+  padding: 20px; /* Padding for footer */
+  text-align: center; /* Center align footer text */
+}
+
+.footer-links,
+.social-media {
+  margin: 10px 0; /* Space around the footer links */
+}
+
+.footer-links a,
+.social-media a {
+  color: #007bff; /* Footer link color */
+  text-decoration: none; /* Remove underline from links */
+  margin: 0 10px; /* Space between links */
+}
+
+.footer-links a:hover,
+.social-media a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Hover effect */
+.programme-card:hover {
+  transform: scale(1.05); /* Scale up the card slightly */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+}
