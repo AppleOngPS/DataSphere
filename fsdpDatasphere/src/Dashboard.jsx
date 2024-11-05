@@ -1,80 +1,55 @@
-import { UserButton, useUser } from "@clerk/clerk-react";
-import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from "react";
+import { useUser } from "@clerk/clerk-react";
+
 
 const Dashboard = () => {
-  const { user } = useUser(); // Only using useUser for accessing user data
-  const [preferredLunch, setPreferredLunch] = useState('');
-  const [children, setChildren] = useState([{ name: '', school: '', interest: '' }]); // Initialize with one child
+  const { user } = useUser();
+  const [children, setChildren] = useState([]); // Array to store child data
+  const [childName, setChildName] = useState(""); // Input state for child name
 
-  const handleChildChange = (index, field, value) => {
-    const newChildren = [...children];
-    newChildren[index][field] = value;
-    setChildren(newChildren);
+  // Add child function
+  const addChild = () => {
+    if (childName.trim()) {
+      setChildren([...children, childName]);
+      setChildName(""); // Clear input after adding
+    }
   };
 
-  const addChild = () => {
-    setChildren([...children, { name: '', school: '', interest: '' }]); // Add a new child entry
+  // Remove child function
+  const removeChild = (index) => {
+    setChildren(children.filter((_, i) => i !== index));
   };
 
   return (
     <div>
-      {user ? (
-        <>
-          <h1>Welcome to Home, {user.firstName}!</h1>
-          <UserButton />
+      <h1>Welcome to the Dashboard, {user?.firstName}!</h1>
 
-          {/* Profile Section */}
-          <div className="profile-section">
-            <h2>Profile</h2>
-            <div>
-              <label>
-                Preferred Lunch:
-                <input 
-                  type="text" 
-                  value={preferredLunch} 
-                  onChange={(e) => setPreferredLunch(e.target.value)} 
-                  placeholder="Enter preferred lunch"
-                />
-              </label>
-            </div>
+      {/* Add Child Section */}
+      <div className="add-child-section">
+        <h2>Add Child</h2>
+        <input
+          type="text"
+          value={childName}
+          onChange={(e) => setChildName(e.target.value)}
+          placeholder="Enter child's name"
+        />
+        <button onClick={addChild}>Add Child</button>
+      </div>
 
-            <h3>Children</h3>
+      {/* Remove Child Section */}
+      {children.length > 0 && (
+        <div className="child-list-section">
+          <h2>Your Children</h2>
+          <ul>
             {children.map((child, index) => (
-              <div key={index} className="child-info">
-                <label>
-                  Name:
-                  <input 
-                    type="text" 
-                    value={child.name} 
-                    onChange={(e) => handleChildChange(index, 'name', e.target.value)} 
-                    placeholder="Child's name"
-                  />
-                </label>
-                <label>
-                  School:
-                  <input 
-                    type="text" 
-                    value={child.school} 
-                    onChange={(e) => handleChildChange(index, 'school', e.target.value)} 
-                    placeholder="Child's school"
-                  />
-                </label>
-                <label>
-                  Interest:
-                  <input 
-                    type="text" 
-                    value={child.interest} 
-                    onChange={(e) => handleChildChange(index, 'interest', e.target.value)} 
-                    placeholder="Child's interest"
-                  />
-                </label>
-              </div>
+              <li key={index}>
+                {child}{" "}
+                <button onClick={() => removeChild(index)}>Remove</button>
+              </li>
             ))}
-            <button onClick={addChild}>Add Another Child</button>
-          </div>
-        </>
-      ) : (
-        <p>Loading user data...</p>
+          </ul>
+        </div>
       )}
     </div>
   );
