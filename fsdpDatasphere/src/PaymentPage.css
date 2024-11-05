@@ -1,0 +1,107 @@
+/* PaymentPage.css */
+
+.payment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  font-family: "League Spartan", sans-serif;
+  color: rgb(44, 61, 78);
+}
+
+.payment-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.payment-instructions {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.qr-code-container {
+  background-color: #f8f8f8;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.qr-code-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.generate-qr-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgb(220, 175, 39);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.generate-qr-button:hover {
+  background-color: rgb(200, 160, 35);
+}
+
+.payment-note {
+  font-size: 1rem;
+  color: rgb(120, 120, 120);
+  max-width: 600px;
+}
+
+/* .payment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  font-family: "League Spartan", sans-serif;
+  color: rgb(44, 61, 78);
+}
+
+.payment-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.payment-instructions {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.qr-code-container {
+  background-color: #f8f8f8;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.qr-code-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.payment-note {
+  font-size: 1rem;
+  color: rgb(120, 120, 120);
+  max-width: 600px;
+} */

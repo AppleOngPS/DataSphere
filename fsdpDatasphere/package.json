@@ -2,7 +2,6 @@
   "name": "fsdpdatasphere",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,11 +10,17 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.13.1",
+    "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "logo": "^0.2.0",
+    "mssql": "^11.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0"
+    "react-router-dom": "^6.27.0",
+    "stripe": "^17.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
