@@ -2,6 +2,13 @@ import React from "react";
 import "./PublicSpeakingWorkshop.css";
 
 const PublicSpeakingWorkshop = () => {
+  const navigate = useNavigate();
+
+  const handleBuyProgramme = () => {
+    // Redirect to the payment page
+    navigate("/payment");
+  };
+
   return (
     <section className="workshop-container">
       <h2 className="workshop-title">Public Speaking Workshops</h2>
@@ -34,7 +41,9 @@ const PublicSpeakingWorkshop = () => {
           <p className="program-original-price">Was $988</p>
           <p className="program-level">Beginner</p>
           <p className="program-details">Just getting started.</p>
-          <button className="program-button">Buy Programme</button>
+          <button className="program-button" onClick={handleBuyProgramme}>
+            Buy Programme
+          </button>
         </div>
 
         {/* Card 2 */}
@@ -43,7 +52,10 @@ const PublicSpeakingWorkshop = () => {
           <p className="program-original-price">Was $1188</p>
           <p className="program-level">Beginner</p>
           <p className="program-details">Just getting started.</p>
-          <button className="program-button program-button-highlight">
+          <button
+            className="program-button program-button-highlight"
+            onClick={handleBuyProgramme}
+          >
             Buy Programme
           </button>
         </div>
@@ -53,7 +65,9 @@ const PublicSpeakingWorkshop = () => {
           <h3 className="program-price">$1388*</h3>
           <p className="program-level">Beginner</p>
           <p className="program-details">Just getting started.</p>
-          <button className="program-button">Buy Programme</button>
+          <button className="program-button" onClick={handleBuyProgramme}>
+            Buy Programme
+          </button>
         </div>
       </div>
     </section>
