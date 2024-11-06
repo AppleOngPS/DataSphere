@@ -42,7 +42,8 @@
   color: #ffffff; /* Maintain text color on hover */
 }
 
-.about-section, .programs-section {
+.about-section,
+.programs-section {
   padding: 2rem;
   text-align: center;
 }
@@ -151,7 +152,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
-
 .team-info {
   width: 90%; /* Use a percentage width for responsiveness */
   padding: 20px;
@@ -250,12 +250,12 @@ address {
   .testimonial-card {
     width: calc(45% - 20px); /* Two cards in a row on medium screens */
   }
-  
+
   .leadership-team {
     flex-direction: column; /* Ensure vertical stacking */
     align-items: center; /* Center align members */
   }
-  
+
   .team-info {
     width: 95%; /* Slightly wider on mobile */
   }
@@ -265,7 +265,7 @@ address {
   .testimonial-card {
     width: calc(100% - 20px); /* One card in a row on small screens */
   }
-  
+
   h2 {
     font-size: 20px; /* Smaller font size for headings */
   }
@@ -279,5 +279,3 @@ address {
     padding: 15px; /* Larger padding */
   }
 }
-
- 
