@@ -41,8 +41,18 @@ const PublicSpeakingWorkshop = () => {
           <p className="program-original-price">Was $988</p>
           <p className="program-level">Beginner</p>
           <p className="program-details">Just getting started.</p>
+          <ul className="program-benefits">
+            <li>Class size: 15 - 20</li>
+            <li>Duration: 3.5 days</li>
+            <li>Lunch provided</li>
+            <li>Lesson materials provided</li>
+            <li>
+              Complimentary 1-year membership with access to our resources and
+              member rates for all programmes
+            </li>
+          </ul>
           <button className="program-button" onClick={handleBuyProgramme}>
-            Buy Programme
+            Get Started
           </button>
         </div>
 
@@ -50,23 +60,43 @@ const PublicSpeakingWorkshop = () => {
         <div className="program-card program-card-highlight">
           <h3 className="program-price">$988*</h3>
           <p className="program-original-price">Was $1188</p>
-          <p className="program-level">Beginner</p>
-          <p className="program-details">Just getting started.</p>
+          <p className="program-level">Intermediate</p>
+          <p className="program-details">Perfect for someone who wants more.</p>
+          <ul className="program-benefits">
+            <li>Class size: 12 - 15</li>
+            <li>Duration: 3 days</li>
+            <li>Lunch provided</li>
+            <li>Lesson materials provided</li>
+            <li>
+              Complimentary 1-year membership with access to our resources and
+              member rates for all programmes
+            </li>
+          </ul>
           <button
             className="program-button program-button-highlight"
             onClick={handleBuyProgramme}
           >
-            Buy Programme
+            Get Started
           </button>
         </div>
 
         {/* Card 3 */}
         <div className="program-card">
           <h3 className="program-price">$1388*</h3>
-          <p className="program-level">Beginner</p>
-          <p className="program-details">Just getting started.</p>
+          <p className="program-level">Advanced</p>
+          <p className="program-details">Experts only.</p>
+          <ul className="program-benefits">
+            <li>Class size: 10</li>
+            <li>Duration: 3 days</li>
+            <li>Lunch provided</li>
+            <li>Lesson materials provided</li>
+            <li>
+              Complimentary 1-year membership with access to our resources and
+              member rates for all programmes
+            </li>
+          </ul>
           <button className="program-button" onClick={handleBuyProgramme}>
-            Buy Programme
+            Get Started
           </button>
         </div>
       </div>
