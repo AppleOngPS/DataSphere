@@ -4,15 +4,24 @@ import React from "react";
 import "./csr.css"; // Import your CSS for styling
 import "./components/nav.css"; // Import Navbar CSS
 
+import Mindsphere from "./assets/logo.png";
+
 const CSRPage = () => {
   return (
     <div className="csr-container">
-      <h1>We Prioritize Social Responsibility</h1>
-      <p>Stay tuned for our next care outreach initiative.</p>
+      <section className="values">
+        <h2 className="values-title">We Prioritize Social Responsibility</h2>
+        <p className="values-subtitle">
+          Stay tuned for our next care outreach initiative.
+        </p>
+        <button className="contact-button">
+          Speak With Our Friendly Team Now
+        </button>
+      </section>
 
       <footer className="footer">
         <img
-          src="path_to_mindsphere_logo.png"
+          src={Mindsphere}
           alt="Mindsphere Logo"
           className="mindsphere-logo"
         />

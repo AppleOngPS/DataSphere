@@ -162,10 +162,9 @@ const Homepage = () => (
       </section>
 
       <section>
-        <h2 className="comments-title">What Our Clients Say</h2>
+        <h2 className="comments-title">Loved By Parents Locally</h2>
         <p className="comments-subtitle">
-          Our clients send us a bunch of smiles with our services, and we love
-          them.
+          Learning is easy when you focus on what truly matters.
         </p>
       </section>
 
