@@ -4,15 +4,7 @@ import "./WorkshopPage.css"; // Import your styles here
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-import fundigoLogo from "./assets/fundigo.png";
-import ieaLogo from "./assets/iea.png";
-import jcuLogo from "./assets/jcu.png";
-import orchidLogo from "./assets/orchid.png";
-import classLivingLogo from "./assets/classLiving.png";
-import learningApproachImage from "./assets/logohome.png";
-import GuyLogo from "./assets/homepageguy1.jpg";
 import Mindsphere from "./assets/logo.png";
-import learningImg from "./assets/logoright.png";
 
 const WorkshopPage = () => {
   const [selectedProgramme, setSelectedProgramme] = useState(null);
