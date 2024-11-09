@@ -1,13 +1,12 @@
 /* WorkshopPage.css */
 
 .workshop {
-  background-color: #f8e7b9;
   padding: 4rem;
   border-radius: 25px;
   max-width: 1200px;
   margin: 4rem auto;
   text-align: center;
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+  margin-top: 2px;
 }
 
 .signature-programmes {
@@ -89,18 +88,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 4rem;
+  gap: 3.5rem;
+  margin-bottom: 2rem;
 }
 
 .workshop-card {
   background-color: #e0ebf5;
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 20px;
-  flex: 1 1 calc(30% - 2rem);
+  flex: 1 1 calc(30.33% - 20px);
   text-align: center;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap: 20px;
+  box-sizing: border-box;
 }
 
 .workshop-card:hover {
@@ -139,6 +140,32 @@
 
 .workshop-card button:hover {
   background-color: #1f2b37;
+}
+
+.values,
+.footer {
+  position: relative; /* Ensures the element is positioned relative to the entire viewport */
+  width: 100vw; /* Takes the full width of the viewport */
+  left: 50%;
+  transform: translateX(
+    -50%
+  ); /* Center align the section fully across the page */
+  padding: 40px 20px;
+  margin: 0;
+}
+
+.values {
+  background-color: #2c3e50; /* Dark blue background for values section */
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+}
+
+.footer {
+  background-color: #f9e8b2; /* Light yellow background */
+  text-align: center;
+  color: #333333;
+  margin: 0;
 }
 
 .social-media a {
