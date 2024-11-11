@@ -1,36 +1,20 @@
 import React, { useState } from "react";
 import "./WorkshopPage.css";
+import { useNavigate } from "react-router-dom";
 import programmes from "./programmesData";
 import Mindsphere from "./assets/logo.png";
 
 const WorkshopPage = () => {
   const [selectedProgramme, setSelectedProgramme] = useState(null);
+  const navigate = useNavigate();
 
   const handleProgrammeClick = (programme) => {
     setSelectedProgramme(programme);
   };
 
-  // Handle "Get Started" click
+  // Updated function to navigate to CheckoutPage
   const handleGetStartedButton = (workshopId) => {
-    fetch("http://localhost:3000/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: [{ id: workshopId, quantity: 1 }], // Pass the selected workshop ID
-      }),
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return res.json().then((json) => Promise.reject(json));
-      })
-      .then(({ url }) => {
-        window.location = url;
-      })
-      .catch((e) => {
-        console.error(e.error);
-      });
+    navigate("/checkout", { state: { workshopId } });
   };
 
   return (
