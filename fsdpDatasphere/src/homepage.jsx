@@ -16,11 +16,13 @@ import Mindsphere from "./assets/logo.png";
 import learningImg from "./assets/logoright.png";
 
 const Homepage = () => (
-  <div className="home-page">
-    <header className="home-header">
-      <img src={homeImage} alt="Mindsphere Logo" />
-      <button className="cta-button">Get Started</button>
-    </header>
+  <div className="hero-section">
+    <div className="overlay">
+      <img src={homeImage} alt="Mindsphere Conference" className="hero-image" />
+      <div className="hero-text">
+        <button className="cta-button">Learn How</button>
+      </div>
+    </div>
 
     {/* Trusted by local companies section */}
     <section className="trusted-section">
