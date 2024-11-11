@@ -1,6 +1,11 @@
+// CheckoutPage.jsx
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const CheckoutPage = () => {
+  const location = useLocation();
+  const workshopId = location.state?.workshopId;
+
   const handleCheckout = () => {
     fetch("http://localhost:3000/create-checkout-session", {
       method: "POST",
@@ -8,10 +13,7 @@ const CheckoutPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        items: [
-          { id: 1, quantity: 3 },
-          { id: 2, quantity: 1 },
-        ],
+        items: [{ id: workshopId, quantity: 1 }],
       }),
     })
       .then((res) => {

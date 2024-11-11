@@ -9,6 +9,7 @@ import Navbar from "./assets/components/Navbar"; // Import Navbar
 import "./assets/components/nav.css"; // Import Navbar CSS
 import Blog from "./Blog"; // Import Blog
 import News from "./News"; // Import News
+import CheckoutPage from "./CheckoutPage";
 
 import {
   RedirectToSignIn,
@@ -58,6 +59,7 @@ function App() {
         {/* Add this line for CSR */}
         <Route path="/blog" element={<Blog />} /> {/* Blog route */}
         <Route path="/news" element={<News />} /> {/* News route */}
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>
