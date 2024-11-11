@@ -1,0 +1,112 @@
+.news-page {
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.news-header h1 {
+  font-size: 2rem;
+  color: #2e3a59;
+}
+
+.news-header p {
+  color: #6b7c93;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.news-articles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.news-article {
+  background-color: #f4f6fb;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 280px;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+}
+
+.article-image {
+  width: 100%;
+  height: auto; /* Allow height to adjust automatically */
+  border-radius: 10px 10px 0 0;
+}
+
+.article-content {
+  padding: 1rem;
+}
+
+.article-date,
+.article-source,
+.article-read-time {
+  display: block;
+  color: #6b7c93;
+  font-size: 0.9rem;
+}
+
+.article-date {
+  margin-bottom: 0.2rem;
+}
+
+.article-source {
+  background-color: #e6edf5;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.article-title {
+  font-size: 1.1rem;
+  color: #2e3a59;
+  margin: 0.5rem 0;
+}
+
+.article-read-time {
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+/* Footer styles */
+.footer {
+  background-color: white; /* Set footer background color to white */
+  padding: 20px; /* Padding for footer */
+  text-align: center; /* Center align footer text */
+}
+
+.footer-links,
+.social-media {
+  margin: 10px 0; /* Space around the footer links */
+}
+
+.footer-links a,
+.social-media a {
+  color: #007bff; /* Footer link color */
+  text-decoration: none; /* Remove underline from links */
+  margin: 0 10px; /* Space between links */
+}
+
+.footer-links a:hover,
+.social-media a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .news-articles {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .news-article {
+    max-width: 90%;
+  }
+}
