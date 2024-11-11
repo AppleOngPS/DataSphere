@@ -8,6 +8,7 @@ import AboutUs from "./AboutUs"; // Import AboutUs component
 import CSRPage from "./CSRPage"; // Import CSRPage component
 import Navbar from "./components/Navbar"; // Import Navbar
 import Blog from "./Blog"; // Import Blog
+import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog posts
 import News from "./News"; // Import News
 import "./components/nav.css"; // Import Navbar CSS
 
@@ -62,6 +63,8 @@ function App() {
         <Route path="/payment" element={<PaymentPage />} />{" "}
         {/* Route for Payment page */}
         <Route path="/blog" element={<Blog />} /> {/* Blog route */}
+        <Route path="/blog/:id" element={<BlogDetail />} />{" "}
+        {/* Dynamic route for blog details */}
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
