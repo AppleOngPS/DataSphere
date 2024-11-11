@@ -1,5 +1,5 @@
 import React from "react";
-import "./Blog.css"; // Make sure to style your component
+import "./Blog.css"; // Ensure Blog.css exists and is properly styled
 import collaborationImg from "./assets/collaboration.jpg";
 import educationImg from "./assets/education.png";
 import stageFrightImg from "./assets/stage_fright.png";
@@ -49,6 +49,45 @@ const Blog = () => {
           </div>
         ))}
       </div>
+
+      <footer className="footer">
+        <img
+          src="./src/assets/logo.png"
+          alt="Mindsphere Logo"
+          className="mindsphere-logo"
+        />
+        <nav className="footer-nav">
+          <a href="/">Home</a>
+          <a href="/about">About Us</a>
+          <a href="/programmes">Programmes</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+        </nav>
+        <div className="social-media">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="https://wa.me/" target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </a>
+        </div>
+        <address>
+          60 Paya Lebar Road, #07-54 Paya Lebar Square, Singapore 409501
+        </address>
+        <p>
+          Copyright © 2024 Mindsphere Singapore Pte. Ltd. All rights reserved.
+        </p>
+      </footer>
     </section>
   );
 };
