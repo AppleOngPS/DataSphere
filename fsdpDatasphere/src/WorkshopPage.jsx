@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 import "./WorkshopPage.css";
 import programmes from "./programmesData";
 import Mindsphere from "./assets/logo.png";
 
 const WorkshopPage = () => {
   const [selectedProgramme, setSelectedProgramme] = useState(null);
+  const navigate = useNavigate();  // Initialize navigate hook
 
   const handleProgrammeClick = (programme) => {
     setSelectedProgramme(programme);
@@ -18,7 +20,7 @@ const WorkshopPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        items: [{ id: workshopId, quantity: 1 }], // Pass the selected workshop ID
+        items: [{ id: workshopId, quantity: 1 }],
       }),
     })
       .then((res) => {
@@ -26,7 +28,8 @@ const WorkshopPage = () => {
         return res.json().then((json) => Promise.reject(json));
       })
       .then(({ url }) => {
-        window.location = url;
+        console.log("Navigating to checkout...");
+        navigate('/checkout');  // Navigate to the checkout page after the session creation
       })
       .catch((e) => {
         console.error(e.error);
@@ -136,3 +139,7 @@ const WorkshopPage = () => {
 };
 
 export default WorkshopPage;
+
+
+
+

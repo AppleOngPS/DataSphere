@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './CheckoutPage.css';
 
+
 function CheckoutPage() {
   const [selectedDate, setSelectedDate] = useState(new Date("2024-12-19"));
   const [children, setChildren] = useState([]);

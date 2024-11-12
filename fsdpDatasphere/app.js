@@ -119,29 +119,58 @@ app.post("/user/profile", async (req, res) => {
 });
 
 // Endpoint to get user profile data
-app.get("/user/profile", async (req, res) => {
-  const userId = req.userId;
+app.post("/user/profile", async (req, res) => {
+  const { preferredLunch, children, userId } = req.body;
+
   try {
     const pool = await sql.connect(dbConfig);
-    const userProfile = await pool
+
+    // Retrieve customerID based on userId (assuming `userId` is mapped to `customerID`)
+    const result = await pool
       .request()
       .input("userId", sql.VarChar, userId)
-      .query("SELECT * FROM user_profiles WHERE userId = @userId");
+      .query("SELECT customerID FROM dbo.Customer WHERE email = @userId");
 
-    const childrenData = await pool
+    const customerID = result.recordset[0]?.customerID;
+    if (!customerID) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Save or update the user's preferred lunch in the Customer table
+    await pool
       .request()
-      .input("userId", sql.VarChar, userId)
-      .query(
-        "SELECT name, school, interest FROM children WHERE userId = @userId"
-      );
+      .input("customerID", sql.Int, customerID)
+      .input("preferredLunch", sql.VarChar, preferredLunch)
+      .query(`
+        UPDATE dbo.Customer
+        SET preferredLunch = @preferredLunch
+        WHERE customerID = @customerID
+      `);
 
-    res.status(200).json({
-      userProfile: userProfile.recordset[0],
-      children: childrenData.recordset,
-    });
+    // Save or update children data in the Child table
+    for (const child of children) {
+      await pool
+        .request()
+        .input("customerID", sql.Int, customerID)
+        .input("name", sql.VarChar, child.name)
+        .input("school", sql.VarChar, child.school)
+        .input("interest", sql.VarChar, child.interest)
+        .query(`
+          MERGE INTO dbo.Child AS target
+          USING (SELECT @customerID AS customerID, @name AS name) AS source
+          ON target.customerID = source.customerID AND target.name = source.name
+          WHEN MATCHED THEN
+            UPDATE SET target.school = @school, target.interest = @interest
+          WHEN NOT MATCHED THEN
+            INSERT (customerID, name, school, interest)
+            VALUES (@customerID, @name, @school, @interest);
+        `);
+    }
+
+    res.status(200).json({ message: "Profile and children data saved successfully" });
   } catch (err) {
-    console.error("Error retrieving profile data:", err.message);
-    res.status(500).json({ message: "Error retrieving profile data" });
+    console.error("Database error:", err.message);
+    res.status(500).json({ message: "Database error: " + err.message });
   }
 });
 
