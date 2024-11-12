@@ -1,6 +1,6 @@
 /* src/csr.css */
 .csr-container {
-  padding: 20px;
+  margin-bottom: 100px;
   text-align: center;
   background-color: #f0f0f0; /* Light grey background */
 }
@@ -23,13 +23,24 @@
 }
 
 .footer {
-  margin-top: 40px;
-  padding: 20px;
+  text-align: center;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+}
+
+.home-footer {
   background-color: #f8f9fa;
+  color: #f8f9fa;
+  padding: 1rem;
+  text-align: center;
 }
 
-.footer-nav a {
-  margin: 0 10px;
+.footer-links a {
+  color: #fff;
+  margin: 0 0.5rem;
+  text-decoration: none;
 }
 
-  
+.footer-links a:hover {
+  text-decoration: underline;
+}

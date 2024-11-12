@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+.CheckoutPage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  background-color: #e0eaf4;
+  border-radius: 8px;
+}
+
+.add-child-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.add-child-container button {
+  font-size: 16px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.form-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 150px;
+}
+
+.child-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.child-inputs input,
+.child-inputs textarea,
+.child-inputs select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.program-dates {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.checkout-button {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .CheckoutPage {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card,
+  .form-container {
+    width: 100%;
+  }
+
+  .checkout-button {
+    width: 100%;
+  }
+}
