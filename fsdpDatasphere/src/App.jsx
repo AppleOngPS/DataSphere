@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar"; // Import Navbar
 import Blog from "./Blog"; // Import Blog
 import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog posts
 import News from "./News"; // Import News
+import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
 import "./components/nav.css"; // Import Navbar CSS
 
 import {
@@ -66,6 +67,8 @@ function App() {
         <Route path="/blog/:id" element={<BlogDetail />} />{" "}
         {/* Dynamic route for blog details */}
         <Route path="/news" element={<News />} /> {/* News route */}
+        <Route path="/news/:id" element={<NewsDetail />} />{" "}
+        {/* News detail route */}
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>
