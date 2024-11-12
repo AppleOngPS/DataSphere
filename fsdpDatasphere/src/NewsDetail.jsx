@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import newsArticles from "./assets/news"; // Import the hardcoded news data
+import Footer from "./Footer"; // Import the Footer component
 import "./NewsDetail.css"; // Link to the CSS file
 
 const NewsDetail = () => {
@@ -20,6 +21,9 @@ const NewsDetail = () => {
           <p key={index}>{paragraph}</p>
         ))}
       </div>
+
+      {/* Add Footer component here */}
+      <Footer />
     </div>
   );
 };
