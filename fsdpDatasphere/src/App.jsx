@@ -1,8 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Dashboard from "./Dashboard"; // Keep this import
-import Programmes from "./Programmes";
 import Homepage from './homepage'; // Main homepage component
 import WorkshopPage from './WorkshopPage'; // Import WorkshopPage
 import AboutUs from './AboutUs'; // Import AboutUs component
@@ -59,9 +56,8 @@ function App() {
         <Route path="/workshops" element={<WorkshopPage />} />
         <Route path="/about" element={<AboutUs />} /> {/* Add this line for AboutUs */}
         <Route path="/csr" element={<CSRPage />} /> {/* Add this line for CSR */}
-        <Route path="/programmes" element={<Programmes />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/payment" element={<PaymentPage />} /> {/* Route for Payment page */}
+     
 
         {/* Redirect to sign-in if no match */}
         <Route path="*" element={<RedirectToSignIn />} />
