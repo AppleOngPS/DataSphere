@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Dashboard from "./Dashboard"; // Keep this import
@@ -6,6 +7,7 @@ import Homepage from './homepage'; // Main homepage component
 import WorkshopPage from './WorkshopPage'; // Import WorkshopPage
 import AboutUs from './AboutUs'; // Import AboutUs component
 import CSRPage from './CSRPage'; // Import CSRPage component
+import CheckoutPage from './CheckoutPage'; // Import your checkout page component
 import Navbar from './components/Navbar'; // Import Navbar
 import './components/nav.css'; // Import Navbar CSS
 
@@ -24,7 +26,10 @@ function App() {
       {/* Navbar will be present on all pages */}
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Sign-in and sign-up page */}
+        {/* Homepage route */}
+        <Route path="/" element={<Homepage />} /> {/* Main homepage route */}
+
+        {/* Sign-In and Sign-Up routes */}
         <Route
           path="/sign-in"
           element={
@@ -41,6 +46,8 @@ function App() {
             </SignedOut>
           }
         />
+
+        {/* Protected routes */}
         <Route
           path="/dashboard"
           element={
@@ -49,19 +56,22 @@ function App() {
             </SignedIn>
           }
         />
-        <Route path="/homepage" element={<Homepage />} /> {/* Main homepage route */}
         <Route path="/workshops" element={<WorkshopPage />} />
         <Route path="/about" element={<AboutUs />} /> {/* Add this line for AboutUs */}
         <Route path="/csr" element={<CSRPage />} /> {/* Add this line for CSR */}
         <Route path="/programmes" element={<Programmes />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/payment" element={<PaymentPage />} /> {/* Route for Payment page */}
-        <Route path="*" element={<RedirectToSignIn />} /> {/* Redirect to sign-in if no match */}
+
+        {/* Redirect to sign-in if no match */}
+        <Route path="*" element={<RedirectToSignIn />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
 
 
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";

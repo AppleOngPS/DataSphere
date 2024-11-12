@@ -1,14 +1,16 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { UserButton } from '@clerk/clerk-react';
+import { UserButton, useUser } from '@clerk/clerk-react';
 import './nav.css';
 
 const Navbar = () => {
+  const { isSignedIn } = useUser(); // Get the user's signed-in state
+
   return (
     <nav className="navbar">
       <div className="logo">
-        <img src="./src/assets/logo.png" alt="Mindsphere Logo" /> 
+        {/* Use the logo directly from the public folder */}
+        <img src="./src/assets/logo.png" alt="Mindsphere Logo" />
       </div>
 
       <div className="nav-items">
@@ -36,9 +38,9 @@ const Navbar = () => {
 
         <Link to="/contact" className="nav-item">Contact Us</Link>
 
-        {/* Profile icon placement */}
+        {/* Conditional rendering of the profile icon or sign-in button */}
         <div className="profile-icon">
-          <UserButton />
+          {isSignedIn ? <UserButton /> : <Link to="/sign-in" className="nav-item">Sign In/Sign Up</Link>}
         </div>
       </div>
     </nav>
@@ -46,6 +48,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
