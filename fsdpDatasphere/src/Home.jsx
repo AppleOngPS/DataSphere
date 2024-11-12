@@ -1,13 +1,13 @@
 // SignIn.jsx
-import { SignInButton, SignedIn, SignedOut } from '@clerk/clerk-react';
-import logo from './assets/logo.png'; 
+import { SignInButton, SignedIn, SignedOut } from "@clerk/clerk-react";
+import logo from "./assets/logo.png";
 
 const Home = () => {
   return (
     <div className="container">
       <div className="lined-container">
         <img src={logo} alt="DataSphere logo" />
-        <h1 className="header">Sign in with this button</h1>
+        <h1 className="header">Sign In With This Button</h1>
         <SignedOut>
           <SignInButton mode="modal" forceRedirectUrl="/dashboard" />
         </SignedOut>
@@ -19,5 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home; 
-
+export default Home;
