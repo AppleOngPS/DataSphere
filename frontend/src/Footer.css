@@ -1,0 +1,57 @@
+.values {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  text-align: center; /* Center align text */
+  height: 30vh; /* Full viewport height */
+  background-color: #2c3e50; /* Darker blue for a more professional look */
+  color: #ffffff; /* White text for better contrast */
+  padding: 2rem;
+}
+
+.values-title {
+  color: white;
+}
+.values-subtitle {
+  font-size: 1.5rem;
+  color: #ecf0f1; /* Slightly lighter white for a subtle look */
+  margin-bottom: 2rem; /* Space below subtitle */
+}
+
+.contact-button {
+  font-size: 1.2rem;
+  color: #2c3e50; /* Dark color for contrast */
+  background-color: #ecf0f1; /* Light button to stand out against dark background */
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 30px; /* Rounded corners for a friendly look */
+  cursor: pointer;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Slight shadow for emphasis */
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.contact-button:hover {
+  background-color: #ffffff; /* Lighten button on hover */
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  transform: translateY(-5px); /* Lift button on hover */
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+}
+
+.footer-nav a {
+  margin: 0 10px;
+}
+
+.social-media {
+  margin: 10px 0;
+}
+
+address {
+  margin: 10px 0;
+}
