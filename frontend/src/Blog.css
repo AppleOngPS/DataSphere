@@ -89,30 +89,6 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Footer styles */
-.footer {
-  background-color: white; /* Set footer background color to white */
-  padding: 20px; /* Padding for footer */
-  text-align: center; /* Center align footer text */
-}
-
-.footer-links,
-.social-media {
-  margin: 10px 0; /* Space around the footer links */
-}
-
-.footer-links a,
-.social-media a {
-  color: #007bff; /* Footer link color */
-  text-decoration: none; /* Remove underline from links */
-  margin: 0 10px; /* Space between links */
-}
-
-.footer-links a:hover,
-.social-media a:hover {
-  text-decoration: underline; /* Underline on hover */
-}
-
 /* Responsive styling */
 @media (max-width: 768px) {
   .blog-posts {
@@ -123,4 +99,27 @@ button:hover {
   .blog-post {
     max-width: 90%;
   }
+}
+.blog-post-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-post {
+  /* Styling for the blog post card */
+  background-color: #f4f6fb;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.blog-post:hover {
+  transform: scale(1.03);
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
 }
