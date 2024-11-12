@@ -11,6 +11,9 @@ import jcuLogo from "./assets/jcu.png";
 import orchidLogo from "./assets/orchid.png";
 import classLivingLogo from "./assets/classLiving.png";
 import learningApproachImage from "./assets/logohome.png";
+import GuyLogo from "./assets/homepageguy1.jpg";
+import Mindsphere from "./assets/logo.png";
+import learningImg from "./assets/logoright.png";
 
 const Homepage = () => (
   <div className="home-page">
@@ -73,7 +76,7 @@ const Homepage = () => (
       <h2>Our Learning Approach</h2>
       <h4>Inspiring our avid learners</h4>
       <div className="learning-approach-image">
-        <img src={learningApproachImage} alt="Our Learning Approach" />
+        <img src={learningImg} alt="Our Learning Approach" />
       </div>
     </section>
 
@@ -82,7 +85,6 @@ const Homepage = () => (
         <h1>About Us</h1>
         <p>Introducing the leadership team and their journey.</p>
       </header>
-
       <section className="leadership-team">
         <img
           src="./src/assets/founders.png"
@@ -159,33 +161,39 @@ const Homepage = () => (
         </div>
       </section>
 
-      <section className="testimonials">
-        <h2 className="testimonials-title">Loved by parents locally</h2>
-        <p className="testimonials-subtitle">
+      <section>
+        <h2 className="comments-title">Loved By Parents Locally</h2>
+        <p className="comments-subtitle">
           Learning is easy when you focus on what truly matters.
         </p>
-        <div className="testimonial-cards">
-          {Array(3)
-            .fill()
-            .map((_, index) => (
-              <div className="testimonial-card" key={index}>
-                <img
-                  src={`path_to_testimonial_profile_${index + 1}.jpg`}
-                  alt={`Profile ${index + 1}`}
-                  className="testimonial-profile"
-                />
-                <p>
-                  Testimonial content for person {index + 1}. This is where
-                  their feedback goes.
-                </p>
+      </section>
+
+      <section className="testimonials">
+        <div className="testimonials-container">
+          {/* Main testimonial */}
+          <div className="main-testimonial">
+            <img
+              src={GuyLogo}
+              alt="Main testimonial profile"
+              className="testimonial-profile main-profile"
+            />
+            <blockquote>
+              <p>
+                "From the time they joined, the growth has been amazing.
+                Improving confidence, boosting grades—it all feels like magic."
+              </p>
+              <p className="testimonial-author">Becky Nelson</p>
+              <div className="rating">
+                <span>⭐️⭐️⭐️⭐️⭐️</span>
               </div>
-            ))}
+            </blockquote>
+          </div>
         </div>
       </section>
 
       <section className="values">
-        <h2>Integrity. Innovation. Inclusivity.</h2>
-        <p>Where learning meets achievement.</p>
+        <h2 className="values-title">Integrity. Innovation. Inclusivity.</h2>
+        <p className="values-subtitle">Where learning meets achievement.</p>
         <button className="contact-button">
           Speak With Our Friendly Team Now
         </button>
@@ -193,7 +201,7 @@ const Homepage = () => (
 
       <footer className="footer">
         <img
-          src="path_to_mindsphere_logo.png"
+          src={Mindsphere}
           alt="Mindsphere Logo"
           className="mindsphere-logo"
         />
