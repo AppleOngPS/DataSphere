@@ -28,7 +28,8 @@ function App() {
       {/* Navbar will be present on all pages */}
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Sign-in and sign-up page */}
+        <Route path="/" element={<Homepage />} />{" "}
+        {/* Sign-in and sign-up page */}
         <Route
           path="/sign-in"
           element={

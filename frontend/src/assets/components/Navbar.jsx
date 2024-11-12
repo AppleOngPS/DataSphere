@@ -33,6 +33,9 @@ const Navbar = () => {
             <Link to="/camps">Camps</Link>
           </div>
         </div>
+        <Link to="/Calendar" className="nav-item">
+          Calendar
+        </Link>
         <div className="dropdown">
           <button className="dropbtn">Media</button>
           <div className="dropdown-content">
@@ -41,7 +44,7 @@ const Navbar = () => {
           </div>
         </div>
         <Link to="/contact" className="nav-item">
-          Contact Us
+          Get Started Today
         </Link>
         {/* Profile icon placement */}
         <div className="profile-icon">
