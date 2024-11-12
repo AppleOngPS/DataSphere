@@ -15,13 +15,18 @@ import learningApproachImage from "./assets/logohome.png";
 import GuyLogo from "./assets/homepageguy1.jpg";
 import Mindsphere from "./assets/logo.png";
 import learningImg from "./assets/logoright.png";
+import homeImg from "./assets/homeimg.jpg";
 
 const Homepage = () => (
-  <div className="home-page">
-    <header className="home-header">
-      <img src={homeImage} alt="Mindsphere Logo" />
-      <button className="cta-button">Get Started</button>
-    </header>
+  <div className="hero-section">
+    <div className="overlay">
+      <img src={homeImg} alt="Mindsphere Conference" className="hero-image" />
+      <p>
+        Learn Impactful Speaking Skills From Seasoned Speakers
+        <h2>We make it longer lasting</h2>
+        <button className="cta-button">Learn How</button>
+      </p>
+    </div>
 
     {/* Trusted by local companies section */}
     <section className="trusted-section">
