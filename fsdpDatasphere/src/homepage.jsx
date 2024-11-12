@@ -16,6 +16,7 @@ import GuyLogo from "./assets/homepageguy1.jpg";
 import Mindsphere from "./assets/logo.png";
 import learningImg from "./assets/logoright.png";
 import homeImg from "./assets/homeimg.jpg";
+import Navbar from "./components/Navbar";
 
 const Homepage = () => (
   <div className="hero-section">
