@@ -12,6 +12,13 @@ import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog 
 import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
 import "./components/nav.css"; // Import Navbar CSS
+import Homepage from "./homepage"; // Main homepage component
+import WorkshopPage from "./WorkshopPage"; // Import WorkshopPage
+import AboutUs from "./AboutUs"; // Import AboutUs component
+import CSRPage from "./CSRPage"; // Import CSRPage component
+import Navbar from "./components/Navbar"; // Import Navbar
+import CalendarPage from "./Calender";
+import "./components/nav.css"; // Import Navbar CSS
 
 import {
   RedirectToSignIn,
@@ -60,9 +67,8 @@ function App() {
         {/* Add this line for AboutUs */}
         <Route path="/csr" element={<CSRPage />} />{" "}
         {/* Add this line for CSR */}
-        <Route path="/programmes" element={<Programmes />} />
-        <Route path="/payment" element={<PaymentPage />} />{" "}
-        {/* Route for Payment page */}
+        <Route path="/programmes" element={<Programmes />} />{" "}
+        <Route path="/Calender" element={<CalendarPage />} />
         <Route path="/blog" element={<Blog />} /> {/* Blog route */}
         <Route path="/blog/:id" element={<BlogDetail />} />{" "}
         {/* Dynamic route for blog details */}
