@@ -1,0 +1,217 @@
+/* Homepage.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+}
+
+/* Header Section */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.home-header img {
+  height: 50px;
+}
+
+.nav-links ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1f78d1;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: #155a8b;
+}
+
+/* Footer Section */
+.footer {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  color: #1f78d1;
+  border-top: 1px solid #e6e6e6;
+}
+
+.footer-logo img {
+  height: 50px;
+  margin-bottom: 30px;
+}
+
+.footer-links {
+  margin: 30px 0;
+}
+
+.footer-links a {
+  color: #1f78d1;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  color: #155a8b;
+}
+
+.footer-social a {
+  display: inline-block;
+  margin: 15px;
+}
+
+.footer-social img {
+  width: 35px;
+  height: 35px;
+}
+
+.footer-address {
+  margin-top: 30px;
+  font-size: 1em;
+}
+
+/* Floating Contact Button */
+.floating-contact {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+.floating-contact a {
+  display: block;
+  background-color: #25d366;
+  padding: 20px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s;
+}
+
+.floating-contact img {
+  width: 35px;
+  height: 35px;
+  vertical-align: middle;
+}
+
+.floating-contact a:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Scroll to Top Button */
+.scroll-top {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  background-color: #1f78d1;
+  color: #fff;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  font-size: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.scroll-top:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  background-color: #155a8b;
+}
+
+/* Calendar Section */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+}
+
+.calendar-title {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.selected-date {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.react-calendar {
+  background-color: rgb(47, 69, 91);
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__navigation button {
+  color: #fff;
+  background-color: transparent;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.react-calendar__navigation button:disabled {
+  color: #ccc;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: white;
+}
+
+.react-calendar__tile {
+  background: rgba(220, 175, 39, 0.7);
+  border-radius: 25px;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: #155a8b;
+}
+
+.react-calendar__tile--active {
+  background-color: #155a8b;
+  color: #fff;
+}
+
+.react-calendar__tile--now {
+  background-color: #ffd700;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .testimonial-card {
+    width: calc(45% - 20px);
+  }
+  .leadership-team {
+    flex-direction: column;
+    align-items: center;
+  }
+  .team-info {
+    width: 100%;
+  }
+  .calendar-container {
+    padding: 20px;
+  }
+}
