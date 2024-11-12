@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import WorkshopPage from "./WorkshopPage"; // Import new component
 import "./Programmes.css";
+import Footer from "./Footer"; // Import Footer component
 
 const Programmes = () => {
   return (

@@ -4,7 +4,7 @@ import "./Blog.css"; // Ensure Blog.css exists and is properly styled
 import collaborationImg from "./assets/collaboration.jpg";
 import educationImg from "./assets/education.png";
 import stageFrightImg from "./assets/stage_fright.png";
-import Footer from "./Footer";
+import Footer from "./Footer"; // Import Footer component
 
 const Blog = () => {
   const blogPosts = [

@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import blogs from "./assets/blogs"; // Import the blog data
+import Footer from "./Footer"; // Import Footer component
 import "./BlogDetail.css";
 
 const BlogDetail = () => {
@@ -20,6 +21,9 @@ const BlogDetail = () => {
           <p key={index}>{paragraph}</p>
         ))}
       </div>
+
+      {/* Add Footer component here */}
+      <Footer />
     </div>
   );
 };
