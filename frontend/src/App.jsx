@@ -8,7 +8,9 @@ import CSRPage from "./CSRPage"; // Import CSRPage component
 import Navbar from "./assets/components/Navbar"; // Import Navbar
 import "./assets/components/nav.css"; // Import Navbar CSS
 import Blog from "./Blog"; // Import Blog
-import News from "./News"; // Import News
+import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog posts
+import News from "./News"; // Import News
+import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
 import CheckoutPage from "./CheckoutPage";
 
 import {
@@ -58,7 +60,10 @@ function App() {
         <Route path="/csr" element={<CSRPage />} />{" "}
         {/* Add this line for CSR */}
         <Route path="/blog" element={<Blog />} /> {/* Blog route */}
+        <Route path="/blog/:id" element={<BlogDetail />} />{" "}
+        {/* Dynamic route for blog details */}
         <Route path="/news" element={<News />} /> {/* News route */}
+        <Route path="/news/:id" element={<NewsDetail />} />{" "}
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
