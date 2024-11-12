@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import PublicSpeakingWorkshop from "./PublicSpeakingWorkshop"; // Import new component
+import WorkshopPage from "./WorkshopPage"; // Import new component
 import "./Programmes.css";
 
 const Programmes = () => {
