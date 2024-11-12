@@ -384,17 +384,4 @@ address {
   .testimonial-card {
     width: calc(100% - 20px); /* One card in a row on small screens */
   }
-
-  h2 {
-    font-size: 20px; /* Smaller font size for headings */
-  }
-
-  p {
-    font-size: 14px; /* Smaller font size for paragraphs */
-  }
-
-  .contact-button {
-    width: 100%; /* Full width button on small screens */
-    padding: 15px; /* Larger padding */
-  }
 }
