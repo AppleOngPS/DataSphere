@@ -189,20 +189,6 @@ const CheckoutPage = () => {
                   </label>
                 ))}
               </div>
-              <textarea
-                placeholder="Goals for the Camp"
-                value={child.goalsForCamp}
-                onChange={(e) =>
-                  handleChildChange(index, "goalsForCamp", e.target.value)
-                }
-              />
-              <textarea
-                placeholder="Special Needs or Considerations"
-                value={child.specialNeeds}
-                onChange={(e) =>
-                  handleChildChange(index, "specialNeeds", e.target.value)
-                }
-              />
             </div>
           ))}
 
@@ -210,12 +196,6 @@ const CheckoutPage = () => {
           <p>Program Date: 16 Dec 2024 to 20 Dec 2024</p>
           <p>Selected Date: {selectedDate.toLocaleDateString()}</p>
         </div>
-
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          inline
-        />
 
         <button className="checkout-button" onClick={handleCheckout}>
           Checkout
