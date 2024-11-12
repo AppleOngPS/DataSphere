@@ -9,7 +9,7 @@ const Home = () => {
         <img src={logo} alt="DataSphere logo" />
         <h1 className="header">Sign In With This Button</h1>
         <SignedOut>
-          <SignInButton mode="modal" forceRedirectUrl="/dashboard" />
+          <SignInButton mode="modal" forceRedirectUrl="/homepage" />
         </SignedOut>
         <SignedIn>
           <p>You already signed in!</p>

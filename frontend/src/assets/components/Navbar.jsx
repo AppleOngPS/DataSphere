@@ -43,7 +43,7 @@ const Navbar = () => {
             <Link to="/news">News</Link>
           </div>
         </div>
-        <Link to="/contact" className="nav-item">
+        <Link to="/signUp" className="nav-item">
           Get Started Today
         </Link>
         {/* Profile icon placement */}

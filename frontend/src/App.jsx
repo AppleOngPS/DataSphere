@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
-import Dashboard from "./Dashboard"; // Keep this import
 import Homepage from "./homepage"; // Main homepage component
 import WorkshopPage from "./WorkshopPage"; // Import WorkshopPage
 import AboutUs from "./AboutUs"; // Import AboutUs component
@@ -46,14 +45,7 @@ function App() {
             </SignedOut>
           }
         />
-        <Route
-          path="/dashboard"
-          element={
-            <SignedIn>
-              <Dashboard />
-            </SignedIn>
-          }
-        />
+        <Route path="/signUp" element={<Home />} />{" "}
         <Route path="/homepage" element={<Homepage />} />{" "}
         {/* Main homepage route */}
         <Route path="/workshops" element={<WorkshopPage />} />
