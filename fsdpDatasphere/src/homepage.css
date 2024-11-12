@@ -11,7 +11,8 @@
 
 .hero-image {
   width: 100%;
-  height: 100%;
+  max-width: 110%; /* Limit the image width to 80% of the container */
+  max-height: 90vh; /* Limit the image height to 80% of the viewport height */
   object-fit: cover;
 }
 
