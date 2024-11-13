@@ -1,6 +1,6 @@
 // src/components/Dashboard.js
 import React from "react";
-import "./Dashboard.css"; // Import the CSS styles
+import "./UserDashboard.css"; // Import the CSS styles
 import Footer from "./Footer";
 
 const Dashboard = () => {
@@ -22,10 +22,8 @@ const Dashboard = () => {
             <nav className="menu">
               <ul>
                 <li>Dashboard</li>
-                <li>Analytics</li>
-                <li>Task List</li>
-                <li>Tracking</li>
-                <li>Setting</li>
+                <li>User</li>
+                <li>Child</li>
               </ul>
             </nav>
           </aside>
