@@ -76,9 +76,10 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  justify-content: space-between; /* Aligns name, date, and button across the width */
+  padding: 0 20px; /* Add padding for consistency */
+  margin-bottom: 20px;
 }
 
 .header h1 {
@@ -91,7 +92,14 @@
   color: #888;
 }
 
+.header h1,
+.header p {
+  margin: 0;
+  padding-right: 20px; /* Space between text and button */
+}
+
 .add-project-btn {
+  margin-left: auto; /* Pushes button to the right */
   padding: 10px 20px;
   font-size: 0.9rem;
   background-color: #333;
