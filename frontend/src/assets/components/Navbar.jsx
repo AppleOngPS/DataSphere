@@ -33,8 +33,8 @@ const Navbar = () => {
             <Link to="/camps">Camps</Link>
           </div>
         </div>
-        <Link to="/Calendar" className="nav-item">
-          Calendar
+        <Link to="/admin" className="nav-item">
+          Dashboard
         </Link>
         <div className="dropdown">
           <button className="dropbtn">Media</button>
