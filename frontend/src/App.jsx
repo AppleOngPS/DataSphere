@@ -10,12 +10,11 @@ import Blog from "./Blog"; // Import Blog
 import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog posts
 import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
-import CheckoutPage from "./CheckoutPage";
+import BookingPage from "./BookingPage";
 import CalendarPage from "./Calendar";
 
 import {
   RedirectToSignIn,
-  SignedIn,
   SignedOut,
   SignIn,
   SignUp,
@@ -59,7 +58,7 @@ function App() {
         <Route path="/Calendar" element={<CalendarPage />} />
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkout" element={<BookingPage />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>

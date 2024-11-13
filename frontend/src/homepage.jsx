@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import "./homepage.css"; // Ensure this CSS aligns with your design style
+// eslint-disable-next-line no-unused-vars
 import homeImage from "./assets/home.png"; // Import the main image
 import Footer from "./Footer"; // Import the Footer component
 
@@ -11,8 +12,10 @@ import ieaLogo from "./assets/iea.png";
 import jcuLogo from "./assets/jcu.png";
 import orchidLogo from "./assets/orchid.png";
 import classLivingLogo from "./assets/classLiving.png";
+// eslint-disable-next-line no-unused-vars
 import learningApproachImage from "./assets/logohome.png";
 import GuyLogo from "./assets/homepageguy1.jpg";
+// eslint-disable-next-line no-unused-vars
 import Mindsphere from "./assets/logo.png";
 import learningImg from "./assets/logoright.png";
 import homeImg from "./assets/homeimg.jpg";
@@ -185,8 +188,8 @@ const Homepage = () => (
             />
             <blockquote>
               <p>
-                "From the time they joined, the growth has been amazing.
-                Improving confidence, boosting grades—it all feels like magic."
+                &quot;From the time they joined, the growth has been amazing.
+                Improving confidence, boosting grades—it all feels like magic.&quot;
               </p>
               <p className="testimonial-author">Becky Nelson</p>
               <div className="rating">

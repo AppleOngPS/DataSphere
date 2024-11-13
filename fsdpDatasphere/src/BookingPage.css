@@ -39,6 +39,9 @@
 .form-container {
   flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensure form is centered */
 }
 
 .logo {
@@ -68,6 +71,7 @@
   margin-top: 20px;
   font-size: 14px;
   color: #555;
+  text-align: center; /* Center text in program dates */
 }
 
 .checkout-button {
@@ -86,6 +90,40 @@
   background-color: #555;
 }
 
+/* React DatePicker styles to center the calendar */
+.react-datepicker-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.react-datepicker {
+  margin: 0 auto; /* Center the calendar itself */
+  display: block;
+}
+
+/* Ensuring the datepicker is centered */
+.react-datepicker__triangle {
+  display: none; /* Hide the triangle */
+}
+
+.react-datepicker__header {
+  display: flex;
+  justify-content: center;
+}
+
+.react-datepicker__month {
+  display: flex;
+  justify-content: center;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: flex;
+  justify-content: center;
+}
+
+/* Mobile responsiveness adjustments */
 @media (max-width: 768px) {
   .CheckoutPage {
     flex-direction: column;
