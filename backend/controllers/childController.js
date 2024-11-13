@@ -1,8 +1,9 @@
 const Child = require("../models/Child");
 
-const getChildrenByCustomerID = async (req, res) => {
+// Get children by user ID
+const getChildrenByUserID = async (req, res) => {
   try {
-    const children = await Child.getChildrenByCustomerID(req.params.customerID);
+    const children = await Child.getChildrenByUserID(req.params.userID);
     res.json(children);
   } catch (error) {
     console.error(error);
@@ -10,6 +11,7 @@ const getChildrenByCustomerID = async (req, res) => {
   }
 };
 
+// Create a new child
 const createChild = async (req, res) => {
   try {
     const childID = await Child.createChild(req.body);
@@ -20,6 +22,7 @@ const createChild = async (req, res) => {
   }
 };
 
+// Update an existing child
 const updateChild = async (req, res) => {
   try {
     await Child.updateChild(req.params.id, req.body);
@@ -30,6 +33,7 @@ const updateChild = async (req, res) => {
   }
 };
 
+// Delete a child by ID
 const deleteChild = async (req, res) => {
   try {
     await Child.deleteChild(req.params.id);
@@ -41,7 +45,7 @@ const deleteChild = async (req, res) => {
 };
 
 module.exports = {
-  getChildrenByCustomerID,
+  getChildrenByUserID,
   createChild,
   updateChild,
   deleteChild,
