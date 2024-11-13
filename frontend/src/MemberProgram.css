@@ -1,0 +1,190 @@
+/* Main Container */
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  padding: 40px 20px;
+  background-color: #f8f8fb;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: auto;
+}
+
+/* Wrapper to Center Content */
+.dashboard-wrapper {
+  width: 100%;
+  max-width: 2200px; /* Ensures the dashboard doesn't stretch too wide */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers the grid layout */
+  align-items: center; /* Vertically centers content */
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+/* Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr 200px;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  height: auto;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  font-size: 1rem;
+  padding: 10px 0;
+  color: #555;
+}
+
+/* Main Content Area */
+.content {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Aligns name, date, and button across the width */
+  padding: 0 20px; /* Add padding for consistency */
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.header p {
+  font-size: 1rem;
+  color: #888;
+}
+
+.header h1,
+.header p {
+  margin: 0;
+  padding-right: 20px; /* Space between text and button */
+}
+
+.add-project-btn {
+  margin-left: auto; /* Pushes button to the right */
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  background-color: #333;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Overview Cards */
+.overview-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+  font-size: 1.3rem;
+  margin: 0 0 10px;
+}
+
+.card.purple {
+  background-color: #8a4af3;
+}
+
+.card.teal {
+  background-color: #1abc9c;
+}
+
+.card.orange {
+  background-color: #e67e22;
+}
+
+/* Tasks and Stats Section */
+.tasks-and-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.tasks,
+.stats {
+  flex: 1;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tasks h3,
+.stats h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.task,
+.stat {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f3f4f7;
+  border-radius: 10px;
+}
+
+/* Calendar */
+.calendar {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.calendar h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.calendar-item {
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
