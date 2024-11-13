@@ -216,8 +216,8 @@ p {
 }
 
 .leadership-image {
-  max-width: 50%;
-  height: auto;
+  max-width: 40%;
+  height: 100vh;
   margin-bottom: 20px;
   object-fit: cover;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -254,57 +254,80 @@ p {
   font-size: 17px;
 }
 
+/* Ensure the container for title and subtitle is centered */
 .comments-section {
-  text-align: center; /* Center the content horizontally */
-  padding: 3rem; /* Add padding to create space */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers both horizontally */
+  justify-content: center;
+  text-align: center; /* Centers the text within */
+  width: 100%; /* Full width to allow for centering */
 }
 
 .comments-title {
-  font-size: 2rem; /* Increase the font size */
+  font-size: 2rem;
   font-weight: bold;
-  margin: 0 auto;
-  color: #333; /* Darker color for better visibility */
-  margin-bottom: 1rem; /* Space below the title */
-  max-width: 330px;
+  color: #333;
+  white-space: nowrap; /* Prevents wrapping */
+  text-align: center;
+  margin: 0 auto; /* Centers the title */
+  margin-bottom: 10px;
 }
 
 .comments-subtitle {
   font-size: 1.2rem;
-  color: #666; /* Lighter color for subtitle */
+  color: #666;
   margin: 0 auto;
-  max-width: 600px; /* Limit width for better readability */
+  max-width: 600px;
+  text-align: center;
 }
 
+/* Testimonials Section */
 .testimonials {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align the content horizontally */
-  justify-content: center; /* Center align the content vertically if needed */
-  text-align: center; /* Center the text in this section */
-  padding: 4rem 2rem; /* Add some padding to make it spacious */
-  height: 30vh; /* Use full viewport height for proper centering */
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f9f9f9; /* Light background for contrast */
 }
 
 .testimonials-container {
   display: flex;
-  justify-content: center; /* Center the testimonial horizontally */
-  align-items: center; /* Align items in the center vertically */
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* Adds space between testimonial cards */
+  flex-wrap: wrap; /* Allows testimonials to wrap on smaller screens */
 }
 
 .main-testimonial {
-  max-width: 600px; /* Set a max-width for better layout control */
+  max-width: 600px; /* Constrains the width for a better layout */
   padding: 2rem;
-  text-align: center; /* Center align the text inside the testimonial */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for emphasis */
-  border-radius: 10px; /* Slight rounding of corners for a more polished look */
-  background-color: #fff; /* Set background color to make it stand out */
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 1rem; /* Adds margin for spacing */
 }
 
 .testimonial-profile {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%; /* Make the image round */
+  width: 80px; /* Reduces image size for a balanced look */
+  height: 80px;
+  border-radius: 50%;
   margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #333;
+}
+
+.rating {
+  color: #ffd700; /* Gold color for stars */
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
 }
 
 .values {
