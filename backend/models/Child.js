@@ -2,23 +2,35 @@ const sql = require("mssql");
 const dbConfig = require("../dbConfig");
 
 class Child {
-  constructor(childID, name, school, interest, customerID) {
+  constructor(
+    childID,
+    name,
+    school,
+    interest,
+    preferredLunch,
+    learningStyle,
+    userID
+  ) {
     this.childID = childID;
     this.name = name;
     this.school = school;
     this.interest = interest;
-    this.customerID = customerID;
+    this.preferredLunch = preferredLunch;
+    this.learningStyle = learningStyle;
+    this.userID = userID;
   }
 
-  static async getChildrenByCustomerID(customerID) {
+  // Fetch children by user ID
+  static async getChildrenByUserID(userID) {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("customerID", sql.Int, customerID)
-      .query("SELECT * FROM Child WHERE customerID = @customerID");
+      .input("userID", sql.Int, userID)
+      .query("SELECT * FROM Child WHERE userID = @userID");
     return result.recordset;
   }
 
+  // Create a new child
   static async createChild(data) {
     const pool = await sql.connect(dbConfig);
     const result = await pool
@@ -26,13 +38,16 @@ class Child {
       .input("name", sql.VarChar, data.name)
       .input("school", sql.VarChar, data.school)
       .input("interest", sql.VarChar, data.interest)
-      .input("customerID", sql.Int, data.customerID)
-      .query(`INSERT INTO Child (name, school, interest, customerID)
-              VALUES (@name, @school, @interest, @customerID);
+      .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
+      .input("learningStyle", sql.VarChar, data.learningStyle || null)
+      .input("userID", sql.Int, data.userID)
+      .query(`INSERT INTO Child (name, school, interest, preferredLunch, learningStyle, userID)
+              VALUES (@name, @school, @interest, @preferredLunch, @learningStyle, @userID);
               SELECT SCOPE_IDENTITY() AS childID;`);
     return result.recordset[0].childID;
   }
 
+  // Update an existing child's details
   static async updateChild(childID, data) {
     const pool = await sql.connect(dbConfig);
     await pool
@@ -40,11 +55,15 @@ class Child {
       .input("childID", sql.Int, childID)
       .input("school", sql.VarChar, data.school)
       .input("interest", sql.VarChar, data.interest)
+      .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
+      .input("learningStyle", sql.VarChar, data.learningStyle || null)
       .query(
-        `UPDATE Child SET school = @school, interest = @interest WHERE childID = @childID`
+        `UPDATE Child SET school = @school, interest = @interest, preferredLunch = @preferredLunch, learningStyle = @learningStyle
+         WHERE childID = @childID`
       );
   }
 
+  // Delete a child by ID
   static async deleteChild(childID) {
     const pool = await sql.connect(dbConfig);
     await pool
