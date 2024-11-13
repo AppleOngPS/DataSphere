@@ -5,10 +5,11 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh; /* Full viewport height */
-  padding: 40px;
+  padding: 40px 20px;
   background-color: #f8f8fb;
   box-sizing: border-box;
   overflow: hidden;
+  margin: auto;
 }
 
 /* Wrapper to Center Content */
@@ -19,7 +20,8 @@
   flex-direction: column;
   justify-content: center; /* Centers the grid layout */
   align-items: center; /* Vertically centers content */
-  margin: 0;
+  margin: 0 auto;
+  padding: 0 60px;
 }
 
 /* Grid Layout */
