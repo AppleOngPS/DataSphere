@@ -33,7 +33,7 @@ const Dashboard = () => {
             <header className="header">
               <div>
                 <h1>Hello, Sara</h1>
-                <p>Today is Monday, 20 October 2021</p>
+                <p>This is Your Dashboard.</p>
               </div>
               <button className="add-project-btn">Add New Project</button>
             </header>
@@ -72,7 +72,7 @@ const Dashboard = () => {
 
           {/* Calendar */}
           <aside className="calendar">
-            <h3>Calendar</h3>
+            <h3>Upcoming Booking</h3>
             <div className="calendar-item">10:00 - Facebook Brand</div>
             <div className="calendar-item">13:20 - Task Management</div>
             <div className="calendar-item">Meetup</div>
