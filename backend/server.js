@@ -8,6 +8,7 @@ const authMiddleware = require("./middlewares/authMiddleware");
 const { createCheckoutSession } = require("./controllers/checkoutController");
 const customerController = require("./controllers/customerController");
 const childController = require("./controllers/childController");
+const programRoutes = require('./routes/programRoutes'); 
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,6 +36,9 @@ app.get(
 app.post("/children", authMiddleware, childController.createChild);
 app.put("/children/:id", authMiddleware, childController.updateChild);
 app.delete("/children/:id", authMiddleware, childController.deleteChild);
+
+//Admin Programme routes
+app.use('/api', programRoutes);
 
 // Start server and connect to the database
 app.listen(port, async () => {
