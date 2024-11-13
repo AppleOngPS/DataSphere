@@ -4,7 +4,7 @@ import Homepage from './homepage'; // Main homepage component
 import WorkshopPage from './WorkshopPage'; // Import WorkshopPage
 import AboutUs from './AboutUs'; // Import AboutUs component
 import CSRPage from './CSRPage'; // Import CSRPage component
-import CheckoutPage from './CheckoutPage'; // Import your checkout page component
+import BookingPage from './BookingPage'; // Import your checkout page component
 import Navbar from './components/Navbar'; // Import Navbar
 import './components/nav.css'; // Import Navbar CSS
 import Home from "./Home";
@@ -35,7 +35,6 @@ import {
   SignIn,
   SignUp,
 } from "@clerk/clerk-react";
-import PaymentPage from "./PaymentPage";
 
 function App() {
   return (

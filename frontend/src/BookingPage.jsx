@@ -1,29 +1,38 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import './CheckoutPage.css';
+import './BookingPage.css';
+import logo from './assets/logo.png';
 
-
-function CheckoutPage() {
-  const [selectedDate, setSelectedDate] = useState(new Date("2024-12-19"));
+function BookingPage() {
+  const [selectedSlot, setSelectedSlot] = useState("09 Dec - 12 Dec, 9am - 6pm");
   const [children, setChildren] = useState([]);
   const [showChildForm, setShowChildForm] = useState(false);
-  const [existingChildren] = useState([
-    { name: 'Alice', school: 'Greenwood Primary', learningInterests: 'Math, Science', preferredLearningStyle: ['Visual'], goalsForCamp: 'Improve math skills', specialNeeds: 'None' },
-    { name: 'Bob', school: 'Maple Elementary', learningInterests: 'Art, Coding', preferredLearningStyle: ['Kinesthetic'], goalsForCamp: 'Learn basic coding', specialNeeds: 'Allergy to nuts' },
-  ]);
-  const [selectedExistingChild, setSelectedExistingChild] = useState(null);
+  const pricePerChild = 788;
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  // Combined date and time options with availability status (green for available, red for taken)
+  const slotOptions = [
+    { slot: "09 Dec - 12 Dec, 9am - 6pm", available: true },
+    { slot: "12 Dec - 15 Dec, 9am - 6pm", available: false },
+    { slot: "16 Dec - 19 Dec, 9am - 6pm", available: true },
+    { slot: "20 Dec - 23 Dec, 9am - 6pm", available: false }
+  ];
+
+  const handleSlotChange = (e) => {
+    setSelectedSlot(e.target.value);
   };
 
   const handleAddChild = () => {
     setChildren([
       ...children,
-      { name: '', school: '', learningInterests: '', preferredLearningStyle: [], goalsForCamp: '', specialNeeds: '' }
+      { 
+        name: '', 
+        school: '', 
+        preferredLearningStyle: [], 
+        specialNeeds: '',
+        lunchChoice: 'Fish' // Default lunch choice
+      }
     ]);
-    setShowChildForm(true); // Show the form when "Add a Child" is clicked
+    setShowChildForm(true);
   };
 
   const handleChildChange = (index, field, value) => {
@@ -42,21 +51,16 @@ function CheckoutPage() {
     setChildren(updatedChildren);
   };
 
-  const handleExistingChildSelect = (e) => {
-    const childIndex = e.target.value;
-    if (childIndex !== '') {
-      const selectedChild = existingChildren[childIndex];
-      setChildren([selectedChild]);
-      setShowChildForm(true); // Show the form with the selected child's data
-      setSelectedExistingChild(selectedChild);
-    }
+  const handleRemoveChild = (index) => {
+    const updatedChildren = children.filter((_, childIndex) => childIndex !== index);
+    setChildren(updatedChildren);
   };
 
   return (
     <div className="CheckoutPage">
       <div className="card">
-        <h2>$788*</h2>
-        <p><s>Was $988</s></p>
+        <h2>${pricePerChild * (children.length || 1)}*</h2>
+        <p><s>Was ${pricePerChild + 200}</s></p>
         <p>Beginner</p>
         <ul>
           <li>✓ Class size: 15 - 20</li>
@@ -68,22 +72,11 @@ function CheckoutPage() {
       </div>
 
       <div className="form-container">
-        <img src="./src/assets/logo.png" alt="Brand Logo" className="logo" />
+        <img src={logo} alt="Brand Logo" className="logo" />
 
         <div className="add-child-container">
           <label>Add a Child</label>
           <button onClick={handleAddChild}>+ Add a Child</button>
-
-          {/* Dropdown for selecting an existing child */}
-          <label>Select Existing Child</label>
-          <select onChange={handleExistingChildSelect}>
-            <option value="">Choose a child</option>
-            {existingChildren.map((child, index) => (
-              <option key={index} value={index}>
-                {child.name} - {child.school}
-              </option>
-            ))}
-          </select>
         </div>
 
         {showChildForm && children.map((child, index) => (
@@ -100,11 +93,7 @@ function CheckoutPage() {
               value={child.school}
               onChange={(e) => handleChildChange(index, 'school', e.target.value)}
             />
-            <textarea
-              placeholder="Learning Interests"
-              value={child.learningInterests}
-              onChange={(e) => handleChildChange(index, 'learningInterests', e.target.value)}
-            />
+            
             <div>
               <label>Preferred Learning Style:</label>
               {['Visual', 'Auditory', 'Kinesthetic', 'Collaborative', 'Independent'].map((style) => (
@@ -112,35 +101,50 @@ function CheckoutPage() {
                   <input
                     type="checkbox"
                     checked={child.preferredLearningStyle.includes(style)}
-                    onChange={(e) => handleCheckboxChange(index, 'preferredLearningStyle', style)}
+                    onChange={() => handleCheckboxChange(index, 'preferredLearningStyle', style)}
                   />
                   {style}
                 </label>
               ))}
             </div>
-            <textarea
-              placeholder="Goals for the Camp"
-              value={child.goalsForCamp}
-              onChange={(e) => handleChildChange(index, 'goalsForCamp', e.target.value)}
-            />
+
             <textarea
               placeholder="Special Needs or Considerations"
               value={child.specialNeeds}
               onChange={(e) => handleChildChange(index, 'specialNeeds', e.target.value)}
             />
+
+            <div className="dropdown-container">
+              <label>Preferred Lunch:</label>
+              <select
+                value={child.lunchChoice}
+                onChange={(e) => handleChildChange(index, 'lunchChoice', e.target.value)}
+              >
+                <option value="Fish">Fish</option>
+                <option value="Chicken">Chicken</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Non-Vegan">Non-Vegan</option>
+              </select>
+            </div>
+
+            <button onClick={() => handleRemoveChild(index)} className="remove-child-button">Remove Child</button>
           </div>
         ))}
 
         <div className="program-dates">
-          <p>Program Date: 16 Dec 2024 to 20 Dec 2024</p>
-          <p>Selected Date: {selectedDate.toLocaleDateString()}</p>
+          <label>Program Slot:</label>
+          <select value={selectedSlot} onChange={handleSlotChange}>
+            {slotOptions.map(({ slot, available }) => (
+              <option 
+                key={slot} 
+                value={slot} 
+                style={{ color: available ? 'green' : 'red' }}
+              >
+                {slot} {available ? '(Available)' : '(Taken)'}
+              </option>
+            ))}
+          </select>
         </div>
-
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          inline
-        />
 
         <button className="checkout-button">Checkout</button>
       </div>
@@ -148,9 +152,6 @@ function CheckoutPage() {
   );
 }
 
-export default CheckoutPage;
-
-
-
+export default BookingPage;
 
 
