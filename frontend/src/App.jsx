@@ -14,6 +14,8 @@ import BookingPage from "./BookingPage";
 import AdminPage from "./Admin"; // Import AdminPage
 import UserDashboard from "./UserDashboard";
 
+// import usePageTracking from "./usePageTracking"; // Import the hook
+
 import {
   RedirectToSignIn,
   SignedOut,
@@ -22,6 +24,7 @@ import {
 } from "@clerk/clerk-react";
 
 function App() {
+  // usePageTracking(); // Call the tracking hook
   return (
     <Router>
       {/* Navbar will be present on all pages */}
