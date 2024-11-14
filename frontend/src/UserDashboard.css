@@ -188,3 +188,86 @@
   font-size: 0.9rem;
   color: #555;
 }
+
+/* New Section: Child Information */
+.child-info-section {
+  margin-top: 30px;
+}
+
+.child-info-table {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.child-info-row {
+  display: contents;
+  align-items: center;
+  color: #333;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+.child-info-row.header {
+  font-weight: bold;
+  font-size: 20px;
+  color: #555;
+  gap: 90px;
+}
+
+.child-info-row div {
+  padding: 10px;
+  text-align: center;
+}
+
+.action-btn {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  color: white;
+}
+
+.action-btn.edit {
+  background-color: #1abc9c;
+}
+
+.action-btn.delete {
+  background-color: #e74c3c;
+  margin-left: 5px;
+}
+
+/* Table Styling */
+.child-data table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.child-data th,
+.child-data td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.child-data th {
+  font-weight: bold;
+  color: #555;
+}
+
+.child-data .delete-btn {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.child-data .delete-btn:hover {
+  background-color: #ff1a1a;
+}

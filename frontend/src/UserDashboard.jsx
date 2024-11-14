@@ -1,9 +1,39 @@
-// src/components/Dashboard.js
 import React from "react";
 import "./UserDashboard.css"; // Import the CSS styles
 import Footer from "./Footer";
 
 const Dashboard = () => {
+  const childData = [
+    {
+      name: "John Doe",
+      school: "Greenwood High",
+      interest: "Science",
+      learningStyle: "Visual",
+      action: "Delete",
+    },
+    {
+      name: "Alice Smith",
+      school: "Brighton Elementary",
+      interest: "Art",
+      learningStyle: "Kinesthetic",
+      action: "Delete",
+    },
+    {
+      name: "Mark Lee",
+      school: "Westside Middle School",
+      interest: "Mathematics",
+      learningStyle: "Logical",
+      action: "Delete",
+    },
+    {
+      name: "Emma Brown",
+      school: "Sunrise Academy",
+      interest: "Music",
+      learningStyle: "Auditory",
+      action: "Delete",
+    },
+  ];
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-wrapper">
@@ -21,7 +51,6 @@ const Dashboard = () => {
             </div>
             <nav className="menu">
               <ul>
-                <li>Dashboard</li>
                 <li>User</li>
                 <li>Child</li>
               </ul>
@@ -40,33 +69,45 @@ const Dashboard = () => {
 
             <section className="overview-cards">
               <div className="card purple">
-                <h2>Web Development</h2>
-                <p>10 tasks | 96%</p>
+                <h2>Add Child</h2>
+                <p>Number of Child</p>
               </div>
               <div className="card teal">
-                <h2>Mobile App Design</h2>
-                <p>12 tasks | 46%</p>
+                <h2>Edit Child</h2>
+                <p>Number of Child</p>
               </div>
               <div className="card orange">
-                <h2>Facebook Brand Kit</h2>
-                <p>22 tasks | 73%</p>
+                <h2>Delete Child</h2>
+                <p>Number of Child</p>
               </div>
             </section>
 
-            <section className="tasks-and-stats">
-              <div className="tasks">
-                <h3>Tasks for Today</h3>
-                <div className="task">Mobile App - Prepare Figma file</div>
-                <div className="task">UX Wireframes - Design UX wireframes</div>
-                <div className="task">Mobile App - Research</div>
-              </div>
-
-              <div className="stats">
-                <h3>Statistics</h3>
-                <div className="stat">28h - Tracked Time</div>
-                <div className="stat">18 - Finished Tasks</div>
-                <div className="stat">$9.99 p/m - Pro Plan</div>
-              </div>
+            {/* Child Data Table */}
+            <section className="child-data">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Child Name</th>
+                    <th>School</th>
+                    <th>Interest</th>
+                    <th>Learning Style</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {childData.map((child, index) => (
+                    <tr key={index}>
+                      <td>{child.name}</td>
+                      <td>{child.school}</td>
+                      <td>{child.interest}</td>
+                      <td>{child.learningStyle}</td>
+                      <td>
+                        <button className="delete-btn">{child.action}</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </section>
           </main>
 
