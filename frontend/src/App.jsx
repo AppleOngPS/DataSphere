@@ -12,6 +12,7 @@ import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
 import BookingPage from "./BookingPage";
 import CalendarPage from "./Calendar";
+import UserDashboard from "./UserDashboard";
 
 import {
   RedirectToSignIn,
@@ -59,6 +60,7 @@ function App() {
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
         <Route path="/checkout/:cardID" element={<BookingPage />} />
+        <Route path="/UserDashboard" element={<UserDashboard />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>
