@@ -13,6 +13,8 @@ import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news 
 import BookingPage from "./BookingPage";
 import CalendarPage from "./Calendar";
 
+// import usePageTracking from "./usePageTracking"; // Import the hook
+
 import {
   RedirectToSignIn,
   SignedOut,
@@ -21,6 +23,7 @@ import {
 } from "@clerk/clerk-react";
 
 function App() {
+  // usePageTracking(); // Call the tracking hook
   return (
     <Router>
       {/* Navbar will be present on all pages */}
