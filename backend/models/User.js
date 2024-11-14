@@ -8,7 +8,8 @@ class User {
     email,
     password,
     contactNumber,
-    preferredLunch
+    preferredLunch,
+    role // Add role to the constructor
   ) {
     this.userID = userID;
     this.userName = userName;
@@ -16,6 +17,7 @@ class User {
     this.password = password;
     this.contactNumber = contactNumber;
     this.preferredLunch = preferredLunch;
+    this.role = role; // Assign role to the instance
   }
 
   // Fetch a user by ID
@@ -28,7 +30,7 @@ class User {
     return result.recordset[0];
   }
 
-  // Create a new user
+  // Create a new user with role
   static async createUser(data) {
     const pool = await sql.connect(dbConfig);
     const result = await pool
@@ -38,9 +40,12 @@ class User {
       .input("password", sql.VarChar, data.password)
       .input("contactNumber", sql.VarChar, data.contactNumber)
       .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
-      .query(`INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch)
-              VALUES (@userName, @email, @password, @contactNumber, @preferredLunch);
-              SELECT SCOPE_IDENTITY() AS userID;`);
+      .input("role", sql.VarChar, data.role) // Add role input
+      .query(
+        `INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
+        VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role);
+        SELECT SCOPE_IDENTITY() AS userID;`
+      );
     return result.recordset[0].userID;
   }
 

@@ -79,9 +79,10 @@
 }
 
 .selected-programme p {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #2c3d4e;
   margin-bottom: 2rem;
+  opacity: 80%;
 }
 
 .workshop-details {

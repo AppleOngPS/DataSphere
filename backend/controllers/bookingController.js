@@ -1,6 +1,5 @@
 const Booking = require("../models/Booking");
 
-// Create a new booking with slot availability check
 const createBooking = async (req, res) => {
   try {
     const bookingID = await Booking.createBooking(req.body);
@@ -11,7 +10,6 @@ const createBooking = async (req, res) => {
   }
 };
 
-// Get all bookings for a specific user with program and schedule details
 const getAllBookingsForUser = async (req, res) => {
   try {
     const bookings = await Booking.getAllBookingsForUser(req.params.userID);
@@ -22,18 +20,6 @@ const getAllBookingsForUser = async (req, res) => {
   }
 };
 
-// Get all bookings for a specific child with program and schedule details
-const getAllBookingsForChild = async (req, res) => {
-  try {
-    const bookings = await Booking.getAllBookingsForChild(req.params.childID);
-    res.json(bookings);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error retrieving bookings for child" });
-  }
-};
-
-// Delete a booking and adjust slotCount
 const deleteBooking = async (req, res) => {
   try {
     await Booking.deleteBooking(req.params.bookingID);
@@ -47,6 +33,5 @@ const deleteBooking = async (req, res) => {
 module.exports = {
   createBooking,
   getAllBookingsForUser,
-  getAllBookingsForChild,
   deleteBooking,
 };

@@ -58,7 +58,7 @@ function App() {
         <Route path="/Calendar" element={<CalendarPage />} />
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
-        <Route path="/checkout" element={<BookingPage />} />
+        <Route path="/checkout/:cardID" element={<BookingPage />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>
