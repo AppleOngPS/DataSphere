@@ -1,37 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import "./UserDashboard.css"; // Import the CSS styles
 import Footer from "./Footer";
 
-const Dashboard = () => {
-  const childData = [
+const UserDashboard = () => {
+  const [activeSection, setActiveSection] = useState("user");
+  const [activeChildView, setActiveChildView] = useState("add");
+
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+    if (section === "child") setActiveChildView("add"); // Default to "Add Child" view when switching to Child section
+  };
+
+  const handleChildViewChange = (view) => {
+    setActiveChildView(view);
+  };
+
+  const childrenData = [
     {
       name: "John Doe",
       school: "Greenwood High",
       interest: "Science",
       learningStyle: "Visual",
-      action: "Delete",
     },
     {
       name: "Alice Smith",
       school: "Brighton Elementary",
       interest: "Art",
       learningStyle: "Kinesthetic",
-      action: "Delete",
     },
     {
       name: "Mark Lee",
       school: "Westside Middle School",
       interest: "Mathematics",
       learningStyle: "Logical",
-      action: "Delete",
     },
     {
       name: "Emma Brown",
       school: "Sunrise Academy",
       interest: "Music",
       learningStyle: "Auditory",
-      action: "Delete",
     },
+  ];
+
+  const bookingsData = [
+    { id: "B123", programName: "Coding Bootcamp", quantity: 1 },
+    { id: "B456", programName: "Art Workshop", quantity: 2 },
+    { id: "B789", programName: "Science Lab", quantity: 1 },
   ];
 
   return (
@@ -51,73 +65,127 @@ const Dashboard = () => {
             </div>
             <nav className="menu">
               <ul>
-                <li>User</li>
-                <li>Child</li>
+                <li
+                  onClick={() => handleSectionChange("user")}
+                  className={activeSection === "user" ? "active" : ""}
+                >
+                  User
+                </li>
+                <li
+                  onClick={() => handleSectionChange("child")}
+                  className={activeSection === "child" ? "active" : ""}
+                >
+                  Child
+                </li>
               </ul>
             </nav>
           </aside>
 
           {/* Main Content */}
-          <main className="content">
-            <header className="header">
+          <main className="content-centered">
+            {activeSection === "user" && (
               <div>
                 <h1>Hello, Sara</h1>
-                <p>This is Your Dashboard.</p>
-              </div>
-              <button className="add-project-btn">Add New Project</button>
-            </header>
-
-            <section className="overview-cards">
-              <div className="card purple">
-                <h2>Add Child</h2>
-                <p>Number of Child</p>
-              </div>
-              <div className="card teal">
-                <h2>Edit Child</h2>
-                <p>Number of Child</p>
-              </div>
-              <div className="card orange">
-                <h2>Delete Child</h2>
-                <p>Number of Child</p>
-              </div>
-            </section>
-
-            {/* Child Data Table */}
-            <section className="child-data">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Child Name</th>
-                    <th>School</th>
-                    <th>Interest</th>
-                    <th>Learning Style</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {childData.map((child, index) => (
-                    <tr key={index}>
-                      <td>{child.name}</td>
-                      <td>{child.school}</td>
-                      <td>{child.interest}</td>
-                      <td>{child.learningStyle}</td>
-                      <td>
-                        <button className="delete-btn">{child.action}</button>
-                      </td>
-                    </tr>
+                <p>This is your dashboard</p>
+                <h2>Upcoming Booking(s)</h2>
+                <div className="bookings">
+                  {bookingsData.map((booking, index) => (
+                    <div key={index} className="booking-card">
+                      <p>
+                        <strong>Booking ID:</strong> {booking.id}
+                      </p>
+                      <p>
+                        <strong>Program Name:</strong> {booking.programName}
+                      </p>
+                      <p>
+                        <strong>Program Quantity:</strong> {booking.quantity}
+                      </p>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </section>
-          </main>
+                </div>
+              </div>
+            )}
 
-          {/* Calendar */}
-          <aside className="calendar">
-            <h3>Upcoming Booking</h3>
-            <div className="calendar-item">10:00 - Facebook Brand</div>
-            <div className="calendar-item">13:20 - Task Management</div>
-            <div className="calendar-item">Meetup</div>
-          </aside>
+            {activeSection === "child" && (
+              <div>
+                <h1>Child Dashboard</h1>
+                <p>
+                  This is the child dashboard section with child-specific data.
+                </p>
+                <div className="overview-cards">
+                  <button
+                    onClick={() => handleChildViewChange("add")}
+                    className={`card purple ${
+                      activeChildView === "add" ? "active" : ""
+                    }`}
+                  >
+                    Add Child
+                  </button>
+                  <button
+                    onClick={() => handleChildViewChange("edit")}
+                    className={`card teal ${
+                      activeChildView === "edit" ? "active" : ""
+                    }`}
+                  >
+                    Edit Child
+                  </button>
+                  <button
+                    onClick={() => handleChildViewChange("delete")}
+                    className={`card orange ${
+                      activeChildView === "delete" ? "active" : ""
+                    }`}
+                  >
+                    Delete Child
+                  </button>
+                </div>
+
+                <section className="child-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Child Name</th>
+                        <th>School</th>
+                        <th>Interest</th>
+                        <th>Learning Style</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {childrenData.map((child, index) => (
+                        <tr key={index}>
+                          <td>{child.name}</td>
+                          <td>{child.school}</td>
+                          <td>{child.interest}</td>
+                          <td>{child.learningStyle}</td>
+                          <td>
+                            {activeChildView === "add" && (
+                              <button className="action-btn add">Add</button>
+                            )}
+                            {activeChildView === "edit" && (
+                              <button
+                                className="action-btn edit"
+                                onClick={() => alert(`Edit ${child.name}`)}
+                              >
+                                Edit
+                              </button>
+                            )}
+                            {activeChildView === "delete" && (
+                              <button
+                                className="action-btn delete"
+                                onClick={() => alert(`Delete ${child.name}`)}
+                              >
+                                Delete
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+            )}
+          </main>
         </div>
       </div>
       <Footer />
@@ -125,4 +193,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default UserDashboard;
