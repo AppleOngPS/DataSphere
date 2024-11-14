@@ -2,12 +2,12 @@ const sql = require("mssql");
 const dbConfig = require("../dbConfig");
 
 class Booking {
-  constructor(bookingID, programQuantity, userID, programID, scheduleID) {
+  constructor(bookingID, programQuantity, userID, scheduleID, totalAmount) {
     this.bookingID = bookingID;
     this.programQuantity = programQuantity;
     this.userID = userID;
-    this.programID = programID;
     this.scheduleID = scheduleID;
+    this.totalAmount = totalAmount;
   }
 
   // Create a new booking with scheduleID and check slot availability
@@ -32,16 +32,21 @@ class Booking {
       throw new Error("Not enough available slots");
     }
 
+    // Calculate total amount based on quantity and program price
+    const totalAmount = data.programQuantity * data.programPrice;
+
     // Create booking
     const result = await pool
       .request()
       .input("programQuantity", sql.Int, data.programQuantity)
       .input("userID", sql.Int, data.userID)
-      .input("programID", sql.Int, data.programID)
       .input("scheduleID", sql.Int, data.scheduleID)
-      .query(`INSERT INTO booking (programQuantity, userID, programID, scheduleID)
-              VALUES (@programQuantity, @userID, @programID, @scheduleID);
-              SELECT SCOPE_IDENTITY() AS bookingID;`);
+      .input("totalAmount", sql.Decimal(10, 2), totalAmount)
+      .query(
+        `INSERT INTO booking (programQuantity, userID, scheduleID, totalAmount)
+         VALUES (@programQuantity, @userID, @scheduleID, @totalAmount);
+         SELECT SCOPE_IDENTITY() AS bookingID;`
+      );
 
     const bookingID = result.recordset[0].bookingID;
 
@@ -57,30 +62,18 @@ class Booking {
     return bookingID;
   }
 
-  // Get all bookings for a specific user with program and schedule details
+  // Get all bookings for a specific user with schedule details
   static async getAllBookingsForUser(userID) {
     const pool = await sql.connect(dbConfig);
-    const result = await pool.request().input("userID", sql.Int, userID)
-      .query(`SELECT b.*, p.name AS programName, p.description AS programDescription, 
-                      ps.startDate, ps.startTime, ps.endDate, ps.endTime, p.programPrice, ps.slotCount, ps.slots
-               FROM booking b
-               JOIN Program p ON b.programID = p.programID
-               JOIN ProgramSchedule ps ON b.scheduleID = ps.scheduleID
-               WHERE b.userID = @userID`);
-    return result.recordset;
-  }
-
-  // Get all bookings for a specific child with program and schedule details
-  static async getAllBookingsForChild(childID) {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool.request().input("childID", sql.Int, childID)
-      .query(`SELECT b.*, p.name AS programName, p.description AS programDescription, 
-                      ps.startDate, ps.startTime, ps.endDate, ps.endTime, p.programPrice, ps.slotCount, ps.slots
-               FROM booking b
-               JOIN Program p ON b.programID = p.programID
-               JOIN ProgramSchedule ps ON b.scheduleID = ps.scheduleID
-               JOIN Child c ON b.userID = c.userID
-               WHERE c.childID = @childID`);
+    const result = await pool
+      .request()
+      .input("userID", sql.Int, userID)
+      .query(
+        `SELECT b.*, ps.startDate, ps.startTime, ps.endDate, ps.endTime, ps.slots
+         FROM booking b
+         JOIN ProgramSchedule ps ON b.scheduleID = ps.scheduleID
+         WHERE b.userID = @userID`
+      );
     return result.recordset;
   }
 
@@ -112,9 +105,9 @@ class Booking {
     await pool
       .request()
       .input("scheduleID", sql.Int, scheduleID)
-      .input("newSlotCount", sql.Int, `slotCount - ${programQuantity}`)
       .query(
-        "UPDATE ProgramSchedule SET slotCount = GREATEST(0, slotCount - @programQuantity) WHERE scheduleID = @scheduleID"
+        `UPDATE ProgramSchedule SET slotCount = GREATEST(0, slotCount - @programQuantity) 
+         WHERE scheduleID = @scheduleID`
       );
   }
 }

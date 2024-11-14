@@ -12,7 +12,6 @@
   min-height: 100vh; /* Full viewport height */
 }
 
-
 .card {
   width: 300px;
   padding: 20px;
@@ -59,12 +58,13 @@
 .child-inputs input,
 .child-inputs textarea,
 .child-inputs select {
+  background-color: #fff; /* Ensure white background */
+  color: rgb(47, 69, 91); /* Dark Blue Text */
   padding: 8px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
-  color: rgb(47, 69, 91); /* Dark Blue Text */
 }
 
 /* Updated Background Colors for Input Fields Based on New Color Scheme */
@@ -86,8 +86,8 @@
   border: none;
   padding: 5px 10px;
   cursor: pointer;
-  margin-top: 10px;
   border-radius: 4px;
+  margin-top: 5px;
 }
 
 .remove-child-button:hover {
@@ -141,20 +141,25 @@
     font-size: 14px;
     margin-right: 10px;
   }
-
-  .dropdown-container select {
+  /* Specific styling for dropdown */
+  .dropdown-container select,
+  .child-inputs select {
     padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
-    background-color: #fff;
+    background-color: #fff !important; /* Ensure white background */
+    color: rgb(47, 69, 91) !important; /* Dark blue text */
     cursor: pointer;
+    appearance: none; /* Removes default styling in some browsers */
   }
 
-  /* Specific Background Colors for Input Fields */
-  .child-inputs input[type="text"]:nth-child(1) {
-    background-color: rgb(255, 255, 255); /* Child's Name */
+  /* Specific styles for options within the dropdown to ensure a consistent white background */
+  .dropdown-container option,
+  .child-inputs option {
+    background-color: #fff !important; /* White background */
+    color: rgb(47, 69, 91) !important; /* Dark blue text */
   }
 
   .child-inputs input[type="text"]:nth-child(2) {
@@ -179,4 +184,3 @@
     background-color: darkred;
   }
 }
-
