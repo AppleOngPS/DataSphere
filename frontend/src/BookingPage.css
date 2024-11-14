@@ -17,6 +17,17 @@
   padding: 20px;
   background-color: #e0eaf4;
   border-radius: 8px;
+  color: #333; /* Set text color to #333 */
+}
+
+.card h2,
+.card p,
+.card ul li {
+  color: #333; /* Ensure all text within the card has #333 */
+}
+
+.card s {
+  color: #555; /* Optional: strike-through text in a slightly lighter color */
 }
 
 .add-child-container {

@@ -35,9 +35,17 @@ const WorkshopPage = () => {
     }
   };
 
-  // Updated function to navigate to CheckoutPage
   const handleGetStartedButton = (cardID) => {
-    navigate(`/checkout/${cardID}`);
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (!isLoggedIn) {
+      // Redirect to login page if not logged in
+      alert("Please log in to proceed to checkout.");
+      navigate("/login");
+    } else {
+      // Proceed to checkout if logged in
+      navigate(`/checkout/${cardID}`);
+    }
   };
 
   const renderProgramDescription = () => {
