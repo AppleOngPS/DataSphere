@@ -10,23 +10,31 @@
 
 .leadership-team {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping for responsiveness */
-  justify-content: center; /* Center align team members */
-  margin-bottom: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 50px;
 }
 
 .leadership-image {
-  max-width: 100%; /* Ensures image doesn't exceed its container width */
-  height: auto; /* Maintains the aspect ratio */
-  margin-bottom: 20px; /* Space below the image */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for smooth effect */
+  max-width: 50%;
+  height: 100vh;
+  margin-bottom: 20px;
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leadership-image:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .leadership-image:hover {
   transform: scale(1.05); /* Slightly enlarge the image */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
-
 
 .team-info {
   width: 90%; /* Use a percentage width for responsiveness */
@@ -126,12 +134,12 @@ address {
   .testimonial-card {
     width: calc(45% - 20px); /* Two cards in a row on medium screens */
   }
-  
+
   .leadership-team {
     flex-direction: column; /* Ensure vertical stacking */
     align-items: center; /* Center align members */
   }
-  
+
   .team-info {
     width: 95%; /* Slightly wider on mobile */
   }
@@ -141,7 +149,7 @@ address {
   .testimonial-card {
     width: calc(100% - 20px); /* One card in a row on small screens */
   }
-  
+
   h2 {
     font-size: 20px; /* Smaller font size for headings */
   }
