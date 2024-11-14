@@ -1,6 +1,3 @@
-const sql = require("mssql");
-const dbConfig = require("../dbConfig");
-
 class User {
   constructor(
     userID,
@@ -49,19 +46,18 @@ class User {
     return result.recordset[0].userID;
   }
 
-  // Update a user's preferred lunch option
   static async updateUser(userID, data) {
     const pool = await sql.connect(dbConfig);
     await pool
       .request()
       .input("userID", sql.Int, userID)
       .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
+      .input("role", sql.VarChar, data.role || null) // Role update logic
       .query(
-        `UPDATE endUser SET preferredLunch = @preferredLunch WHERE userID = @userID`
+        `UPDATE endUser SET preferredLunch = @preferredLunch, role = @role WHERE userID = @userID`
       );
   }
 
-  // Delete a user by ID
   static async deleteUser(userID) {
     const pool = await sql.connect(dbConfig);
     await pool
