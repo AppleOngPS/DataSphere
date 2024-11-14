@@ -1,0 +1,210 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f5f7fa; /* Light background color */
+}
+
+.CheckoutPage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  background-color: #d9eaf7; /* Light blue background for the card */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #005b99;
+}
+
+.card h2 {
+  color: #2c3e50; /* Darker color for the price */
+}
+
+.card p,
+.card ul {
+  color: #555;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card .get-started-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card .get-started-button:hover {
+  background-color: #555;
+}
+
+.add-child-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.add-child-container button,
+.add-child-container select {
+  font-size: 16px;
+  padding: 10px;
+  background-color: #007acc; /* Button background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-child-container select {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.form-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px;
+  width: 120px;
+}
+
+.child-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.child-inputs input,
+.child-inputs textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #eaf3fb; /* Light blue background for inputs */
+  color: #333;
+}
+
+.child-inputs input:focus,
+.child-inputs textarea:focus {
+  border-color: #007acc; /* Focus color for input fields */
+}
+
+.program-dates {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.checkout-button {
+  margin-top: 30px;
+  padding: 12px;
+  width: 100%;
+  background-color: #005b99;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-button:hover {
+  background-color: #003f6d;
+}
+
+.react-datepicker {
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+}
+
+/* Preferred Learning Style Section */
+.learning-style-container {
+  margin-top: 20px;
+}
+
+.section-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.learning-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.learning-options label {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.learning-options input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  accent-color: #0056b3; /* Dark blue for a modern look */
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 3px; /* Rounded corners for a modern look */
+}
+
+.learning-options input[type="checkbox"]:hover {
+  transform: scale(1.2); /* Slight scale-up effect */
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Light shadow on hover */
+}
+
+.learning-options label:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .CheckoutPage {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card,
+  .form-container {
+    width: 100%;
+  }
+
+  .checkout-button {
+    width: 100%;
+  }
+}
