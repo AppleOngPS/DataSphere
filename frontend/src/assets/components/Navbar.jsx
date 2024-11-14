@@ -1,10 +1,12 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Link } from "react-router-dom";
-import { UserButton } from "@clerk/clerk-react";
 import "./nav.css";
 
 const Navbar = () => {
+  const userRole = localStorage.getItem("userRole"); // Retrieve role from localStorage
+  const dashboardLink =
+    userRole === "admin" ? "/adminDashboard" : "/userDashboard"; // Set dashboard link based on role
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -19,17 +21,19 @@ const Navbar = () => {
         </Link>
         <Link to="/about" className="nav-item">
           About Us
-        </Link>{" "}
-        {/* Link to About Us */}
+        </Link>
         <Link to="/csr" className="nav-item">
           CSR
         </Link>
         <Link to="/workshops" className="nav-item">
           Programmes
         </Link>
-        <Link to="/admin" className="nav-item">
+
+        {/* Conditional Dashboard Link */}
+        <Link to={dashboardLink} className="nav-item">
           Dashboard
         </Link>
+
         <div className="dropdown">
           <button className="dropbtn">Media</button>
           <div className="dropdown-content">
@@ -37,13 +41,15 @@ const Navbar = () => {
             <Link to="/news">News</Link>
           </div>
         </div>
+
         <Link to="/signUp" className="nav-item">
           Get Started Today
         </Link>
-        {/* Profile icon placement */}
-        <div className="profile-icon">
-          <UserButton />
-        </div>
+
+        {/* Profile icon with link to /profile */}
+        <Link to="/profile" className="profile-icon">
+          <img src="./src/assets/profile.png" alt="Profile Icon" />
+        </Link>
       </div>
     </nav>
   );
