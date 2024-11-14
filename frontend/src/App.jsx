@@ -12,7 +12,11 @@ import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
 import BookingPage from "./BookingPage";
 import CalendarPage from "./Calendar";
+import AdminPage from "./Admin"; // Import AdminPage
 import UserDashboard from "./UserDashboard";
+import Calendar from "./Calendar";
+
+// import usePageTracking from "./usePageTracking"; // Import the hook
 
 import {
   RedirectToSignIn,
@@ -22,6 +26,7 @@ import {
 } from "@clerk/clerk-react";
 
 function App() {
+  // usePageTracking(); // Call the tracking hook
   return (
     <Router>
       {/* Navbar will be present on all pages */}
@@ -56,11 +61,12 @@ function App() {
         <Route path="/blog" element={<Blog />} /> {/* Blog route */}
         <Route path="/blog/:id" element={<BlogDetail />} />{" "}
         {/* Dynamic route for blog details */}
-        <Route path="/Calendar" element={<CalendarPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
         <Route path="/checkout/:cardID" element={<BookingPage />} />
         <Route path="/UserDashboard" element={<UserDashboard />} />
+        <Route path="/Calendar" element={<Calendar />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>

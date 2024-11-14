@@ -108,8 +108,8 @@ const AboutUsPage = () => {
             />
             <blockquote>
               <p>
-                "From the time they joined, the growth has been amazing.
-                Improving confidence, boosting grades—it all feels like magic."
+                &quot;From the time they joined, the growth has been amazing.
+                Improving confidence, boosting grades—it all feels like magic.&quot;
               </p>
               <p className="testimonial-author">Becky Nelson</p>
               <div className="rating">

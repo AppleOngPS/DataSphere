@@ -1,13 +1,20 @@
 require("dotenv").config();
 const express = require("express");
 const sql = require("mssql");
-const dbConfig = require("./dbConfig"); // import dbConfig
+const dbConfig = require("./dbConfig");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const authMiddleware = require("./middlewares/authMiddleware");
+const { clerkMiddleware, requireAuth } = require("@clerk/express");
 const { createCheckoutSession } = require("./controllers/checkoutController");
-const customerController = require("./controllers/customerController");
+const userController = require("./controllers/userController");
 const childController = require("./controllers/childController");
+const bookingController = require("./controllers/bookingController");
+const bookingDetailsController = require("./controllers/bookingDetailsController"); // new BookingDetails controller
+const programController = require("./controllers/programController");
+const programScheduleController = require("./controllers/programScheduleController");
+const programmeCardController = require("./controllers/programmeCardController");
+const webhookController = require("./controllers/webhookController"); // Import the webhook controller
+const { clerkClient } = require("@clerk/express"); // Import Clerk client to interact with Clerk's API
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,24 +24,141 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Stripe Checkout Route (No Authentication Required)
+// // Clerk middleware for authentication (pass secret API key)
+// app.use(
+//   clerkMiddleware({
+//     apiKey: process.env.BACKEND_KEY, // Secret Key from .env
+//   })
+// );
+
+// // // Function to store user data in the database upon sign-in or sign-up
+// // const storeUserInDB = async (userId, role) => {
+// //   try {
+// //     const pool = await sql.connect(dbConfig);
+// //     const result = await pool
+// //       .request()
+// //       .input("userId", sql.VarChar, userId)
+// //       .input("role", sql.VarChar, role)
+// //       .query(
+// //         `IF NOT EXISTS (SELECT 1 FROM Users WHERE userId = @userId)
+// //           INSERT INTO endUsers (userId, role) VALUES (@userId, @role);`
+// //       );
+// //     return result;
+// //   } catch (err) {
+// //     console.error("Database insert error:", err);
+// //     throw new Error("Database error during user creation");
+// //   }
+// // };
+
+// // // Middleware to detect role and store user data in DB
+// // app.use(async (req, res, next) => {
+// //   if (req.user && req.user.publicMetadata && req.user.publicMetadata.role) {
+// //     const role = req.user.publicMetadata.role;
+// //     try {
+// //       await storeUserInDB(req.user.id, role); // Store user data in DB if not already stored
+// //       req.role = role; // Pass role info in the request
+// //       res.locals.role = role; // Store role in response locals (or set it in a cookie)
+// //       next();
+// //     } catch (err) {
+// //       res
+// //         .status(500)
+// //         .json({ message: "Error storing user data", error: err.message });
+// //     }
+// //   } else {
+// //     res.status(401).send("User role not found.");
+// //   }
+// // });
+
+// // // Sync users from Clerk into your database (New Endpoint)
+// // app.get("/sync-users", async (req, res) => {
+// //   try {
+// //     // Fetch all users from Clerk (adjust limit as necessary)
+// //     const users = await clerkClient.users.getUserList({ limit: 100 });
+
+// //     // Iterate through the list of users and insert them into your database
+// //     const userPromises = users.map(async (user) => {
+// //       const { id, email, firstName, lastName } = user;
+
+// //       // Insert user data into the Customers table (make sure column names match your schema)
+// //       const pool = await sql.connect(dbConfig);
+// //       await pool
+// //         .request()
+// //         .input("id", sql.VarChar, id)
+// //         .input("name", sql.VarChar, `${firstName} ${lastName}`)
+// //         .input("email", sql.VarChar, email)
+// //         .query(
+// //           `INSERT INTO Customers (customerID, customerName, email)
+// //           VALUES (@id, @name, @email)`
+// //         );
+// //     });
+
+// //     // Wait for all insertions to complete
+// //     await Promise.all(userPromises);
+
+// //     res.status(200).send("Users synced successfully!");
+// //   } catch (error) {
+// //     console.error("Error syncing users:", error);
+// //     res.status(500).send("Error syncing users.");
+// //   }
+// // });
+
+// // // Webhook route to handle Clerk webhook events
+// // app.post(
+// //   "/webhooks/clerk",
+// //   express.raw({ type: "application/json" }),
+// //   webhookController.handleWebhook
+// // );
+
+// Stripe Checkout Route (Authentication Required)
 app.post("/create-checkout-session", createCheckoutSession);
 
-// Customer Routes (Require Authentication)
-app.get("/customers/:id", authMiddleware, customerController.getCustomerById);
-app.post("/customers", authMiddleware, customerController.createCustomer);
-app.put("/customers/:id", authMiddleware, customerController.updateCustomer);
-app.delete("/customers/:id", authMiddleware, customerController.deleteCustomer);
+// User Routes (Require Authentication)
+app.get("/users/:id", requireAuth(), userController.getUserById);
+app.post("/users", requireAuth(), userController.createUser);
+app.put("/users/:id", requireAuth(), userController.updateUser);
+app.delete("/users/:id", requireAuth(), userController.deleteUser);
 
-// Child Routes (Require Authentication)
+// Child Routes (No Authentication Required)
+app.get("/children/user/:userID", childController.getChildrenByUserID);
+app.post("/children", childController.createChild);
+app.put("/children/:id", childController.updateChild);
+app.delete("/children/:id", childController.deleteChild);
+
+// Booking Routes (No Authentication Required)
+app.post("/bookings", bookingController.createBooking);
+app.get("/bookings/user/:userID", bookingController.getAllBookingsForUser);
+app.delete("/bookings/:bookingID", bookingController.deleteBooking);
+
+// BookingDetails Routes (No Authentication Required)
+app.post("/bookingDetails", bookingDetailsController.createBookingDetail); // Create a new booking detail
 app.get(
-  "/children/customer/:customerID",
-  authMiddleware,
-  childController.getChildrenByCustomerID
+  "/bookingDetails/:bookingID",
+  bookingDetailsController.getBookingDetailsByBookingID
+); // Get booking details by bookingID
+
+// Program Routes (No Authentication Required)
+app.get("/programs", programController.getAllPrograms);
+app.get("/programs/:id", programController.getProgramById);
+app.post("/programs", programController.createProgram);
+app.put("/programs/:id", programController.updateProgram);
+app.delete("/programs/:id", programController.deleteProgram);
+
+// ProgramSchedule Routes (No Authentication Required)
+app.get("/programSchedules", programScheduleController.getAllSchedules);
+app.get("/programSchedules/:id", programScheduleController.getScheduleById);
+app.post("/programSchedules", programScheduleController.createSchedule);
+app.put("/programSchedules/:id", programScheduleController.updateSchedule);
+app.delete("/programSchedules/:id", programScheduleController.deleteSchedule);
+
+// ProgrammeCard Routes (No Authentication Required)
+app.get(
+  "/programs/:programID/cards",
+  programmeCardController.getAllCardsByProgramId
 );
-app.post("/children", authMiddleware, childController.createChild);
-app.put("/children/:id", authMiddleware, childController.updateChild);
-app.delete("/children/:id", authMiddleware, childController.deleteChild);
+app.get("/cards/:cardID", programmeCardController.getProgrammeCardById);
+app.post("/cards", programmeCardController.createProgrammeCard);
+app.put("/cards/:cardID", programmeCardController.updateProgrammeCard);
+app.delete("/cards/:cardID", programmeCardController.deleteProgrammeCard);
 
 // Start server and connect to the database
 app.listen(port, async () => {

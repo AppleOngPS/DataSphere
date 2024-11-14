@@ -27,8 +27,8 @@ const Navbar = () => {
         <Link to="/workshops" className="nav-item">
           Programmes
         </Link>
-        <Link to="/Calendar" className="nav-item">
-          Calendar
+        <Link to="/admin" className="nav-item">
+          Dashboard
         </Link>
         <div className="dropdown">
           <button className="dropbtn">Media</button>
