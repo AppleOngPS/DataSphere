@@ -22,14 +22,14 @@ class ProgramSchedule {
     this.slotCount = slotCount;
   }
 
-  // Fetch a schedule by ID
-  static async getScheduleById(scheduleID) {
+  // Fetch a schedule by card ID (updated method)
+  static async getScheduleByCardId(cardID) {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("scheduleID", sql.Int, scheduleID)
-      .query("SELECT * FROM ProgramSchedule WHERE scheduleID = @scheduleID");
-    return result.recordset[0];
+      .input("cardID", sql.Int, cardID) // Query by cardID instead of scheduleID
+      .query("SELECT * FROM ProgramSchedule WHERE cardID = @cardID"); // Updated query
+    return result.recordset;
   }
 
   // Fetch all schedules
