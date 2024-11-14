@@ -2,7 +2,9 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import "./homepage.css"; // Ensure this CSS aligns with your design style
+// eslint-disable-next-line no-unused-vars
 import homeImage from "./assets/home.png"; // Import the main image
+import Footer from "./Footer"; // Import the Footer component
 
 // Import each logo (replace with actual paths if available)
 import fundigoLogo from "./assets/fundigo.png";
@@ -10,17 +12,24 @@ import ieaLogo from "./assets/iea.png";
 import jcuLogo from "./assets/jcu.png";
 import orchidLogo from "./assets/orchid.png";
 import classLivingLogo from "./assets/classLiving.png";
+// eslint-disable-next-line no-unused-vars
 import learningApproachImage from "./assets/logohome.png";
 import GuyLogo from "./assets/homepageguy1.jpg";
+// eslint-disable-next-line no-unused-vars
 import Mindsphere from "./assets/logo.png";
 import learningImg from "./assets/logoright.png";
+import homeImg from "./assets/homeimg.jpg";
 
 const Homepage = () => (
-  <div className="home-page">
-    <header className="home-header">
-      <img src={homeImage} alt="Mindsphere Logo" />
-      <button className="cta-button">Get Started</button>
-    </header>
+  <div className="hero-section">
+    <div className="overlay">
+      <img src={homeImg} alt="Mindsphere Conference" className="hero-image" />
+      <p>
+        Learn Impactful Speaking Skills From Seasoned Speakers
+        <h2>We make it longer lasting</h2>
+        <button className="cta-button">Learn How</button>
+      </p>
+    </div>
 
     {/* Trusted by local companies section */}
     <section className="trusted-section">
@@ -179,8 +188,8 @@ const Homepage = () => (
             />
             <blockquote>
               <p>
-                "From the time they joined, the growth has been amazing.
-                Improving confidence, boosting grades—it all feels like magic."
+                &quot;From the time they joined, the growth has been amazing.
+                Improving confidence, boosting grades—it all feels like magic.&quot;
               </p>
               <p className="testimonial-author">Becky Nelson</p>
               <div className="rating">
@@ -191,52 +200,8 @@ const Homepage = () => (
         </div>
       </section>
 
-      <section className="values">
-        <h2 className="values-title">Integrity. Innovation. Inclusivity.</h2>
-        <p className="values-subtitle">Where learning meets achievement.</p>
-        <button className="contact-button">
-          Speak With Our Friendly Team Now
-        </button>
-      </section>
-
-      <footer className="footer">
-        <img
-          src={Mindsphere}
-          alt="Mindsphere Logo"
-          className="mindsphere-logo"
-        />
-        <nav className="footer-nav">
-          <a href="/">Home</a>
-          <a href="/about">About Us</a>
-          <a href="/programmes">Programmes</a>
-          <a href="/privacy-policy">Privacy Policy</a>
-        </nav>
-        <div className="social-media">
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Facebook
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="https://wa.me/" target="_blank" rel="noopener noreferrer">
-            WhatsApp
-          </a>
-        </div>
-        <address>
-          60 Paya Lebar Road, #07-54 Paya Lebar Square, Singapore 409501
-        </address>
-        <p>
-          Copyright © 2024 Mindsphere Singapore Pte. Ltd. All rights reserved.
-        </p>
-      </footer>
+      {/* Add Footer component here */}
+      <Footer />
     </div>
   </div>
 );
