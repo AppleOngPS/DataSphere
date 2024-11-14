@@ -13,6 +13,7 @@ import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news 
 import BookingPage from "./BookingPage";
 import AdminPage from "./Admin"; // Import AdminPage
 import UserDashboard from "./UserDashboard";
+import Calendar from "./Calendar";
 
 // import usePageTracking from "./usePageTracking"; // Import the hook
 
@@ -64,6 +65,7 @@ function App() {
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
         <Route path="/checkout/:cardID" element={<BookingPage />} />
         <Route path="/UserDashboard" element={<UserDashboard />} />
+        <Route path="/Calendar" element={<Calendar />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>
