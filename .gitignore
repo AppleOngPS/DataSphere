@@ -23,5 +23,6 @@ dist-ssr
 *.sw?
 
 node_modules
+>>>>>>> 2c1de4a8451699bea85f02defeb6335f987cbc51
 
 .env
