@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Auth.css";
 
-function SignUpPage() {
+function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    contactNumber: "",
   });
-
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
+  const location = useLocation(); // Access location to get the message
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +18,7 @@ function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,20 +27,27 @@ function SignUpPage() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert("Sign up successful!");
-        navigate("/login"); // Redirect to login page after successful signup
+        alert("Logged in successfully!");
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userId", data.userId);
+        console.log("User ID:", data.userId);
+        navigate("/");
       } else {
         alert(`Error: ${data.message}`);
       }
     } catch (error) {
-      console.error("Error signing up:", error);
-      alert("Failed to sign up.");
+      console.error("Error logging in:", error);
+      alert("Failed to log in.");
     }
   };
 
   return (
     <div className="auth-container">
       <h1>mindsphere</h1>
+      {/* Display the redirect message if it exists */}
+      {location.state?.message && (
+        <p className="redirect-message">{location.state.message}</p>
+      )}
       <form onSubmit={handleSubmit} className="auth-form">
         <input
           type="email"
@@ -59,24 +65,16 @@ function SignUpPage() {
           onChange={handleChange}
           required
         />
-        <input
-          type="text"
-          name="contactNumber"
-          placeholder="Contact Number"
-          value={formData.contactNumber}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign In</button>
       </form>
       <p>
-        Have an account?{" "}
-        <Link to="/login" className="toggle-link">
-          Log In
+        Don’t have an account?{" "}
+        <Link to="/signup" className="toggle-link">
+          Sign Up
         </Link>
       </p>
     </div>
   );
 }
 
-export default SignUpPage;
+export default LoginPage;

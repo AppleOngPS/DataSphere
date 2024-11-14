@@ -1,3 +1,6 @@
+const sql = require("mssql");
+const dbConfig = require("../dbConfig");
+
 class User {
   constructor(
     userID,
@@ -6,7 +9,7 @@ class User {
     password,
     contactNumber,
     preferredLunch,
-    role // Add role to the constructor
+    role
   ) {
     this.userID = userID;
     this.userName = userName;
@@ -14,56 +17,171 @@ class User {
     this.password = password;
     this.contactNumber = contactNumber;
     this.preferredLunch = preferredLunch;
-    this.role = role; // Assign role to the instance
+    this.role = role;
   }
 
-  // Fetch a user by ID
-  static async getUserById(userID) {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("userID", sql.Int, userID)
-      .query("SELECT * FROM endUser WHERE userID = @userID");
-    return result.recordset[0];
+  static async getAllById(userID) {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT * FROM endUser WHERE userID = @userID");
+
+      if (result.recordset.length === 0) {
+        console.error("No user found with this ID:", userID);
+        return null;
+      }
+
+      return result.recordset[0];
+    } catch (error) {
+      console.error("Error in getAllById:", error);
+      throw new Error("Database query failed");
+    }
   }
 
-  // Create a new user with role
+  static async getEmailById(userID) {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT email FROM endUser WHERE userID = @userID");
+      return result.recordset[0]?.email;
+    } catch (error) {
+      console.error("Error in getEmailById:", error);
+      throw new Error("Database query failed");
+    }
+  }
+
+  static async getUsernameById(userID) {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT userName FROM endUser WHERE userID = @userID");
+      return result.recordset[0]?.userName;
+    } catch (error) {
+      console.error("Error in getUsernameById:", error);
+      throw new Error("Database query failed");
+    }
+  }
+
+  static async getContactNumberById(userID) {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT contactNumber FROM endUser WHERE userID = @userID");
+      return result.recordset[0]?.contactNumber;
+    } catch (error) {
+      console.error("Error in getContactNumberById:", error);
+      throw new Error("Database query failed");
+    }
+  }
+
+  static async getLunchById(userID) {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT preferredLunch FROM endUser WHERE userID = @userID");
+      return result.recordset[0]?.preferredLunch;
+    } catch (error) {
+      console.error("Error in getLunchById:", error);
+      throw new Error("Database query failed");
+    }
+  }
+
   static async createUser(data) {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("userName", sql.VarChar, data.userName)
-      .input("email", sql.VarChar, data.email)
-      .input("password", sql.VarChar, data.password)
-      .input("contactNumber", sql.VarChar, data.contactNumber)
-      .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
-      .input("role", sql.VarChar, data.role) // Add role input
-      .query(
-        `INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
-        VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role);
-        SELECT SCOPE_IDENTITY() AS userID;`
-      );
-    return result.recordset[0].userID;
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userName", sql.VarChar, data.userName)
+        .input("email", sql.VarChar, data.email)
+        .input("password", sql.VarChar, data.password)
+        .input("contactNumber", sql.VarChar, data.contactNumber)
+        .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
+        .input("role", sql.VarChar, data.role).query(`
+          INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
+          VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role);
+          SELECT SCOPE_IDENTITY() AS userID;
+        `);
+      return result.recordset[0].userID;
+    } catch (error) {
+      console.error("Error in createUser:", error);
+      throw new Error("Database insert failed");
+    }
   }
 
-  static async updateUser(userID, data) {
-    const pool = await sql.connect(dbConfig);
-    await pool
-      .request()
-      .input("userID", sql.Int, userID)
-      .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
-      .input("role", sql.VarChar, data.role || null) // Role update logic
-      .query(
-        `UPDATE endUser SET preferredLunch = @preferredLunch, role = @role WHERE userID = @userID`
-      );
+  static async updateUser(userID, newUserData) {
+    try {
+      const connection = await sql.connect(dbConfig);
+      let sqlQuery = `UPDATE dbo.endUser SET userName = @userName`;
+      const request = connection.request();
+      request.input("userID", sql.Int, userID);
+      request.input("userName", sql.VarChar(255), newUserData.userName);
+
+      if (newUserData.contactNumber) {
+        sqlQuery += `, contactNumber = @contactNumber`;
+        request.input(
+          "contactNumber",
+          sql.VarChar(20),
+          newUserData.contactNumber
+        );
+      }
+      if (newUserData.email) {
+        sqlQuery += `, email = @email`;
+        request.input("email", sql.VarChar(255), newUserData.email);
+      }
+      if (newUserData.password) {
+        const hashedPassword = await bcrypt.hash(newUserData.password, 10);
+        sqlQuery += `, password = @password`;
+        request.input("password", sql.VarChar(255), hashedPassword);
+      }
+      if (newUserData.preferredLunch) {
+        sqlQuery += `, preferredLunch = @preferredLunch`;
+        request.input(
+          "preferredLunch",
+          sql.VarChar(255),
+          newUserData.preferredLunch
+        );
+      }
+      if (newUserData.role) {
+        sqlQuery += `, role = @role`;
+        request.input("role", sql.VarChar(10), newUserData.role);
+      }
+      sqlQuery += ` WHERE userID = @userID`;
+
+      await request.query(sqlQuery);
+      const result = await connection
+        .request()
+        .input("userID", sql.Int, userID)
+        .query(`SELECT * FROM dbo.endUser WHERE userID = @userID`);
+      connection.close();
+
+      return result.recordset[0];
+    } catch (error) {
+      console.error("Error in updateUser:", error);
+      throw new Error("Database update failed");
+    }
   }
 
   static async deleteUser(userID) {
-    const pool = await sql.connect(dbConfig);
-    await pool
-      .request()
-      .input("userID", sql.Int, userID)
-      .query("DELETE FROM endUser WHERE userID = @userID");
+    try {
+      const pool = await sql.connect(dbConfig);
+      await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("DELETE FROM endUser WHERE userID = @userID");
+    } catch (error) {
+      console.error("Error in deleteUser:", error);
+      throw new Error("Database delete failed");
+    }
   }
 }
 
