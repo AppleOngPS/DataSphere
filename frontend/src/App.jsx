@@ -10,13 +10,12 @@ import Blog from "./Blog"; // Import Blog
 import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog posts
 import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
-import CheckoutPage from "./CheckoutPage";
+import BookingPage from "./BookingPage";
 import CalendarPage from "./Calendar";
 import UserDashboard from "./UserDashboard";
 
 import {
   RedirectToSignIn,
-  SignedIn,
   SignedOut,
   SignIn,
   SignUp,
@@ -60,7 +59,7 @@ function App() {
         <Route path="/Calendar" element={<CalendarPage />} />
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkout/:cardID" element={<BookingPage />} />
         <Route path="/UserDashboard" element={<UserDashboard />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
@@ -70,56 +69,3 @@ function App() {
 }
 
 export default App;
-
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Home from "./Home";
-// import Dashboard from "./Dashboard";
-// import Programmes from "./Programmes";
-// import PaymentPage from "./PaymentPage";
-// import {
-//   RedirectToSignIn,
-//   SignedIn,
-//   SignedOut,
-//   SignIn,
-//   SignUp,
-// } from "@clerk/clerk-react";
-
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//         <Route path="/programmes" element={<Programmes />} />
-//         <Route
-//           path="/dashboard"
-//           element={
-//             <SignedIn>
-//               <Dashboard />
-//             </SignedIn>
-//           }
-//         />
-//         <Route
-//           path="/sign-in"
-//           element={
-//             <SignedOut>
-//               <SignIn />
-//             </SignedOut>
-//           }
-//         />
-//         <Route
-//           path="/sign-up"
-//           element={
-//             <SignedOut>
-//               <SignUp />
-//             </SignedOut>
-//           }
-//         />
-//         {/* Route with dynamic programID */}
-//         <Route path="/payment/:programID" element={<PaymentPage />} />
-//         <Route path="*" element={<RedirectToSignIn />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
