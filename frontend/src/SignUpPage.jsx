@@ -8,8 +8,7 @@ function SignUpPage() {
     password: "",
     contactNumber: "",
   });
-
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
