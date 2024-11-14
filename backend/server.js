@@ -132,10 +132,11 @@ app.get("/users/email", userController.getEmailById);
 app.get("/users/username", userController.getUsernameById);
 app.get("/users/contact-number", userController.getContactNumberById);
 app.get("/users/lunch", userController.getLunchById);
+app.get("/users/:userID/role", userController.getRoleById);
 
 // Child Routes (No Authentication Required)
 app.get("/children/user/:userID", childController.getChildrenByUserID);
-app.post("/children", childController.createChild);
+app.post("/children/:userID", childController.createChild);
 app.put("/children/:id", childController.updateChild);
 app.delete("/children/:id", childController.deleteChild);
 
@@ -160,7 +161,7 @@ app.delete("/programs/:id", programController.deleteProgram);
 
 // ProgramSchedule Routes (No Authentication Required)
 app.get("/programSchedules", programScheduleController.getAllSchedules);
-app.get("/programSchedules/:id", programScheduleController.getScheduleById);
+app.get("/schedule/:cardID", programScheduleController.getScheduleByCardId);
 app.post("/programSchedules", programScheduleController.createSchedule);
 app.put("/programSchedules/:id", programScheduleController.updateSchedule);
 app.delete("/programSchedules/:id", programScheduleController.deleteSchedule);

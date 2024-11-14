@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import CustomSelect from "./CustomSelect"; // Import CustomSelect if using custom dropdown
+import CustomSelect from "./CustomSelect";
 import "./BookingPage.css";
 import logo from "./assets/logo.png";
+import { format } from "date-fns";
+import { addHours } from "date-fns"; // to convert time to Singapore timezone
 
 function BookingPage() {
   const { cardID } = useParams();
@@ -14,10 +16,12 @@ function BookingPage() {
     name: "",
     school: "",
     interest: "",
-    preferredLearningStyle: "",
+    learningStyle: "",
     specialNeeds: "",
-    lunchChoice: "Fish",
+    preferredLunch: "Fish",
   });
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [schedules, setSchedules] = useState([]);
 
   useEffect(() => {
     const fetchProgrammeCard = async () => {
@@ -31,44 +35,140 @@ function BookingPage() {
       }
     };
 
+    const fetchSchedules = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/schedule/${cardID}`
+        );
+        const data = await response.json();
+        setSchedules(data);
+      } catch (error) {
+        console.error("Error fetching schedules:", error);
+      }
+    };
+
     if (cardID) {
       fetchProgrammeCard();
+      fetchSchedules();
     }
   }, [cardID]);
 
-  useEffect(() => {
-    const savedChildren = JSON.parse(localStorage.getItem("children")) || [];
-    setChildren(savedChildren);
-    updateTotalPrice(savedChildren);
-  }, []);
+  const handleScheduleChange = (event) => {
+    const scheduleIndex = event.target.value;
+    const selected = schedules[scheduleIndex];
+    setSelectedSchedule(selected);
+  };
 
-  useEffect(() => {
-    localStorage.setItem("children", JSON.stringify(children));
-    updateTotalPrice(children);
-  }, [children]);
+  const singaporeTimeZone = "Asia/Singapore";
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return format(addHours(date, 8), "dd MMM yyyy");
+  };
+
+  const formatTime = (timeString) => {
+    const time = new Date(timeString);
+    return format(addHours(time, 8), "HH:mm");
+  };
 
   const handleAddChild = () => {
     setShowChildForm(true);
   };
 
-  const handleConfirmChild = () => {
-    setChildren([...children, newChild]);
-    setNewChild({
-      name: "",
-      school: "",
-      interest: "",
-      preferredLearningStyle: "",
-      specialNeeds: "",
-      lunchChoice: "Fish",
-    });
-    setShowChildForm(false);
+  const handleConfirmChild = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("User not logged in. Please log in first.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/children/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...newChild,
+          userID: userId,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Child created successfully!");
+        const updatedChildren = [
+          ...children,
+          { ...newChild, childID: result.childID },
+        ];
+        setChildren(updatedChildren);
+        updateTotalPrice(updatedChildren);
+        setNewChild({
+          name: "",
+          school: "",
+          interest: "",
+          learningStyle: "",
+          specialNeeds: "",
+          preferredLunch: "Fish",
+          userID: userId,
+        });
+        setShowChildForm(false);
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error creating child:", error);
+      alert("Failed to create child.");
+    }
   };
 
-  const handleChildChange = (field, value) => {
-    setNewChild((prevChild) => ({
-      ...prevChild,
-      [field]: value,
-    }));
+  const handleDeleteChild = async (childID) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/children/${childID}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        alert("Child deleted successfully!");
+        const updatedChildren = children.filter(
+          (child) => child.childID !== childID
+        );
+        setChildren(updatedChildren);
+        updateTotalPrice(updatedChildren);
+      } else {
+        const result = await response.json();
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error deleting child:", error);
+      alert("Failed to delete child.");
+    }
+  };
+
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ totalAmount: totalPrice * 100 }), // Send amount in cents to Stripe
+        }
+      );
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("Failed to create checkout session:", data);
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
   };
 
   const updateTotalPrice = (childrenList) => {
@@ -117,19 +217,25 @@ function BookingPage() {
               type="text"
               placeholder="Child's Name"
               value={newChild.name}
-              onChange={(e) => handleChildChange("name", e.target.value)}
+              onChange={(e) =>
+                setNewChild({ ...newChild, name: e.target.value })
+              }
             />
             <input
               type="text"
               placeholder="Primary School"
               value={newChild.school}
-              onChange={(e) => handleChildChange("school", e.target.value)}
+              onChange={(e) =>
+                setNewChild({ ...newChild, school: e.target.value })
+              }
             />
             <input
               type="text"
               placeholder="Interest"
               value={newChild.interest}
-              onChange={(e) => handleChildChange("interest", e.target.value)}
+              onChange={(e) =>
+                setNewChild({ ...newChild, interest: e.target.value })
+              }
             />
 
             <div className="dropdown-container">
@@ -143,9 +249,9 @@ function BookingPage() {
                   "Independent",
                 ]}
                 placeholder="Select Learning Style"
-                value={newChild.preferredLearningStyle}
+                value={newChild.learningStyle}
                 onChange={(value) =>
-                  handleChildChange("preferredLearningStyle", value)
+                  setNewChild({ ...newChild, learningStyle: value })
                 }
               />
             </div>
@@ -154,7 +260,7 @@ function BookingPage() {
               placeholder="Special Needs or Considerations"
               value={newChild.specialNeeds}
               onChange={(e) =>
-                handleChildChange("specialNeeds", e.target.value)
+                setNewChild({ ...newChild, specialNeeds: e.target.value })
               }
             />
 
@@ -163,8 +269,10 @@ function BookingPage() {
               <CustomSelect
                 options={["Fish", "Chicken", "Vegan", "Non-Vegan"]}
                 placeholder="Select Lunch"
-                value={newChild.lunchChoice}
-                onChange={(value) => handleChildChange("lunchChoice", value)}
+                value={newChild.preferredLunch}
+                onChange={(value) =>
+                  setNewChild({ ...newChild, preferredLunch: value })
+                }
               />
             </div>
 
@@ -177,18 +285,41 @@ function BookingPage() {
           </div>
         )}
 
+        <div className="schedule-selection">
+          <label>Schedule:</label>
+          <select
+            onChange={handleScheduleChange}
+            value={selectedSchedule ? schedules.indexOf(selectedSchedule) : ""}
+          >
+            <option value="">Select Schedule</option>
+            {schedules.map((schedule, index) => (
+              <option key={schedule.scheduleID} value={index}>
+                {`${formatDate(schedule.startDate)} - ${formatDate(
+                  schedule.endDate
+                )}, ${formatTime(schedule.startTime)} - ${formatTime(
+                  schedule.endTime
+                )}`}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {children.map((child, index) => (
-          <div key={index} className="child-info">
-            <p>
-              Child {index + 1}: {child.name}
-            </p>
+          <div key={child.childID} className="child-info">
+            <p>Name: {child.name}</p>
             <p>School: {child.school}</p>
             <p>Interest: {child.interest}</p>
-            <p>Preferred Lunch: {child.lunchChoice}</p>
+            <p>Learning Style: {child.learningStyle}</p>
+            <p>Preferred Lunch: {child.preferredLunch}</p>
+            <button onClick={() => handleDeleteChild(child.childID)}>
+              Delete
+            </button>
           </div>
         ))}
 
-        <button className="checkout-button">Checkout</button>
+        <button onClick={handleCheckout} className="checkout-button">
+          Checkout
+        </button>
       </div>
     </div>
   );
