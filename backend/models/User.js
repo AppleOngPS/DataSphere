@@ -40,6 +40,21 @@ class User {
     }
   }
 
+  static async getRoleById(userID) {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT role FROM endUser WHERE userID = @userID");
+
+      return result.recordset[0]?.role; // Return the role of the user
+    } catch (error) {
+      console.error("Error in getRoleById:", error);
+      throw new Error("Database query failed");
+    }
+  }
+
   static async getEmailById(userID) {
     try {
       const pool = await sql.connect(dbConfig);

@@ -13,7 +13,7 @@ function ProfilePage() {
   const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
-    const userId = localStorage.getItem("userID"); // Retrieve userID from localStorage
+    const userId = localStorage.getItem("userId"); // Retrieve userID from localStorage
 
     // Fetch user data from the server using userId
     const fetchData = async () => {
@@ -45,18 +45,15 @@ function ProfilePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
     try {
-      const response = await fetch(
-        `http://localhost:3000/users/${userId}/details`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       if (response.ok) {
         alert("Profile updated successfully!");
         setEditMode(false);
@@ -71,8 +68,9 @@ function ProfilePage() {
   // Logout function
   const handleLogout = () => {
     // Clear local storage
-    localStorage.removeItem("userID");
+    localStorage.removeItem("userId");
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
     // Redirect to login page
     navigate("/login");
   };

@@ -72,6 +72,21 @@ const getLunchById = async (req, res) => {
   }
 };
 
+// Controller function to get the role by userID
+const getRoleById = async (req, res) => {
+  const userID = req.params.userID; // Get userID from URL parameters
+  try {
+    const role = await User.getRoleById(userID);
+    if (!role) {
+      return res.status(404).json({ message: "Role not found" });
+    }
+    res.json({ role });
+  } catch (error) {
+    console.error("Error in getRoleById controller:", error);
+    res.status(500).json({ message: "Error retrieving user role" });
+  }
+};
+
 const createUser = async (req, res) => {
   try {
     const userId = await User.createUser(req.body);
@@ -115,4 +130,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  getRoleById,
 };

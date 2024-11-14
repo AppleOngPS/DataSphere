@@ -10,12 +10,18 @@ const getAllSchedules = async (req, res) => {
   }
 };
 
-const getScheduleById = async (req, res) => {
+const getScheduleByCardId = async (req, res) => {
   try {
-    const schedule = await ProgramSchedule.getScheduleById(req.params.id);
-    if (!schedule)
-      return res.status(404).json({ message: "Schedule not found" });
-    res.json(schedule);
+    const schedule = await ProgramSchedule.getScheduleByCardId(
+      req.params.cardID
+    ); // Fetch using cardID
+    if (!schedule || schedule.length === 0) {
+      // Handle the case when no schedule is found
+      return res
+        .status(404)
+        .json({ message: "Schedule not found for this card" });
+    }
+    res.json(schedule); // Return the schedule(s)
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error retrieving schedule" });
@@ -54,7 +60,7 @@ const deleteSchedule = async (req, res) => {
 
 module.exports = {
   getAllSchedules,
-  getScheduleById,
+  getScheduleByCardId,
   createSchedule,
   updateSchedule,
   deleteSchedule,
