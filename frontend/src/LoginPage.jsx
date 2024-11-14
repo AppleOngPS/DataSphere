@@ -26,11 +26,30 @@ function LoginPage() {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
+
       if (response.ok) {
         alert("Logged in successfully!");
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userId", data.userId);
-        console.log("User ID:", data.userId);
+        localStorage.setItem("userId", data.userId); // Store user ID in localStorage
+
+        // Now, fetch the role using the userId
+        const roleResponse = await fetch(
+          `http://localhost:3000/users/${data.userId}/role`
+        );
+        const roleData = await roleResponse.json();
+
+        if (roleResponse.ok) {
+          // Store userRole in localStorage
+          localStorage.setItem("userRole", roleData.role);
+        } else {
+          console.error("Error fetching user role:", roleData.message);
+        }
+
+        console.log("Logged in:", localStorage.getItem("isLoggedIn"));
+        console.log("User ID:", localStorage.getItem("userId"));
+        console.log("User Role:", localStorage.getItem("userRole"));
+
+        // Redirect to homepage
         navigate("/");
       } else {
         alert(`Error: ${data.message}`);

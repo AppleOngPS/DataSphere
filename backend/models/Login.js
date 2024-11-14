@@ -70,7 +70,7 @@ class Login {
         newUser.password,
         newUser.contactNumber,
         newUser.preferredLunch,
-        newUser.role
+        newUser.role.trim()
       );
     } catch (err) {
       console.error("Error during createUser:", err);
