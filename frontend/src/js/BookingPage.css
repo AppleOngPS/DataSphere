@@ -1,0 +1,186 @@
+* {
+  box-sizing: border-box;
+}
+
+.CheckoutPage {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh; /* Full viewport height */
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  background-color: #e0eaf4;
+  border-radius: 8px;
+}
+
+.add-child-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.add-child-container button {
+  font-size: 16px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.form-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 150px;
+}
+
+.child-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.child-inputs input,
+.child-inputs textarea,
+.child-inputs select {
+  background-color: #fff; /* Ensure white background */
+  color: rgb(47, 69, 91); /* Dark Blue Text */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Updated Background Colors for Input Fields Based on New Color Scheme */
+.child-inputs input[type="text"]:nth-child(1) {
+  background-color: rgb(255, 255, 255); /* Child's Name - White */
+}
+
+.child-inputs input[type="text"]:nth-child(2) {
+  background-color: rgb(255, 255, 255); /* Primary School - White */
+}
+
+.child-inputs textarea {
+  background-color: rgb(255, 255, 255); /* Special Needs - White */
+}
+
+.remove-child-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.remove-child-button:hover {
+  background-color: darkred;
+}
+
+.program-dates {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+  text-align: center; /* Centering the program date section */
+}
+
+.checkout-button {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .CheckoutPage {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card,
+  .form-container {
+    width: 100%;
+  }
+
+  .checkout-button {
+    width: 100%;
+  }
+
+  /* Styling for the dropdown container */
+  .dropdown-container {
+    margin-top: 10px;
+  }
+
+  .dropdown-container label {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  /* Specific styling for dropdown */
+  .dropdown-container select,
+  .child-inputs select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    background-color: #fff !important; /* Ensure white background */
+    color: rgb(47, 69, 91) !important; /* Dark blue text */
+    cursor: pointer;
+    appearance: none; /* Removes default styling in some browsers */
+  }
+
+  /* Specific styles for options within the dropdown to ensure a consistent white background */
+  .dropdown-container option,
+  .child-inputs option {
+    background-color: #fff !important; /* White background */
+    color: rgb(47, 69, 91) !important; /* Dark blue text */
+  }
+
+  .child-inputs input[type="text"]:nth-child(2) {
+    background-color: rgb(255, 255, 255); /* Primary School */
+  }
+
+  .child-inputs textarea {
+    background-color: rgb(255, 255, 255); /* Special Needs */
+  }
+
+  .remove-child-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+
+  .remove-child-button:hover {
+    background-color: darkred;
+  }
+}
