@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "./Calendar.css"; // Custom CSS for updated styling
