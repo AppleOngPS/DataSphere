@@ -11,7 +11,9 @@ import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog 
 import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
 import BookingPage from "./BookingPage";
-import CalendarPage from "./Calendar";
+import AdminPage from "./Admin"; // Import AdminPage
+import UserDashboard from "./UserDashboard";
+import Calendar from "./Calendar";
 
 // import usePageTracking from "./usePageTracking"; // Import the hook
 
@@ -58,10 +60,12 @@ function App() {
         <Route path="/blog" element={<Blog />} /> {/* Blog route */}
         <Route path="/blog/:id" element={<BlogDetail />} />{" "}
         {/* Dynamic route for blog details */}
-        <Route path="/Calendar" element={<CalendarPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/news" element={<News />} /> {/* News route */}
         <Route path="/news/:id" element={<NewsDetail />} />{" "}
-        <Route path="/checkout" element={<BookingPage />} />
+        <Route path="/checkout/:cardID" element={<BookingPage />} />
+        <Route path="/UserDashboard" element={<UserDashboard />} />
+        <Route path="/Calendar" element={<Calendar />} />
         <Route path="*" element={<RedirectToSignIn />} />{" "}
         {/* Redirect to sign-in if no match */}
       </Routes>
@@ -70,56 +74,3 @@ function App() {
 }
 
 export default App;
-
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Home from "./Home";
-// import Dashboard from "./Dashboard";
-// import Programmes from "./Programmes";
-// import PaymentPage from "./PaymentPage";
-// import {
-//   RedirectToSignIn,
-//   SignedIn,
-//   SignedOut,
-//   SignIn,
-//   SignUp,
-// } from "@clerk/clerk-react";
-
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//         <Route path="/programmes" element={<Programmes />} />
-//         <Route
-//           path="/dashboard"
-//           element={
-//             <SignedIn>
-//               <Dashboard />
-//             </SignedIn>
-//           }
-//         />
-//         <Route
-//           path="/sign-in"
-//           element={
-//             <SignedOut>
-//               <SignIn />
-//             </SignedOut>
-//           }
-//         />
-//         <Route
-//           path="/sign-up"
-//           element={
-//             <SignedOut>
-//               <SignUp />
-//             </SignedOut>
-//           }
-//         />
-//         {/* Route with dynamic programID */}
-//         <Route path="/payment/:programID" element={<PaymentPage />} />
-//         <Route path="*" element={<RedirectToSignIn />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;

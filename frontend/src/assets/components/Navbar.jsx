@@ -24,17 +24,11 @@ const Navbar = () => {
         <Link to="/csr" className="nav-item">
           CSR
         </Link>
-        <div className="dropdown">
-          <button className="dropbtn">Programmes</button>
-          <div className="dropdown-content">
-            <Link to="/workshops">Workshops</Link>
-            <Link to="/labs">Labs</Link>
-            <Link to="/professionals">Professionals</Link>
-            <Link to="/camps">Camps</Link>
-          </div>
-        </div>
-        <Link to="/Calendar" className="nav-item">
-          Calendar
+        <Link to="/workshops" className="nav-item">
+          Programmes
+        </Link>
+        <Link to="/admin" className="nav-item">
+          Dashboard
         </Link>
         <div className="dropdown">
           <button className="dropbtn">Media</button>

@@ -1,28 +1,28 @@
-const { clerkClient } = require('@clerk/express');
-const sql = require('mssql');
-const dbConfig = require('../dbConfig'); // Import your DB configuration
+const { clerkClient } = require("@clerk/express");
+const sql = require("mssql");
+const dbConfig = require("../dbConfig"); // Import your DB configuration
 
 // This function processes incoming webhooks from Clerk
 const handleWebhook = async (req, res) => {
   const { body, headers } = req;
 
   // Validate webhook signature (Clerk sends a signature in headers)
-  const signature = headers['clerk-signature'];
-  const secret = process.env.clerk_webhook_secret; // Secret from Clerk dashboard for webhook validation
+  const signature = headers["clerk-signature"];
+  const secret = process.env.CLERK_WEBHOOK_SECRET; // Secret from Clerk dashboard for webhook validation
 
   if (!validateSignature(body, signature, secret)) {
-    return res.status(400).send('Invalid signature');
+    return res.status(400).send("Invalid signature");
   }
 
   // Handle different types of Clerk webhook events
   switch (body.type) {
-    case 'user.created':
+    case "user.created":
       await handleUserCreated(body);
       break;
-    case 'user.updated':
+    case "user.updated":
       await handleUserUpdated(body);
       break;
-    case 'user.deleted':
+    case "user.deleted":
       await handleUserDeleted(body);
       break;
     default:
@@ -30,7 +30,7 @@ const handleWebhook = async (req, res) => {
       break;
   }
 
-  res.status(200).send('Webhook processed');
+  res.status(200).send("Webhook processed");
 };
 
 // Handle user creation webhook
@@ -38,7 +38,8 @@ const handleUserCreated = async (event) => {
   try {
     const { id, email, firstName, lastName } = event.data;
     const pool = await sql.connect(dbConfig);
-    await pool.request()
+    await pool
+      .request()
       .input("id", sql.VarChar, id)
       .input("name", sql.VarChar, `${firstName} ${lastName}`)
       .input("email", sql.VarChar, email)
@@ -48,7 +49,7 @@ const handleUserCreated = async (event) => {
       );
     console.log(`User ${id} created and added to database.`);
   } catch (error) {
-    console.error('Error processing user creation webhook:', error);
+    console.error("Error processing user creation webhook:", error);
   }
 };
 
@@ -57,7 +58,8 @@ const handleUserUpdated = async (event) => {
   try {
     const { id, email, firstName, lastName } = event.data;
     const pool = await sql.connect(dbConfig);
-    await pool.request()
+    await pool
+      .request()
       .input("id", sql.VarChar, id)
       .input("name", sql.VarChar, `${firstName} ${lastName}`)
       .input("email", sql.VarChar, email)
@@ -68,7 +70,7 @@ const handleUserUpdated = async (event) => {
       );
     console.log(`User ${id} updated in database.`);
   } catch (error) {
-    console.error('Error processing user update webhook:', error);
+    console.error("Error processing user update webhook:", error);
   }
 };
 
@@ -77,14 +79,13 @@ const handleUserDeleted = async (event) => {
   try {
     const { id } = event.data;
     const pool = await sql.connect(dbConfig);
-    await pool.request()
+    await pool
+      .request()
       .input("id", sql.VarChar, id)
-      .query(
-        `DELETE FROM Customers WHERE customerID = @id`
-      );
+      .query(`DELETE FROM Customers WHERE customerID = @id`);
     console.log(`User ${id} deleted from database.`);
   } catch (error) {
-    console.error('Error processing user deletion webhook:', error);
+    console.error("Error processing user deletion webhook:", error);
   }
 };
 
@@ -95,4 +96,3 @@ const validateSignature = (body, signature, secret) => {
 };
 
 module.exports = { handleWebhook };
-

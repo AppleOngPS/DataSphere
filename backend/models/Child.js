@@ -9,6 +9,7 @@ class Child {
     interest,
     preferredLunch,
     learningStyle,
+    specialNeeds,
     userID
   ) {
     this.childID = childID;
@@ -17,6 +18,7 @@ class Child {
     this.interest = interest;
     this.preferredLunch = preferredLunch;
     this.learningStyle = learningStyle;
+    this.specialNeeds = specialNeeds;
     this.userID = userID;
   }
 
@@ -38,11 +40,12 @@ class Child {
       .input("name", sql.VarChar, data.name)
       .input("school", sql.VarChar, data.school)
       .input("interest", sql.VarChar, data.interest)
-      .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
+      .input("preferredLunch", sql.VarChar, data.preferredLunch)
       .input("learningStyle", sql.VarChar, data.learningStyle || null)
+      .input("specialNeeds", sql.VarChar, data.specialNeeds || null)
       .input("userID", sql.Int, data.userID)
-      .query(`INSERT INTO Child (name, school, interest, preferredLunch, learningStyle, userID)
-              VALUES (@name, @school, @interest, @preferredLunch, @learningStyle, @userID);
+      .query(`INSERT INTO Child (name, school, interest, preferredLunch, learningStyle, specialNeeds, userID)
+              VALUES (@name, @school, @interest, @preferredLunch, @learningStyle, @specialNeeds, @userID);
               SELECT SCOPE_IDENTITY() AS childID;`);
     return result.recordset[0].childID;
   }
@@ -55,10 +58,12 @@ class Child {
       .input("childID", sql.Int, childID)
       .input("school", sql.VarChar, data.school)
       .input("interest", sql.VarChar, data.interest)
-      .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
+      .input("preferredLunch", sql.VarChar, data.preferredLunch)
       .input("learningStyle", sql.VarChar, data.learningStyle || null)
+      .input("specialNeeds", sql.VarChar, data.specialNeeds || null)
       .query(
-        `UPDATE Child SET school = @school, interest = @interest, preferredLunch = @preferredLunch, learningStyle = @learningStyle
+        `UPDATE Child SET school = @school, interest = @interest, preferredLunch = @preferredLunch, 
+                learningStyle = @learningStyle, specialNeeds = @specialNeeds
          WHERE childID = @childID`
       );
   }
