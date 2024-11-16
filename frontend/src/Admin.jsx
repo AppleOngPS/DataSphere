@@ -1,202 +1,36 @@
 
-// import React, { useState } from "react";
-// import "./Admin.css";
-// import adminProfilePic from "./assets/adminpfp.jpg"; // Adjust the path based on your project structure
-// import programmesData from "./Programmes"; // Import the programmes data
 
-// const Admin = () => {
-//   const [showProgrammes, setShowProgrammes] = useState(false); // Controls display of Manage Programmes section
-//   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Controls edit form visibility
-//   const [isAddModalOpen, setIsAddModalOpen] = useState(false); // Controls add form visibility
-//   const [selectedProgramme, setSelectedProgramme] = useState(null); // Stores the programme being edited
-//   const [programmes, setProgrammes] = useState(programmesData); // Stores the list of programmes
-
-//   // Function to open the edit form with the selected programme
-//   const handleEditClick = (programme) => {
-//     setSelectedProgramme(programme);
-//     setIsEditModalOpen(true);
-//   };
-
-//   // Function to close the edit form
-//   const closeEditModal = () => {
-//     setIsEditModalOpen(false);
-//     setSelectedProgramme(null);
-//   };
-
-//   // Function to open the add form
-//   const handleAddClick = () => {
-//     setIsAddModalOpen(true);
-//   };
-
-//   // Function to close the add form
-//   const closeAddModal = () => {
-//     setIsAddModalOpen(false);
-//   };
-
-//   // Function to handle adding a new programme
-//   const handleAddProgramme = (e) => {
-//     e.preventDefault();
-//     const newProgramme = {
-//       name: e.target.name.value,
-//       description: e.target.description.value,
-//     };
-//     setProgrammes([...programmes, newProgramme]);
-//     closeAddModal();
-//   };
-
-//   return (
-//     <div className="admin-dashboard">
-//       <Sidebar
-//         onDashboardClick={() => setShowProgrammes(false)}
-//         onManageProgrammesClick={() => setShowProgrammes(true)}
-//       />
-//       <div className="content-area">
-//         {showProgrammes ? (
-//           <>
-//             <h1>Manage Programmes</h1>
-
-//             {/* Add Programme Button */}
-//             <button className="add-button" onClick={handleAddClick}>
-//               Add Programme
-//             </button>
-
-//             {/* Programmes Table */}
-//             <table className="programmes-table">
-//               <thead>
-//                 <tr>
-//                   <th>Name</th>
-//                   <th>Description</th>
-//                   <th>Actions</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {programmes.map((programme, index) => (
-//                   <tr key={index}>
-//                     <td>{programme.name}</td>
-//                     <td>{programme.description}</td>
-//                     <td>
-//                       <button onClick={() => handleEditClick(programme)}>
-//                         Edit
-//                       </button>
-//                       <button>Delete</button>
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-
-//             {/* Modal for editing programme details */}
-//             {isEditModalOpen && selectedProgramme && (
-//               <div className="modal-overlay">
-//                 <div className="modal">
-//                   <h2>Edit Programme</h2>
-//                   <form>
-//                     <label>
-//                       Name:
-//                       <input
-//                         type="text"
-//                         value={selectedProgramme.name}
-//                         onChange={(e) =>
-//                           setSelectedProgramme({
-//                             ...selectedProgramme,
-//                             name: e.target.value,
-//                           })
-//                         }
-//                       />
-//                     </label>
-//                     <label>
-//                       Description:
-//                       <textarea
-//                         value={selectedProgramme.description}
-//                         onChange={(e) =>
-//                           setSelectedProgramme({
-//                             ...selectedProgramme,
-//                             description: e.target.value,
-//                           })
-//                         }
-//                       />
-//                     </label>
-//                     <button type="submit">Save</button>
-//                     <button type="button" onClick={closeEditModal}>
-//                       Cancel
-//                     </button>
-//                   </form>
-//                 </div>
-//               </div>
-//             )}
-
-//             {/* Modal for adding a new programme */}
-//             {isAddModalOpen && (
-//               <div className="modal-overlay">
-//                 <div className="modal">
-//                   <h2>Add Programme</h2>
-//                   <form onSubmit={handleAddProgramme}>
-//                     <label>
-//                       Name:
-//                       <input type="text" name="name" required />
-//                     </label>
-//                     <label>
-//                       Description:
-//                       <textarea name="description" required />
-//                     </label>
-//                     <button type="submit">Add</button>
-//                     <button type="button" onClick={closeAddModal}>
-//                       Cancel
-//                     </button>
-//                   </form>
-//                 </div>
-//               </div>
-//             )}
-//           </>
-//         ) : (
-//           <h1>Welcome to the Admin Dashboard</h1>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Sidebar = ({ onDashboardClick, onManageProgrammesClick }) => {
-//   return (
-//     <div className="sidebar">
-//       <div className="profile">
-//         <img
-//           src={adminProfilePic}
-//           alt="Admin Profile"
-//           className="profile-image"
-//         />
-//         <p className="profile-name">Name</p>
-//       </div>
-//       <nav className="nav-buttons">
-//         <button className="nav-button" onClick={onDashboardClick}>
-//           Dashboard
-//         </button>
-//         <button className="nav-button" onClick={onManageProgrammesClick}>
-//           Manage Programmes
-//         </button>
-//       </nav>
-//     </div>
-//   );
-// };
-
-// export default Admin;
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Admin.css";
 import adminProfilePic from "./assets/adminpfp.jpg"; // Adjust the path based on your project structure
-import programmesData from "./Programmes"; // Import the programmes data
 
 const Admin = () => {
   const [showProgrammes, setShowProgrammes] = useState(false); // Controls display of Manage Programmes section
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Controls edit form visibility
   const [isAddModalOpen, setIsAddModalOpen] = useState(false); // Controls add form visibility
   const [selectedProgramme, setSelectedProgramme] = useState(null); // Stores the programme being edited
-  const [programmes, setProgrammes] = useState(programmesData); // Stores the list of programmes
+  const [cards, setCards] = useState([]); // Stores the list of programme cards
 
-  // Function to open the edit form with the selected programme
-  const handleEditClick = (programme) => {
-    setSelectedProgramme(programme);
+  const programID = 1; // Assuming you want to retrieve data for program with ID 1
+
+  // Fetch programme cards when the component mounts
+  useEffect(() => {
+    fetchCards();
+  }, []);
+
+  const fetchCards = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/programs/${programID}/cards`);
+      const data = await response.json();
+      setCards(data);
+    } catch (error) {
+      console.error("Error fetching programme cards:", error);
+    }
+  };
+
+  // Function to open the edit form with the selected card
+  const handleEditClick = (card) => {
+    setSelectedProgramme(card);
     setIsEditModalOpen(true);
   };
 
@@ -216,54 +50,96 @@ const Admin = () => {
     setIsAddModalOpen(false);
   };
 
-  // Function to handle adding a new programme
-  const handleAddProgramme = (e) => {
+  // Function to handle adding a new programme card
+  const handleAddCard = (e) => {
     e.preventDefault();
-    const newProgramme = {
-      name: e.target.name.value,
+    const newCard = {
+      cardID: Date.now(), // Automatically generate a unique ID for new card
+      programID: programID,
+      cardName: e.target.cardName.value,
       description: e.target.description.value,
+      programPrice: e.target.programPrice.value,
+      originalPrice: e.target.originalPrice.value,
+      classSize: e.target.classSize.value,
+      duration: e.target.duration.value,
+      lunchProvided: e.target.lunchProvided.checked,
+      membershipBenefits: e.target.membershipBenefits.value,
     };
-    setProgrammes([...programmes, newProgramme]);
+    setCards([...cards, newCard]);
     closeAddModal();
+
+    // Send POST request to add the new card to the backend
+    fetch("http://localhost:3000/cards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCard),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.cardID) {
+          setCards([...cards, data]);
+        }
+      })
+      .catch((error) => console.error("Error adding card:", error));
   };
 
-  // Function to handle editing an existing programme
+  // Function to handle editing an existing card
   const handleEditSubmit = (e) => {
     e.preventDefault();
 
-    // Ensure selectedProgramme and its id are valid
-    if (!selectedProgramme || !selectedProgramme.id) {
-      console.error("Selected programme ID is missing.");
+    if (!selectedProgramme || !selectedProgramme.cardID) {
+      console.error("Selected card ID is missing.");
       return;
     }
 
-    const updatedProgramme = {
-      name: e.target.name.value,
+    const updatedCard = {
+      cardID: selectedProgramme.cardID,
+      programID: e.target.programID.value,
+      cardName: e.target.cardName.value,
       description: e.target.description.value,
+      programPrice: e.target.programPrice.value,
+      originalPrice: e.target.originalPrice.value,
+      classSize: e.target.classSize.value,
+      duration: e.target.duration.value,
+      lunchProvided: e.target.lunchProvided.checked,
+      membershipBenefits: e.target.membershipBenefits.value,
     };
 
-    // Send the updated programme data to the backend (PUT request)
-    fetch(`http://localhost:3000/programs/${selectedProgramme.id}`, {
+    fetch(`http://localhost:3000/cards/${selectedProgramme.cardID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedProgramme), // Only send name and description
+      body: JSON.stringify(updatedCard),
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data && data.id) {
-          // Update the local state with the updated programme
-          const updatedProgrammes = programmes.map((programme) =>
-            programme.id === data.id ? data : programme
+        if (data && data.cardID) {
+          const updatedCards = cards.map((card) =>
+            card.cardID === data.cardID ? data : card
           );
-          setProgrammes(updatedProgrammes); // Update the programmes list in state
-          closeEditModal(); // Close the edit modal
+          setCards(updatedCards);
+          closeEditModal();
         } else {
-          console.error("Failed to update programme. Invalid response:", data);
+          console.error("Failed to update card. Invalid response:", data);
         }
       })
-      .catch((error) => console.error("Error updating programme:", error));
+      .catch((error) => console.error("Error updating card:", error));
+  };
+
+  // Function to handle deleting a card
+  const handleDeleteClick = (cardID) => {
+    fetch(`http://localhost:3000/cards/${cardID}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          setCards(cards.filter((card) => card.cardID !== cardID));
+        }
+      })
+      .catch((error) => console.error("Error deleting card:", error));
   };
 
   return (
@@ -279,46 +155,67 @@ const Admin = () => {
 
             {/* Add Programme Button */}
             <button className="add-button" onClick={handleAddClick}>
-              Add Programme
+              Add Programme Card
             </button>
 
-            {/* Programmes Table */}
+            {/* Cards Table */}
             <table className="programmes-table">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>Card Name</th>
                   <th>Description</th>
+                  <th>Program Price</th>
+                  <th>Original Price</th>
+                  <th>Class Size</th>
+                  <th>Duration</th>
+                  <th>Lunch Provided</th>
+                  <th>Membership Benefits</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {programmes.map((programme, index) => (
+                {cards.map((card, index) => (
                   <tr key={index}>
-                    <td>{programme.name}</td>
-                    <td>{programme.description}</td>
+                    <td>{card.cardName}</td>
+                    <td>{card.description}</td>
+                    <td>{card.programPrice}</td>
+                    <td>{card.originalPrice}</td>
+                    <td>{card.classSize}</td>
+                    <td>{card.duration}</td>
+                    <td>{card.lunchProvided ? "Yes" : "No"}</td>
+                    <td>{card.membershipBenefits}</td>
                     <td>
-                      <button onClick={() => handleEditClick(programme)}>
-                        Edit
+                      <button onClick={() => handleEditClick(card)}>Edit</button>
+                      <button onClick={() => handleDeleteClick(card.cardID)}>
+                        Delete
                       </button>
-                      <button>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
 
-            {/* Modal for editing programme details */}
+            {/* Modal for editing card details */}
             {isEditModalOpen && selectedProgramme && (
               <div className="modal-overlay">
                 <div className="modal">
-                  <h2>Edit Programme</h2>
+                  <h2>Edit Programme Card</h2>
                   <form onSubmit={handleEditSubmit}>
                     <label>
-                      Name:
+                      Program ID:
                       <input
                         type="text"
-                        name="name"
-                        defaultValue={selectedProgramme.name}
+                        name="programID"
+                        defaultValue={selectedProgramme.programID}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Card Name:
+                      <input
+                        type="text"
+                        name="cardName"
+                        defaultValue={selectedProgramme.cardName}
                         required
                       />
                     </label>
@@ -327,6 +224,58 @@ const Admin = () => {
                       <textarea
                         name="description"
                         defaultValue={selectedProgramme.description}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Program Price:
+                      <input
+                        type="number"
+                        name="programPrice"
+                        defaultValue={selectedProgramme.programPrice}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Original Price:
+                      <input
+                        type="number"
+                        name="originalPrice"
+                        defaultValue={selectedProgramme.originalPrice}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Class Size:
+                      <input
+                        type="text"
+                        name="classSize"
+                        defaultValue={selectedProgramme.classSize}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Duration:
+                      <input
+                        type="text"
+                        name="duration"
+                        defaultValue={selectedProgramme.duration}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Lunch Provided:
+                      <input
+                        type="checkbox"
+                        name="lunchProvided"
+                        defaultChecked={selectedProgramme.lunchProvided}
+                      />
+                    </label>
+                    <label>
+                      Membership Benefits:
+                      <textarea
+                        name="membershipBenefits"
+                        defaultValue={selectedProgramme.membershipBenefits}
                         required
                       />
                     </label>
@@ -339,19 +288,43 @@ const Admin = () => {
               </div>
             )}
 
-            {/* Modal for adding a new programme */}
+            {/* Modal for adding a new programme card */}
             {isAddModalOpen && (
               <div className="modal-overlay">
                 <div className="modal">
-                  <h2>Add Programme</h2>
-                  <form onSubmit={handleAddProgramme}>
+                  <h2>Add Programme Card</h2>
+                  <form onSubmit={handleAddCard}>
                     <label>
-                      Name:
-                      <input type="text" name="name" required />
+                      Card Name:
+                      <input type="text" name="cardName" required />
                     </label>
                     <label>
                       Description:
                       <textarea name="description" required />
+                    </label>
+                    <label>
+                      Program Price:
+                      <input type="number" name="programPrice" required />
+                    </label>
+                    <label>
+                      Original Price:
+                      <input type="number" name="originalPrice" required />
+                    </label>
+                    <label>
+                      Class Size:
+                      <input type="text" name="classSize" required />
+                    </label>
+                    <label>
+                      Duration:
+                      <input type="text" name="duration" required />
+                    </label>
+                    <label>
+                      Lunch Provided:
+                      <input type="checkbox" name="lunchProvided" />
+                    </label>
+                    <label>
+                      Membership Benefits:
+                      <textarea name="membershipBenefits" required />
                     </label>
                     <button type="submit">Add</button>
                     <button type="button" onClick={closeAddModal}>
@@ -394,3 +367,4 @@ const Sidebar = ({ onDashboardClick, onManageProgrammesClick }) => {
 };
 
 export default Admin;
+
