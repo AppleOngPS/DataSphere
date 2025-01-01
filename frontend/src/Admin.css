@@ -71,6 +71,11 @@
   position: relative;
 }
 
+.programme-title{
+  color: black;
+ 
+}
+
 .submenu {
   position: absolute;
   top: 100%;
@@ -208,3 +213,4 @@
   color: white;
   margin-left: 10px;
 }
+
