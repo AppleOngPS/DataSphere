@@ -10,6 +10,18 @@ const getAllCardsByProgramId = async (req, res) => {
   }
 };
 
+const getAllProgrammeCards = async (req, res) => {
+  try {
+    // Call the static method to fetch all ProgrammeCards
+    const programmeCards = await ProgrammeCard.getAllProgrammeCards();
+    res.json(programmeCards); // Respond with the retrieved records
+  } catch (error) {
+    console.error("Error retrieving programme cards:", error);
+    res.status(500).json({ message: "Error retrieving programme cards" });
+  }
+};
+
+
 const getProgrammeCardById = async (req, res) => {
   try {
     const card = await ProgrammeCard.getProgrammeCardById(req.params.cardID);
@@ -32,13 +44,36 @@ const createProgrammeCard = async (req, res) => {
   }
 };
 
+// const updateProgrammeCard = async (req, res) => {
+//   try {
+//     await ProgrammeCard.updateProgrammeCard(req.params.cardID, req.body);
+//     res.json({ message: "Programme card updated successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Error updating programme card" });
+//   }
+// };
 const updateProgrammeCard = async (req, res) => {
+  const { cardID } = req.params;  // Get cardID from URL params
+  const updatedData = req.body;   // Get the updated data from the body of the request
+
+  console.log("Updating cardID:", cardID);  // Debugging: log the cardID to make sure it's correct
+  console.log("Updated data:", updatedData);  // Debugging: log the data to make sure it's correct
+
+  // Validation - Ensure the required fields are present
+  if (!updatedData.cardName || !updatedData.programPrice || !updatedData.duration || !updatedData.classSize) {
+    return res.status(400).json({ message: "Required fields are missing: cardName, programPrice, duration, classSize" });
+  }
+
   try {
-    await ProgrammeCard.updateProgrammeCard(req.params.cardID, req.body);
-    res.json({ message: "Programme card updated successfully" });
+    // Call the model function to update the ProgrammeCard
+    await ProgrammeCard.updateProgrammeCard(cardID, updatedData);
+
+    // Send a success response after updating the database
+    res.status(200).json({ message: "Programme card updated successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error updating programme card" });
+    console.error('Error updating programme card:', error);
+    res.status(500).json({ message: "Error updating programme card", error: error.message });
   }
 };
 
@@ -55,6 +90,7 @@ const deleteProgrammeCard = async (req, res) => {
 module.exports = {
   getAllCardsByProgramId,
   getProgrammeCardById,
+  getAllProgrammeCards,
   createProgrammeCard,
   updateProgrammeCard,
   deleteProgrammeCard,

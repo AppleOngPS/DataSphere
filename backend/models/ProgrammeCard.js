@@ -26,6 +26,23 @@ class ProgrammeCard {
     this.membershipBenefits = membershipBenefits;
   }
 
+
+//retreive all ProgrammeCards
+static async getAllProgrammeCards() {
+  const pool = await sql.connect(dbConfig);
+  try {
+    const result = await pool
+      .request()
+      .query("SELECT * FROM ProgrammeCard");
+    return result.recordset; // Return all records
+  } catch (error) {
+    console.error("Error retrieving programme cards:", error);
+    throw new Error("Database query failed");
+  } finally {
+    pool.close(); // Ensure the connection is closed
+  }
+}
+
   // Fetch a ProgrammeCard by ID
   static async getProgrammeCardById(cardID) {
     const pool = await sql.connect(dbConfig);
@@ -89,7 +106,7 @@ class ProgrammeCard {
          WHERE cardID = @cardID`
       );
   }
-
+  
   // Delete a ProgrammeCard by ID
   static async deleteProgrammeCard(cardID) {
     const pool = await sql.connect(dbConfig);

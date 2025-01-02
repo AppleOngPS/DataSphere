@@ -268,6 +268,7 @@ app.delete("/programs/:id", programController.deleteProgram);
 
 // ProgrammeCard Routes
 app.get("/programs/:programID/cards", programmeCardController.getAllCardsByProgramId);
+app.get("/cards", programmeCardController.getAllProgrammeCards);
 app.get("/cards/:cardID", programmeCardController.getProgrammeCardById);
 app.post("/cards", programmeCardController.createProgrammeCard);
 app.put("/cards/:cardID", programmeCardController.updateProgrammeCard);
