@@ -78,12 +78,16 @@ const updateProgrammeCard = async (req, res) => {
 };
 
 const deleteProgrammeCard = async (req, res) => {
+  const cardID = req.params.cardID;  // Get cardID from the URL parameter
+
   try {
-    await ProgrammeCard.deleteProgrammeCard(req.params.cardID);
-    res.json({ message: "Programme card deleted successfully" });
+    const result = await ProgrammeCard.deleteProgrammeCard(cardID);
+
+    // Send success response
+    res.json(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error deleting programme card" });
+    console.error("Error deleting programme card and related records:", error);
+    res.status(500).json({ message: "Error deleting programme card", error: error.message });
   }
 };
 

@@ -107,13 +107,59 @@ static async getAllProgrammeCards() {
       );
   }
   
-  // Delete a ProgrammeCard by ID
-  static async deleteProgrammeCard(cardID) {
+  
+   // Delete a ProgrammeCard by ID
+   static async deleteProgrammeCard(cardID) {
     const pool = await sql.connect(dbConfig);
-    await pool
-      .request()
-      .input("cardID", sql.Int, cardID)
-      .query("DELETE FROM ProgrammeCard WHERE cardID = @cardID");
+    const transaction = new sql.Transaction(pool);
+
+    try {
+      await transaction.begin(); // Begin the transaction
+
+      const request = new sql.Request(transaction);
+      request.input("cardID", sql.Int, cardID);
+
+      // Step 1: Delete dependent records in BookingDetails
+      await request.query(`
+        DELETE FROM dbo.BookingDetails
+        WHERE bookingID IN (
+          SELECT bookingID FROM dbo.Booking
+          WHERE scheduleID IN (
+            SELECT scheduleID FROM dbo.ProgramSchedule
+            WHERE cardID = @cardID
+          )
+        );
+      `);
+
+      // Step 2: Delete records in Booking
+      await request.query(`
+        DELETE FROM dbo.Booking
+        WHERE scheduleID IN (
+          SELECT scheduleID FROM dbo.ProgramSchedule
+          WHERE cardID = @cardID
+        );
+      `);
+
+      // Step 3: Delete records in ProgramSchedule
+      await request.query(`
+        DELETE FROM dbo.ProgramSchedule
+        WHERE cardID = @cardID;
+      `);
+
+      // Step 4: Delete the ProgrammeCard itself
+      await request.query(`
+        DELETE FROM dbo.ProgrammeCard
+        WHERE cardID = @cardID;
+      `);
+
+      // Commit the transaction if all queries succeed
+      await transaction.commit();
+
+      return { message: "Programme card and related records deleted successfully" };
+    } catch (error) {
+      await transaction.rollback(); // Rollback if any error occurs
+      throw new Error(`Error deleting programme card and related records: ${error.message}`);
+    }
   }
 }
 
