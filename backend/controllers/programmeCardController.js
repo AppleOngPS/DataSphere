@@ -34,15 +34,26 @@ const getProgrammeCardById = async (req, res) => {
   }
 };
 
+// const createProgrammeCard = async (req, res) => {
+//   try {
+//     const cardID = await ProgrammeCard.createProgrammeCard(req.body);
+//     res.status(201).json({ cardID });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Error creating programme card" });
+//   }
+// };
+// Create a new program
 const createProgrammeCard = async (req, res) => {
   try {
     const cardID = await ProgrammeCard.createProgrammeCard(req.body);
-    res.status(201).json({ cardID });
+    res.status(201).json({ cardID, message: "Programme card created successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error creating programme card" });
+    console.error("Error creating programme card:", error);
+    res.status(500).json({ message: `Error creating programme card: ${error.message}` });
   }
 };
+
 
 // const updateProgrammeCard = async (req, res) => {
 //   try {

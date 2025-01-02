@@ -64,9 +64,24 @@ static async getAllProgrammeCards() {
   }
 
   // Create a new ProgrammeCard
-  static async createProgrammeCard(data) {
-    const pool = await sql.connect(dbConfig);
+  // Create a new ProgrammeCard
+static async createProgrammeCard(data) {
+  const pool = await sql.connect(dbConfig);
+  
+  try {
+    // Check if the programID exists in the Program table
     const result = await pool
+      .request()
+      .input("programID", sql.Int, data.programID)
+      .query("SELECT COUNT(*) AS count FROM Program WHERE programID = @programID");
+
+    // If the programID doesn't exist, throw an error
+    if (result.recordset[0].count === 0) {
+      throw new Error(`Program with ID ${data.programID} does not exist.`);
+    }
+
+    // Proceed with inserting the ProgrammeCard if the programID is valid
+    const insertResult = await pool
       .request()
       .input("programID", sql.Int, data.programID)
       .input("cardName", sql.VarChar, data.cardName)
@@ -82,8 +97,14 @@ static async getAllProgrammeCards() {
          VALUES (@programID, @cardName, @description, @programPrice, @originalPrice, @classSize, @duration, @lunchProvided, @membershipBenefits);
          SELECT SCOPE_IDENTITY() AS cardID;`
       );
-    return result.recordset[0].cardID;
+
+    return insertResult.recordset[0].cardID;
+  } catch (error) {
+    console.error("Error creating programme card:", error);
+    throw new Error(`Error creating programme card: ${error.message}`);
   }
+}
+
 
   // Update a ProgrammeCard by ID
   static async updateProgrammeCard(cardID, data) {
