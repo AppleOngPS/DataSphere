@@ -63,10 +63,44 @@ const getProgrammeCardById = async (req, res) => {
   }
 };
 
+// const createProgrammeCard = async (req, res) => {
+//   try {
+//     const cardID = await ProgrammeCard.createProgrammeCard(req.body);
+//     res.status(201).json({ cardID, message: "Programme card created successfully" });
+//   } catch (error) {
+//     console.error("Error creating programme card:", error);
+//     res.status(500).json({ message: `Error creating programme card: ${error.message}` });
+//   }
+// };
 const createProgrammeCard = async (req, res) => {
   try {
-    const cardID = await ProgrammeCard.createProgrammeCard(req.body);
-    res.status(201).json({ cardID, message: "Programme card created successfully" });
+    // Create a new ProgrammeCard
+    const card = await ProgrammeCard.createProgrammeCard(req.body);
+    
+    // Prepare email content for the new card
+    const subject = `New Programme Card Created: ${req.body.cardName}`;
+    const text = `
+      A new programme card has been created:
+
+      Card Name: ${req.body.cardName}
+      Program ID: ${req.body.programID}
+      Price: $${req.body.programPrice}
+      Class Size: ${req.body.classSize}
+      Duration: ${req.body.duration}
+      Description: ${req.body.description}
+
+      Thank you for using our service!
+    `;
+
+    // Send the email notification to admin (or another recipient)
+    const recipientEmail = process.env.EMAIL_USER ; // Can be configured in .env
+    await sendEmail(recipientEmail, subject, text);
+
+    // Respond with a success message
+    res.status(201).json({
+      cardID: card.cardID,
+      message: "Programme card created successfully and email sent.",
+    });
   } catch (error) {
     console.error("Error creating programme card:", error);
     res.status(500).json({ message: `Error creating programme card: ${error.message}` });
