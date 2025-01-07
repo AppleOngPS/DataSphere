@@ -27,7 +27,10 @@ const Homepage = () => (
       <p>
         Learn Impactful Speaking Skills From Seasoned Speakers
         <h2>We make it longer lasting</h2>
-        <button className="cta-button">Learn How</button>
+        <a href="https://api.whatsapp.com/send/?phone=6581804413&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+  <button className="cta-button">Learn How</button>
+</a>
+
       </p>
     </div>
 

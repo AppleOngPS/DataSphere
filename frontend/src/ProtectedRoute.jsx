@@ -1,6 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { Navigate } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Check login status from localStorage
   const userId = localStorage.getItem("userId"); // Retrieve userId from localStorage
@@ -11,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
       <Navigate
         to="/login"
         replace
-        state={{ message: "Please create an account and log in first." }}
+        state={{ message: "Please log in to proceed to checkout." }}
       />
     );
   }
