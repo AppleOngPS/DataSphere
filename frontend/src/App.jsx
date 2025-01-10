@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Home from "./Home";
 import Homepage from "./homepage"; // Main homepage component
 import WorkshopPage from "./WorkshopPage"; // Import WorkshopPage
@@ -21,10 +26,16 @@ import ProfilePage from "./ProfilePage"; // Import ProfilePage
 import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
 
 function App() {
+  const location = useLocation();
+
+  // Define the routes where the Navbar should be hidden
+  const hideNavbarRoutes = ["/login", "/signup", "/auth"];
+  const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
+
   return (
-    <Router>
-      {/* Navbar will be present on all pages */}
-      <Navbar />
+    <div className="App">
+      {/* Conditionally render Navbar */}
+      {shouldShowNavbar && <Navbar />}
       <Routes>
         {/* Main homepage route */}
         <Route path="/" element={<Homepage />} />
@@ -70,8 +81,14 @@ function App() {
         {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />
       </Routes>
-    </Router>
+    </div>
   );
 }
 
-export default App;
+export default function Root() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

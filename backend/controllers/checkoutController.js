@@ -5,7 +5,7 @@ const createCheckoutSession = async (req, res) => {
 
   try {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["paynow"], // Use PayNow as the payment method
+      payment_method_types: ["paynow", "card"], // Use PayNow as the payment method
       mode: "payment",
       line_items: [
         {
