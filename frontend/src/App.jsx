@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Home from "./Home";
 import Homepage from "./homepage"; // Main homepage component
 import WorkshopPage from "./WorkshopPage"; // Import WorkshopPage
@@ -15,63 +20,76 @@ import CalendarPage from "./Calendar";
 import AdminPage from "./Admin"; // Import AdminPage
 import UserDashboard from "./UserDashboard";
 import Calendar from "./Calendar";
-
-// import usePageTracking from "./usePageTracking"; // Import the hook
-
-import {
-  RedirectToSignIn,
-  SignedOut,
-  SignIn,
-  SignUp,
-} from "@clerk/clerk-react";
+import SignUpPage from "./SignUpPage";
+import LoginPage from "./LoginPage";
+import Auth from "./Auth";
+import ProfilePage from "./ProfilePage"; // Import ProfilePage
+import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
 
 function App() {
-  // usePageTracking(); // Call the tracking hook
+  const location = useLocation();
+
+  // Define the routes where the Navbar should be hidden
+  const hideNavbarRoutes = ["/login", "/signup", "/auth"];
+  const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
+
   return (
-    <Router>
-      {/* Navbar will be present on all pages */}
-      <Navbar />
+    <div className="App">
+      {/* Conditionally render Navbar */}
+      {shouldShowNavbar && <Navbar />}
       <Routes>
-        <Route path="/" element={<Homepage />} />{" "}
-        {/* Sign-in and sign-up page */}
-        <Route
-          path="/sign-in"
-          element={
-            <SignedOut>
-              <SignIn path="/sign-in" routing="path" />
-            </SignedOut>
-          }
-        />
-        <Route
-          path="/sign-up"
-          element={
-            <SignedOut>
-              <SignUp path="/sign-up" routing="path" />
-            </SignedOut>
-          }
-        />
-        <Route path="/signUp" element={<Home />} />{" "}
-        <Route path="/homepage" element={<Homepage />} />{" "}
         {/* Main homepage route */}
+        <Route path="/" element={<Homepage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/auth" element={<Auth />} />
+        {/* Protected Routes */}
+        <Route
+          path="/adminDashboard"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/userDashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Other Pages */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/homepage" element={<Homepage />} />
         <Route path="/workshops" element={<WorkshopPage />} />
-        <Route path="/about" element={<AboutUs />} />{" "}
-        {/* Add this line for AboutUs */}
-        <Route path="/csr" element={<CSRPage />} />{" "}
-        {/* Add this line for CSR */}
-        <Route path="/blog" element={<Blog />} /> {/* Blog route */}
-        <Route path="/blog/:id" element={<BlogDetail />} />{" "}
-        {/* Dynamic route for blog details */}
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/news" element={<News />} /> {/* News route */}
-        <Route path="/news/:id" element={<NewsDetail />} />{" "}
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/csr" element={<CSRPage />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/checkout/:cardID" element={<BookingPage />} />
-        <Route path="/UserDashboard" element={<UserDashboard />} />
+        {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />
-        <Route path="*" element={<RedirectToSignIn />} />{" "}
-        {/* Redirect to sign-in if no match */}
       </Routes>
-    </Router>
+    </div>
   );
 }
 
-export default App;
+export default function Root() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

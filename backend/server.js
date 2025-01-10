@@ -4,7 +4,7 @@ const sql = require("mssql");
 const dbConfig = require("./dbConfig");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { clerkMiddleware, requireAuth } = require("@clerk/express");
+const { requireAuth } = require("@clerk/express");
 const { createCheckoutSession } = require("./controllers/checkoutController");
 const userController = require("./controllers/userController");
 const childController = require("./controllers/childController");
@@ -14,7 +14,10 @@ const programController = require("./controllers/programController");
 const programScheduleController = require("./controllers/programScheduleController");
 const programmeCardController = require("./controllers/programmeCardController");
 const webhookController = require("./controllers/webhookController"); // Import the webhook controller
-const { clerkClient } = require("@clerk/express"); // Import Clerk client to interact with Clerk's API
+const clerkClientMiddleware = require("./middlewares/clerkClientMiddleware"); // Import custom Clerk middleware
+const clerkController = require("./controllers/clerkController"); // Clerk-related controllers
+const loginController = require("./controllers/loginController");
+const { validateUser, schemas } = require("./middlewares/validateUser");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -109,18 +112,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // //   webhookController.handleWebhook
 // // );
 
-// Stripe Checkout Route (Authentication Required)
+// Apply the Clerk middleware globally
+// Route to sync Clerk users to your database
+
+app.post(
+  "/signup",
+  validateUser(schemas.register),
+  loginController.registerUser
+);
+app.post("/login", validateUser(schemas.login), loginController.login);
+
+// Stripe Checkout Route (No Authentication Required)
 app.post("/create-checkout-session", createCheckoutSession);
 
-// User Routes (Require Authentication)
-app.get("/users/:id", requireAuth(), userController.getUserById);
-app.post("/users", requireAuth(), userController.createUser);
-app.put("/users/:id", requireAuth(), userController.updateUser);
-app.delete("/users/:id", requireAuth(), userController.deleteUser);
+app.get("/users/:id/details", userController.getAllById);
+app.put("/users/:id", userController.updateUser);
+app.delete("/users/:id", userController.deleteUser);
+app.get("/users/email", userController.getEmailById);
+app.get("/users/username", userController.getUsernameById);
+app.get("/users/contact-number", userController.getContactNumberById);
+app.get("/users/lunch", userController.getLunchById);
+app.get("/users/:userID/role", userController.getRoleById);
 
 // Child Routes (No Authentication Required)
 app.get("/children/user/:userID", childController.getChildrenByUserID);
-app.post("/children", childController.createChild);
+app.post("/children/:userID", childController.createChild);
 app.put("/children/:id", childController.updateChild);
 app.delete("/children/:id", childController.deleteChild);
 
@@ -145,7 +161,7 @@ app.delete("/programs/:id", programController.deleteProgram);
 
 // ProgramSchedule Routes (No Authentication Required)
 app.get("/programSchedules", programScheduleController.getAllSchedules);
-app.get("/programSchedules/:id", programScheduleController.getScheduleById);
+app.get("/schedule/:cardID", programScheduleController.getScheduleByCardId);
 app.post("/programSchedules", programScheduleController.createSchedule);
 app.put("/programSchedules/:id", programScheduleController.updateSchedule);
 app.delete("/programSchedules/:id", programScheduleController.deleteSchedule);
