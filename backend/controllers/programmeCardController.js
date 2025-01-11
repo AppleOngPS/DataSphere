@@ -78,11 +78,13 @@ const createProgrammeCard = async (req, res) => {
     const card = await ProgrammeCard.createProgrammeCard(req.body);
     
     // Prepare email content for the new card
-    const subject = `New Programme Card Created: ${req.body.cardName}`;
+    const subject = `New Programme: ${req.body.cardName}`;
     const text = `
-      A new programme card has been created:
+    Dear Valued Customer,
 
-      Card Name: ${req.body.cardName}
+      We’re excited to announce the launch of our new program: ${req.body.cardName}.
+
+      Here are the details:
       Program ID: ${req.body.programID}
       Price: $${req.body.programPrice}
       Class Size: ${req.body.classSize}
@@ -90,6 +92,9 @@ const createProgrammeCard = async (req, res) => {
       Description: ${req.body.description}
 
       Thank you for using our service!
+
+      Best Regards,
+      The Team
     `;
 
     // Send the email notification to admin (or another recipient)
@@ -124,17 +129,24 @@ const updateProgrammeCard = async (req, res) => {
     await ProgrammeCard.updateProgrammeCard(cardID, updatedData);
 
     // Prepare email content
-    const subject = `Programme Card Updated: ${updatedData.cardName}`;
+    const subject = `Update Programme: ${updatedData.cardName}`;
     const text = `
-      The following programme card has been updated:
+    Dear Valued Customer,
 
-      Card Name: ${updatedData.cardName}
-      Program Price: ${updatedData.programPrice}
-      Duration: ${updatedData.duration}
-      Class Size: ${updatedData.classSize}
+    we are pleased to inform you that our programme has been updated: ${updatedData.cardName} 
+    The following programme card has been updated:
+
+      
+    Program Price: ${updatedData.programPrice}
+    Duration: ${updatedData.duration}
+    Class Size: ${updatedData.classSize}
+    Description: ${updatedData.description}
       
 
-      Thank you for using our service!
+    Thank you for using our service!
+
+    Best Regards,
+    The Team
     `;
 
     // Replace this with dynamic recipient email (e.g., fetched from the database)
