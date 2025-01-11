@@ -199,7 +199,9 @@ class ProgrammeCard {
     classSize,
     duration,
     lunchProvided,
-    membershipBenefits
+    membershipBenefits,
+    SubscriptionsID,
+    Email
   ) {
     this.cardID = cardID;
     this.programID = programID;
@@ -211,7 +213,25 @@ class ProgrammeCard {
     this.duration = duration;
     this.lunchProvided = lunchProvided;
     this.membershipBenefits = membershipBenefits;
+    this.SubscriptionsID = SubscriptionsID;
+    this.Email = Email;
   }
+
+  static async getAllEmail() {
+    const pool = await sql.connect(dbConfig);
+    try {
+      const result = await pool
+        .request()
+        .query("SELECT * FROM Subscriptions");
+      return result.recordset; // Return all records
+    } catch (error) {
+      console.error("Error retrieving Subscriptions details:", error);
+      throw new Error("Database query failed");
+    } finally {
+      pool.close(); // Ensure the connection is closed
+    }
+  }
+
 
 
 //retreive all ProgrammeCards
