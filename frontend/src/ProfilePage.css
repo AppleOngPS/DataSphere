@@ -32,6 +32,11 @@ select {
   font-size: 14px;
   border: 1px solid rgb(220, 175, 39);
   border-radius: 5px;
+  background: white;
+}
+
+input, select::placeholder {
+  color: #aaa; /* Placeholder text color (light gray) */
 }
 
 input:disabled,
