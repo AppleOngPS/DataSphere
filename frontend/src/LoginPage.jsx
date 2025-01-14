@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Auth.css";
+import Footer from "./Footer"; // Import Footer component
 import logo from "./assets/logo.png"; // Import the logo file
 
 function LoginPage() {
