@@ -3,6 +3,7 @@ require('dotenv').config();  // Load environment variables from .env file
 
 const nodemailer = require("nodemailer");
 const ProgrammeCard = require("../models/ProgrammeCard");
+const { getAllEmail } = require('../models/ProgrammeCard');  // Assuming getAllEmail is in ProgrammeCard model
 
 // Create Nodemailer transporter using environment variables
 const transporter = nodemailer.createTransport({
@@ -63,26 +64,19 @@ const getProgrammeCardById = async (req, res) => {
   }
 };
 
-// const createProgrammeCard = async (req, res) => {
-//   try {
-//     const cardID = await ProgrammeCard.createProgrammeCard(req.body);
-//     res.status(201).json({ cardID, message: "Programme card created successfully" });
-//   } catch (error) {
-//     console.error("Error creating programme card:", error);
-//     res.status(500).json({ message: `Error creating programme card: ${error.message}` });
-//   }
-// };
 const createProgrammeCard = async (req, res) => {
   try {
     // Create a new ProgrammeCard
     const card = await ProgrammeCard.createProgrammeCard(req.body);
     
     // Prepare email content for the new card
-    const subject = `New Programme Card Created: ${req.body.cardName}`;
+    const subject = `New Programme: ${req.body.cardName}`;
     const text = `
-      A new programme card has been created:
+    Dear Valued Customer,
 
-      Card Name: ${req.body.cardName}
+      We’re excited to announce the launch of our new program: ${req.body.cardName}.
+
+      Here are the details:
       Program ID: ${req.body.programID}
       Price: $${req.body.programPrice}
       Class Size: ${req.body.classSize}
@@ -90,16 +84,25 @@ const createProgrammeCard = async (req, res) => {
       Description: ${req.body.description}
 
       Thank you for using our service!
+
+      Best Regards,
+      The Team
     `;
 
-    // Send the email notification to admin (or another recipient)
-    const recipientEmail = process.env.EMAIL_USER ; // Can be configured in .env
-    await sendEmail(recipientEmail, subject, text);
+    // Fetch all email addresses from Subscriptions table
+    const emailAddresses = await getAllEmail();
+    
+    // Loop through all email addresses and send the email to each
+    for (let subscriber of emailAddresses) {
+      const recipientEmail = subscriber.email;  // Assuming 'email' is the column name in your Subscriptions table
+
+      await sendEmail(recipientEmail, subject, text);
+    }
 
     // Respond with a success message
     res.status(201).json({
       cardID: card.cardID,
-      message: "Programme card created successfully and email sent.",
+      message: "Programme card created successfully and email sent to all subscribers.",
     });
   } catch (error) {
     console.error("Error creating programme card:", error);
@@ -108,11 +111,11 @@ const createProgrammeCard = async (req, res) => {
 };
 
 const updateProgrammeCard = async (req, res) => {
-  const { cardID } = req.params;  // Get cardID from URL params
-  const updatedData = req.body;   // Get the updated data from the body of the request
+  const { cardID } = req.params;  
+  const updatedData = req.body;  
 
-  console.log("Updating cardID:", cardID);  // Debugging: log the cardID to make sure it's correct
-  console.log("Updated data:", updatedData);  // Debugging: log the data to make sure it's correct
+  console.log("Updating cardID:", cardID); 
+  console.log("Updated data:", updatedData);  
 
   // Validation - Ensure the required fields are present
   if (!updatedData.cardName || !updatedData.programPrice || !updatedData.duration || !updatedData.classSize) {
@@ -124,27 +127,36 @@ const updateProgrammeCard = async (req, res) => {
     await ProgrammeCard.updateProgrammeCard(cardID, updatedData);
 
     // Prepare email content
-    const subject = `Programme Card Updated: ${updatedData.cardName}`;
+    const subject = `Update Programme: ${updatedData.cardName}`;
     const text = `
-      The following programme card has been updated:
+    Dear Valued Customer,
 
-      Card Name: ${updatedData.cardName}
-      Program Price: ${updatedData.programPrice}
-      Duration: ${updatedData.duration}
-      Class Size: ${updatedData.classSize}
-      
+    We are pleased to inform you that our programme has been updated: ${updatedData.cardName}.
+    The following programme card has been updated:
 
-      Thank you for using our service!
+    Program Price: ${updatedData.programPrice}
+    Duration: ${updatedData.duration}
+    Class Size: ${updatedData.classSize}
+    Description: ${updatedData.description}
+
+    Thank you for using our service!
+
+    Best Regards,
+    The Team
     `;
 
-    // Replace this with dynamic recipient email (e.g., fetched from the database)
-    const recipientEmail = "ongapple1@gmail.com";  // Hardcoded email for now
+    // Fetch all email addresses from Subscriptions table
+    const emailAddresses = await getAllEmail();
+    
+    // Loop through all email addresses and send the email to each
+    for (let subscriber of emailAddresses) {
+      const recipientEmail = subscriber.email;  // Assuming 'email' is the column name in your Subscriptions table
 
-    // Send email to the recipient
-    await sendEmail(recipientEmail, subject, text);
+      await sendEmail(recipientEmail, subject, text);
+    }
 
     // Send success response after updating the database and sending the email
-    res.status(200).json({ message: "Programme card updated successfully and email sent." });
+    res.status(200).json({ message: "Programme card updated successfully and email sent to all subscribers." });
   } catch (error) {
     console.error('Error updating programme card:', error);
     res.status(500).json({ message: "Error updating programme card", error: error.message });
