@@ -9,7 +9,8 @@ class User {
     password,
     contactNumber,
     preferredLunch,
-    role
+    role,
+    subscribe,
   ) {
     this.userID = userID;
     this.userName = userName;
@@ -18,8 +19,10 @@ class User {
     this.contactNumber = contactNumber;
     this.preferredLunch = preferredLunch;
     this.role = role;
+    this.subscribe = subscribe;
   }
 
+  
   static async getAllById(userID) {
     try {
       const pool = await sql.connect(dbConfig);
@@ -198,6 +201,58 @@ class User {
       throw new Error("Database delete failed");
     }
   }
+  static async updateSubscriptionStatus(userID, subscribe) {
+    try {
+      const pool = await sql.connect(dbConfig);
+  
+      // Fetch the user's email from the 'endUser' table (assuming the email is stored there)
+      const userResult = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT email FROM dbo.endUser WHERE userID = @userID");
+  
+      if (userResult.recordset.length === 0) {
+        throw new Error("User not found");
+      }
+  
+      const email = userResult.recordset[0].email; // Get the user's email
+  
+      // Check if the user exists in the Subscriptions table
+      const checkUser = await pool
+        .request()
+        .input("userID", sql.Int, userID)
+        .query("SELECT COUNT(*) AS count FROM dbo.Subscriptions WHERE userID = @userID");
+  
+      if (checkUser.recordset[0].count === 0) {
+        // If userID does not exist in the Subscriptions table, insert a new record
+        await pool
+          .request()
+          .input("userID", sql.Int, userID)
+          .input("subscribe", sql.Bit, subscribe)
+          .input("email", sql.NVarChar, email) // Pass the email
+          .query("INSERT INTO dbo.Subscriptions (userID, subscribe, email) VALUES (@userID, @subscribe, @email)");
+  
+        console.log("New subscription record inserted for userID:", userID);
+      } else {
+        // If userID exists, update the subscription record
+        await pool
+          .request()
+          .input("userID", sql.Int, userID)
+          .input("subscribe", sql.Bit, subscribe)
+          .input("email", sql.NVarChar, email) // Pass the email
+          .query("UPDATE dbo.Subscriptions SET subscribe = @subscribe, email = @email WHERE userID = @userID");
+  
+        console.log("Subscription status updated for userID:", userID);
+      }
+  
+      return true; // Indicate success
+    } catch (error) {
+      console.error("Error in updateSubscriptionStatus:", error);
+      throw new Error("Database update failed");
+    }
+  }
+  
 }
+
 
 module.exports = User;

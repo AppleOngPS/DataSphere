@@ -16,6 +16,8 @@ const getAllById = async (req, res) => {
   }
 };
 
+
+//for endUser table
 const getEmailById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -121,6 +123,31 @@ const deleteUser = async (req, res) => {
   }
 };
 
+
+const updateSubscriptionStatus = async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id, 10); // Get userID from request params
+    const { subscribe } = req.body; // Get subscription status from request body
+
+    if (typeof subscribe !== "boolean") {
+      return res.status(400).json({ message: "Invalid subscription status" });
+    }
+
+    const success = await User.updateSubscriptionStatus(userId, subscribe);
+
+    if (success) {
+      return res.status(200).json({ message: "Subscription status updated successfully" });
+    } else {
+      return res.status(500).json({ message: "Failed to update subscription status" });
+    }
+  } catch (error) {
+    console.error("Error in updateSubscriptionStatus:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
 module.exports = {
   getAllById,
   getEmailById,
@@ -131,4 +158,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getRoleById,
+  updateSubscriptionStatus,
 };
+
