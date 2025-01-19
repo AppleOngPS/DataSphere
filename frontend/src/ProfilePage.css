@@ -1,0 +1,87 @@
+.profile-container {
+  background-color: rgb(255, 255, 255);
+  color: rgb(47, 69, 91);
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  color: rgb(44, 61, 78);
+  margin-bottom: 20px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-size: 14px;
+  text-align: left;
+  color: rgb(47, 69, 91);
+}
+
+input,
+select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid rgb(220, 175, 39);
+  border-radius: 5px;
+  background: white;
+}
+
+input, select::placeholder {
+  color: #aaa; /* Placeholder text color (light gray) */
+}
+
+input:disabled,
+select:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+.edit-button,
+.save-button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: rgb(220, 175, 39);
+  color: white;
+}
+
+.save-button {
+  background-color: rgb(47, 69, 91);
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: rgb(200, 160, 35);
+}
+
+.save-button:hover {
+  background-color: rgb(30, 50, 70);
+}
+
+.logout-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgb(220, 175, 39); /* Main Colour */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: rgb(47, 69, 91); /* Contrast of Main Colour */
+}
