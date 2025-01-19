@@ -33,10 +33,11 @@ class ProgrammeCard {
   static async getAllEmail() {
     const pool = await sql.connect(dbConfig);
     try {
+      // Modify the query to filter for subscribed users (subscribe = 1)
       const result = await pool
         .request()
-        .query("SELECT * FROM Subscriptions");
-      return result.recordset; // Return all records
+        .query("SELECT * FROM Subscriptions WHERE subscribe = 1");
+      return result.recordset; // Return only subscribed users
     } catch (error) {
       console.error("Error retrieving Subscriptions details:", error);
       throw new Error("Database query failed");
@@ -44,6 +45,7 @@ class ProgrammeCard {
       pool.close(); // Ensure the connection is closed
     }
   }
+  
 
 
 
