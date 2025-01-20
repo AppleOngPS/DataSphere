@@ -465,6 +465,7 @@ const UserDashboard = () => {
                         <th>School</th>
                         <th>Interest</th>
                         <th>Learning Style</th>
+                        <th>Preferred Lunch</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -475,6 +476,7 @@ const UserDashboard = () => {
                           <td>{child.school}</td>
                           <td>{child.interest}</td>
                           <td>{child.learningStyle}</td>
+                          <td>{child.preferredLunch}</td>
                           <td>
                             <button onClick={() => handleEditChild(child)}>Edit</button>
                             <button onClick={() => handleDeleteChild(child.childID)}>Delete</button>

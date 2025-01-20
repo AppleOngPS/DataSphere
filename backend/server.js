@@ -45,6 +45,9 @@ app.get("/users/username", userController.getUsernameById);
 app.get("/users/contact-number", userController.getContactNumberById);
 app.get("/users/lunch", userController.getLunchById);
 app.get("/users/:userID/role", userController.getRoleById);
+app.put("/users/:id/subscribe", userController.updateSubscriptionStatus); // Make sure it's correctly imported
+
+
 
 // Child Routes (No Authentication Required)
 app.get("/children/user/:userID", childController.getChildrenByUserID);

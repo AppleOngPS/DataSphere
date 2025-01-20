@@ -70,12 +70,27 @@ class Child {
 
   // Delete a child by ID
   static async deleteChild(childID) {
-    const pool = await sql.connect(dbConfig);
-    await pool
-      .request()
-      .input("childID", sql.Int, childID)
-      .query("DELETE FROM Child WHERE childID = @childID");
+    try {
+      const pool = await sql.connect(dbConfig);
+      
+      // Step 1: Delete the dependent records from BookingDetails where childID matches
+      await pool
+        .request()
+        .input("childID", sql.Int, childID)
+        .query("DELETE FROM BookingDetails WHERE childID = @childID");
+  
+      // Step 2: Delete the child record from Child table
+      await pool
+        .request()
+        .input("childID", sql.Int, childID)
+        .query("DELETE FROM Child WHERE childID = @childID");
+  
+    } catch (error) {
+      console.error("Error deleting child:", error);
+      throw error;
+    }
   }
+  
 }
 
 module.exports = Child;
