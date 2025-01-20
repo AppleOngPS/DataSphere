@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate to redirect
 import "./ProfilePage.css";
+import Footer from "./Footer.jsx"
 
 function ProfilePage() {
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
+    userName: "",
     contactNumber: "",
     preferredLunch: "",
   });
@@ -24,7 +25,7 @@ function ProfilePage() {
         const data = await response.json();
         setFormData({
           email: data.email || "",
-          username: data.userName || "",
+          userName: data.userName || "",
           contactNumber: data.contactNumber || "",
           preferredLunch: data.preferredLunch || "",
         });
@@ -85,14 +86,14 @@ function ProfilePage() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          disabled={!editMode}
-        />
+          disabled={true} // Email is always uneditable
+          />
 
         <label>Username</label>
         <input
           type="text"
-          name="username"
-          value={formData.username}
+          name="userName"
+          value={formData.userName}
           onChange={handleChange}
           disabled={!editMode}
         />
@@ -113,6 +114,7 @@ function ProfilePage() {
           onChange={handleChange}
           disabled={!editMode}
         >
+          <option value="">-- None --</option>
           <option value="Fish">Fish</option>
           <option value="Chicken">Chicken</option>
           <option value="Vegan">Vegan</option>
