@@ -171,6 +171,8 @@ function ProfilePage() {
     contactNumber: "",
     preferredLunch: "",
     subscribe: false, // Subscription status
+    age: "",
+    interest: "",
   });
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
@@ -191,6 +193,8 @@ function ProfilePage() {
           contactNumber: data.contactNumber || "",
           preferredLunch: data.preferredLunch || "",
           subscribe: data.subscribe || false, // Default to false if not provided
+          age: data.age || "",
+          interest: data.interest || "",
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -308,6 +312,24 @@ function ProfilePage() {
           <option value="Vegan">Vegan</option>
           <option value="Non-Vegan">Non-Vegan</option>
         </select>
+
+        <label>Age</label>
+        <input
+          type="text"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+          disabled={!editMode}
+        />
+
+        <label>Interest</label>
+        <input
+          type="text"
+          name="interest"
+          value={formData.interest}
+          onChange={handleChange}
+          disabled={!editMode}
+        />
 
         <label>
           <input

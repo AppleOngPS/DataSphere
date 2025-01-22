@@ -11,6 +11,8 @@ class User {
     preferredLunch,
     role,
     subscribe,
+    age,
+    interest,
   ) {
     this.userID = userID;
     this.userName = userName;
@@ -20,6 +22,8 @@ class User {
     this.preferredLunch = preferredLunch;
     this.role = role;
     this.subscribe = subscribe;
+    this.age = age;
+    this.interest = interest;
   }
 
   
@@ -124,9 +128,11 @@ class User {
         .input("password", sql.VarChar, data.password)
         .input("contactNumber", sql.VarChar, data.contactNumber)
         .input("preferredLunch", sql.VarChar, data.preferredLunch || null)
-        .input("role", sql.VarChar, data.role).query(`
+        .input("role", sql.VarChar, data.role)
+        .input("age", sql.Int, data.age || null)
+        .input("interest", sql.VarChar, data.interest || null).query(`
           INSERT INTO endUser (userName, email, password, contactNumber, preferredLunch, role)
-          VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role);
+          VALUES (@userName, @email, @password, @contactNumber, @preferredLunch, @role, @age, @interest);
           SELECT SCOPE_IDENTITY() AS userID;
         `);
       return result.recordset[0].userID;
@@ -172,6 +178,14 @@ class User {
       if (newUserData.role) {
         sqlQuery += `, role = @role`;
         request.input("role", sql.VarChar(10), newUserData.role);
+      }
+      if (newUserData.age) {
+        sqlQuery += `, age = @age`;
+        request.input("age", sql.Int, newUserData.age);
+      }
+      if (newUserData.interest) {
+        sqlQuery += `, interest = @interest`;
+        request.input("interest", sql.VarChar(255), newUserData.interest);
       }
       sqlQuery += ` WHERE userID = @userID`;
 
