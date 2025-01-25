@@ -162,14 +162,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
+import Footer from "./Footer.jsx"
 
 function ProfilePage() {
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
+    userName: "",
     contactNumber: "",
     preferredLunch: "",
     subscribe: false, // Subscription status
+    age: "",
+    interest: "",
   });
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
@@ -186,10 +189,12 @@ function ProfilePage() {
         const data = await response.json();
         setFormData({
           email: data.email || "",
-          username: data.userName || "",
+          userName: data.userName || "",
           contactNumber: data.contactNumber || "",
           preferredLunch: data.preferredLunch || "",
           subscribe: data.subscribe || false, // Default to false if not provided
+          age: data.age || "",
+          interest: data.interest || "",
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -273,14 +278,14 @@ function ProfilePage() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          disabled={!editMode}
-        />
+          disabled={true} // Email is always uneditable
+          />
 
         <label>Username</label>
         <input
           type="text"
-          name="username"
-          value={formData.username}
+          name="userName"
+          value={formData.userName}
           onChange={handleChange}
           disabled={!editMode}
         />
@@ -301,11 +306,30 @@ function ProfilePage() {
           onChange={handleChange}
           disabled={!editMode}
         >
+          <option value="">-- None --</option>
           <option value="Fish">Fish</option>
           <option value="Chicken">Chicken</option>
           <option value="Vegan">Vegan</option>
           <option value="Non-Vegan">Non-Vegan</option>
         </select>
+
+        <label>Age</label>
+        <input
+          type="text"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+          disabled={!editMode}
+        />
+
+        <label>Interest</label>
+        <input
+          type="text"
+          name="interest"
+          value={formData.interest}
+          onChange={handleChange}
+          disabled={!editMode}
+        />
 
         <label>
           <input

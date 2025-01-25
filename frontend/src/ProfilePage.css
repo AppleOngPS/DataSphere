@@ -33,6 +33,7 @@ select {
   border: 1px solid rgb(220, 175, 39);
   border-radius: 5px;
   background: white;
+  color: black;
 }
 
 input, select::placeholder {
