@@ -1,13 +1,20 @@
+// module.exports = Booking;
 const sql = require("mssql");
 const dbConfig = require("../dbConfig");
 
 class Booking {
-  constructor(bookingID, programQuantity, userID, scheduleID, totalAmount) {
+  constructor(bookingID, programQuantity, userID, scheduleID, totalAmount, notified, customerEmail, customerName, Name, bookingDate, startTime) {
     this.bookingID = bookingID;
     this.programQuantity = programQuantity;
     this.userID = userID;
     this.scheduleID = scheduleID;
     this.totalAmount = totalAmount;
+    this.notified = notified;
+    this.customerEmail = customerEmail;
+    this.customerName = customerName;
+    this.Name = Name;
+    this.bookingDate = bookingDate;
+    this.startTime = startTime;
   }
 
   // Create a new booking with scheduleID and check slot availability
@@ -109,6 +116,42 @@ class Booking {
         `UPDATE ProgramSchedule SET slotCount = GREATEST(0, slotCount - @programQuantity) 
          WHERE scheduleID = @scheduleID`
       );
+  }
+
+  // Get bookings for reminders
+  static async getBookingsForReminder() {
+    const pool = await sql.connect(dbConfig);
+    const query = `
+      SELECT 
+        b.bookingID, 
+        e.userName AS customerName,  -- Now using userName from endUser table
+        e.email AS customerEmail,  -- Added email from endUser table
+        pc.cardName AS serviceName,  
+        ps.startDate
+      FROM dbo.Booking b
+      INNER JOIN dbo.ProgramSchedule ps 
+        ON b.scheduleID = ps.scheduleID
+      INNER JOIN dbo.ProgrammeCard pc
+        ON ps.cardID = pc.cardID
+      INNER JOIN dbo.endUser e  -- Added join with endUser to get customer details
+        ON b.userID = e.userID
+      WHERE 
+        b.notified = 0 
+        AND ps.startDate = CAST(DATEADD(DAY, 3, GETDATE()) AS DATE)
+    `;
+    const result = await pool.request().query(query);
+    return result.recordset;  // Return the result of the query
+  }
+
+  // Mark a booking as notified
+  static async markAsNotified(bookingID) {
+    const pool = await sql.connect(dbConfig);
+    const query = `
+      UPDATE dbo.Booking
+      SET notified = 1
+      WHERE bookingID = @bookingID
+    `;
+    await pool.request().input("bookingID", sql.Int, bookingID).query(query);
   }
 }
 
