@@ -18,6 +18,9 @@ const clerkClientMiddleware = require("./middlewares/clerkClientMiddleware"); //
 const clerkController = require("./controllers/clerkController"); // Clerk-related controllers
 const loginController = require("./controllers/loginController");
 const { validateUser, schemas } = require("./middlewares/validateUser");
+const { sendBookingReminders } = require('./controllers/bookingController');  // Correct path
+
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -60,6 +63,7 @@ app.post("/bookings", bookingController.createBooking);
 app.get("/bookings/user/:userID", bookingController.getAllBookingsForUser);
 app.delete("/bookings/:bookingID", bookingController.deleteBooking);
 
+
 // BookingDetails Routes (No Authentication Required)
 app.post("/bookingDetails", bookingDetailsController.createBookingDetail); // Create a new booking detail
 app.get(
@@ -92,11 +96,17 @@ app.post("/cards", programmeCardController.createProgrammeCard);
 app.put("/cards/:cardID", programmeCardController.updateProgrammeCard);
 app.delete("/cards/:cardID", programmeCardController.deleteProgrammeCard);
 
+
+
+
+
 // Start server and connect to the database
 app.listen(port, async () => {
   try {
     await sql.connect(dbConfig);
     console.log("Database connection established successfully");
+    // Trigger the reminder check as soon as the server starts
+  await sendBookingReminders();  // Call the reminder function immediately
   } catch (err) {
     console.error("Database connection error:", err);
     process.exit(1); // Exit with code 1 indicating an error
