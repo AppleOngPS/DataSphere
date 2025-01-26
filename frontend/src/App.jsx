@@ -25,6 +25,7 @@ import LoginPage from "./LoginPage";
 import Auth from "./Auth";
 import ProfilePage from "./ProfilePage"; // Import ProfilePage
 import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
+import MembershipPage from "./membership";
 
 function App() {
   const location = useLocation();
@@ -79,6 +80,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/checkout/:cardID" element={<BookingPage />} />
+        <Route path="/membership" element={<MembershipPage />} />
         {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />
       </Routes>
