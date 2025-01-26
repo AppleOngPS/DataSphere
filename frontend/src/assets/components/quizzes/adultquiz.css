@@ -1,0 +1,70 @@
+/* Button Hover Effect */
+button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Heading Styles */
+  h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem; /* Use relative units for font size */
+  }
+  
+  h2 {
+    margin: 20px 0;
+    color: #555;
+    font-size: 1.5rem; /* Relative font size */
+  }
+  
+  /* Buttons */
+  button {
+    width: 100%; /* Make buttons take full width on smaller screens */
+    max-width: 300px; /* Limit button width on larger screens */
+    margin: 10px auto; /* Center buttons */
+    display: block;
+  }
+  
+  /* Responsive Layout */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.8rem; /* Adjust heading size for tablets */
+    }
+  
+    h2 {
+      font-size: 1.2rem; /* Adjust subheading size */
+    }
+  
+    button {
+      font-size: 1rem; /* Slightly smaller button text */
+      padding: 8px 16px; /* Adjust padding */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.5rem; /* Smaller heading for mobile */
+    }
+  
+    h2 {
+      font-size: 1rem; /* Smaller subheading */
+    }
+  
+    button {
+      font-size: 0.9rem; /* Even smaller button text */
+      padding: 6px 12px; /* Reduced padding for mobile */
+    }
+
+    /* Adjust padding and spacing for mobile screens */
+  @media (max-width: 768px) {
+    .progress-bar {
+    margin-bottom: 10px;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+  }
+  

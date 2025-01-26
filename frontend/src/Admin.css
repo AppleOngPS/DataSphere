@@ -1,0 +1,273 @@
+/* Overall Admin Dashboard Layout */
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  margin: 0;
+  margin-top: 30px;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background-color: #2f3e4d;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-bottom: 15px;
+}
+
+.profile-name {
+  background-color: #666;
+  padding: 8px 15px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.nav-button {
+  width: 100%;
+  background-color: #ffeb7a;
+  color: #333;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  padding: 15px 0;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #e6db79;
+}
+
+/* MAIN CONTENT AREA */
+.content-area {
+  flex: 1;
+  padding: 20px 40px;
+}
+
+/* WELCOME SECTION */
+.welcome-section {
+  background-color: #fff;
+  padding: 30px 40px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-section h1 {
+  font-size: 2rem;
+  color: #1d3557;
+  margin-bottom: 10px;
+}
+
+.welcome-section p {
+  font-size: 1rem;
+  color: #495057;
+  margin: 0;
+}
+
+/* HEADINGS */
+.content-area h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #1d3557;
+  font-weight: bold;
+}
+
+.section-block h3 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: #1d3557;
+  font-weight: bold;
+}
+
+/* CREATE BUTTON STYLING */
+.create-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin: 20px 0;
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
+
+/* FORMS */
+.form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-block input,
+.form-block textarea {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+}
+
+.save-button {
+  background-color: #28a745;
+  color: #fff;
+  border-radius: 6px;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #333;
+  border-radius: 6px;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #999;
+}
+
+/* CARD GRIDS */
+.programme-cards,
+.program-cards {
+  display: grid;
+  /* Adjust minmax width as you like to control how many cards appear per row */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px; /* Controls spacing between cards */
+  margin-bottom: 40px;
+}
+
+/* CARDS */
+.programme-card,
+.program-card {
+  background-color: #fff;
+  border: 1px solid #d6e4f0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.programme-card h3,
+.program-card h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2b6cb0;
+  margin-bottom: 8px;
+}
+
+.programme-card p,
+.program-card p {
+  font-size: 0.95rem;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Buttons in each card */
+.programme-card .button-row,
+.program-card .button-row {
+  margin-top: 10px;
+}
+
+.programme-card button,
+.program-card button {
+  background-color: #000;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.programme-card button:hover,
+.program-card button:hover {
+  background-color: #333;
+}
+
+/* IMAGES */
+.program-image img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .profile-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-button {
+    font-size: 0.9rem;
+  }
+
+  .content-area {
+    padding: 20px;
+  }
+
+  /* Make the card grid single-column on very small screens */
+  .programme-cards,
+  .program-cards {
+    grid-template-columns: 1fr;
+  }
+}
