@@ -1,0 +1,38 @@
+.quiz-transition-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .quiz-transition-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+  }
+  .quiz-transition-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .quiz-transition-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }
+  
+  .quiz-content {
+    width: 100%;
+    max-width: 600px; /* Set a maximum width for quiz content */
+    margin: 0 auto; /* Center the content */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  @media (max-width: 768px) {
+    .quiz-content {
+      padding: 15px; /* Reduce padding for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .quiz-content {
+      padding: 10px; /* Further reduce padding for mobile screens */
+    }
+  }
