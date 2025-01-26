@@ -5,6 +5,8 @@ import "./homepage.css"; // Ensure this CSS aligns with your design style
 // eslint-disable-next-line no-unused-vars
 import homeImage from "./assets/home.png"; // Import the main image
 import Footer from "./Footer"; // Import the Footer component
+import WatsonChat from "./WatsonChat"; // Import WatsonChat
+
 
 // Import each logo (replace with actual paths if available)
 import fundigoLogo from "./assets/fundigo.png";
@@ -206,6 +208,8 @@ const Homepage = () => (
       {/* Add Footer component here */}
       <Footer />
     </div>
+      {/* Add WatsonChat here */}
+      <WatsonChat />
   </div>
 );
 
