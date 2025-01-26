@@ -14,11 +14,13 @@ const programController = require("./controllers/programController");
 const programScheduleController = require("./controllers/programScheduleController");
 const programmeCardController = require("./controllers/programmeCardController");
 // const webhookController = require("./controllers/webhookController"); // Import the webhook controller
-const clerkClientMiddleware = require("./middlewares/clerkClientMiddleware"); // Import custom Clerk middleware
-const clerkController = require("./controllers/clerkController"); // Clerk-related controllers
+// const clerkClientMiddleware = require("./middlewares/clerkClientMiddleware"); // Import custom Clerk middleware
+// const clerkController = require("./controllers/clerkController"); // Clerk-related controllers
 const loginController = require("./controllers/loginController");
 const { validateUser, schemas } = require("./middlewares/validateUser");
 const { sendBookingReminders } = require('./controllers/bookingController');  // Correct path
+
+const reportRoutes = require("./routes/reportRoutes");
 
 
 
@@ -96,6 +98,46 @@ app.post("/cards", programmeCardController.createProgrammeCard);
 app.put("/cards/:cardID", programmeCardController.updateProgrammeCard);
 app.delete("/cards/:cardID", programmeCardController.deleteProgrammeCard);
 
+
+
+// Route for tracking events
+const trackingController = require("./controllers/TrackingController");
+app.post("/track", trackingController.logUserEvent);
+app.post("/track/:id", trackingController.logUserEvent);
+app.get("/analytics", trackingController.getTrackingData);
+
+// AI Suggestions Route
+app.post("/ai/suggestions", async (req, res) => {
+  const { data } = req.body;
+  if (!data) {
+    return res.status(400).json({ message: "No data provided" });
+  }
+  try {
+    const insights = generateInsights(data);
+    res.status(200).json({ suggestion: insights });
+  } catch (error) {
+    res.status(500).json({ message: "Error generating insights", error: error.message });
+  }
+});
+
+const generateInsights = (data) => {
+  if (!data.length) return "No data available yet. Encourage more user activity!";
+  const totalEvents = data.length;
+  const uniqueUsers = new Set(data.map((item) => item.userID)).size;
+
+  return `Total events: ${totalEvents}. Unique users: ${uniqueUsers}. Focus on engaging inactive users.`;
+};
+
+// Quiz Routes
+const quizController = require("./controllers/quizController");
+app.get("/quizzes", quizController.getAllQuizzes); // Fetch all quizzes
+app.get("/quizzes/:quizID", quizController.getQuizByID); // Fetch a specific quiz
+app.post("/quizzes/:quizID/results", quizController.submitQuizResults); // Submit quiz results
+app.get("/quiz-results/user/:userID", quizController.getQuizResultsByUser);
+
+
+// Report routes
+app.use("/reports", reportRoutes);
 
 
 

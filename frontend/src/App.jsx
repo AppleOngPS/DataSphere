@@ -4,6 +4,9 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import QuizSelector from "./assets/components/quizzes/quizselector.jsx"; // Import QuizSelector
+import usePageTracking from "./usePageTracking";
+import useGoogleAnalytics from "./js/useGoogleAnalytics";
 import Home from "./Home";
 import Homepage from "./homepage"; // Main homepage component
 import WorkshopPage from "./WorkshopPage"; // Import WorkshopPage
@@ -87,11 +90,20 @@ function App() {
     </div>
   );
 }
+// Wrapper to initialize Google Analytics and page tracking
+function GoogleAnalyticsWrapper({ children }) {
+  useGoogleAnalytics(); // Make sure to call the hook
+  usePageTracking(); // Make sure to call the hook
+  return children;
+}
 
 export default function Root() {
   return (
     <Router>
-      <App />
+      <GoogleAnalyticsWrapper>
+        <App />
+      </GoogleAnalyticsWrapper>
     </Router>
   );
 }
+
