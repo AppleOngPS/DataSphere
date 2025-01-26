@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6GLHWZQSH"></script>
+    <script>
+      (function initializeAnalytics() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+      
+        // Get user data from localStorage
+        const userID = localStorage.getItem("userId") || "GUEST_USER";
+        const userName = localStorage.getItem("userName") || "Anonymous";
+        const userInterest = localStorage.getItem("userInterest") || "Unknown";
+        const userAge = localStorage.getItem("userAge") || "Unknown";
+      
+        console.log("User Properties:", {
+          userID,
+          userName,
+          userInterest,
+          userAge,
+        });
+      
+        // Initialize GA
+        gtag("js", new Date());
+        gtag("config", "G-D6GLHWZQSH", {
+          debug_mode: true,
+          user_id: userID,
+          user_properties: {
+            username: userName,
+            interest: userInterest,
+            age: userAge,
+          },
+        });
+      })();
+      
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
