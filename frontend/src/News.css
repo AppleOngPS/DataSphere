@@ -1,7 +1,11 @@
 .news-page {
-  max-width: 1000px;
-  margin: 0 auto;
   padding: 2rem;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  background-color: #f8fafc; /* Light background */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
 }
 
 .news-header {
@@ -11,74 +15,63 @@
 
 .news-articles {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
   justify-content: center;
+  margin-top: 2rem;
 }
 
 .news-article {
-  background-color: #f4f6fb;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s ease;
-  width: 300px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 320px;
   text-align: center;
   cursor: pointer;
 }
 
 .news-article:hover {
-  transform: scale(1.03);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .article-image {
   width: 100%;
-  height: auto;
+  height: 330px; /* Consistent height for the image */
+  object-fit: cover; /* Ensure the image fits nicely */
+  border-radius: 15px 15px 0 0; /* Rounded top corners */
 }
 
 .article-info {
-  padding: 1rem;
+  padding: 1.5rem;
+  text-align: left;
 }
 
 .article-title {
-  font-size: 1.2rem;
-  color: #2e3a59;
-  margin-top: 0.5rem;
+  font-size: 1.3rem;
+  color: #2c3e50;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .article-date,
 .article-source {
   display: block;
-  color: #6b7c93;
+  color: #7f8c8d;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
 .article-read-time {
-  color: #333;
+  color: #34495e;
   font-size: 0.9rem;
 }
 
-.footer {
-  text-align: center;
-  padding: 1.5rem 0;
-  border-top: 1px solid #eaeaea;
-  margin-top: 2rem;
-}
-
-.footer-nav a,
-.social-media a {
-  color: #2e3a59;
-  margin: 0 0.5rem;
-  text-decoration: none;
-}
-
-.footer-nav a:hover,
-.social-media a:hover {
-  text-decoration: underline;
-}
-
-.mindsphere-logo {
-  max-width: 150px;
+.article-source {
+  background-color: #eaf2f8;
+  color: #3498db;
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: bold;
   margin-bottom: 1rem;
 }
