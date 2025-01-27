@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
-import Footer from "./Footer.jsx"
+import Footer from "./Footer.jsx";
 
 function ProfilePage() {
   const [formData, setFormData] = useState({
@@ -57,13 +57,16 @@ function ProfilePage() {
   const handleSubscriptionChange = async () => {
     const userId = localStorage.getItem("userId");
     try {
-      const response = await fetch(`http://localhost:3000/users/${userId}/subscribe`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ subscribe: !formData.subscribe }), // Toggle the subscription
-      });
+      const response = await fetch(
+        `http://localhost:3000/users/${userId}/subscribe`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ subscribe: !formData.subscribe }), // Toggle the subscription
+        }
+      );
       if (response.ok) {
         alert("Subscription status updated!");
         setFormData((prev) => ({
@@ -108,8 +111,22 @@ function ProfilePage() {
     navigate("/login");
   };
 
+  const Sidebar = () => (
+    <div className="sidebar">
+      <ul>
+        <li>
+          <i class="fa fa-cog"></i> Overview
+        </li>
+        <li>
+          <i class="fa fa-user"></i> Membership
+        </li>
+      </ul>
+    </div>
+  );
+
   return (
     <div className="profile-container">
+      <Sidebar />
       <h2>User Settings</h2>
       <form onSubmit={handleSubmit} className="profile-form">
         <label>Email</label>
@@ -119,7 +136,7 @@ function ProfilePage() {
           value={formData.email}
           onChange={handleChange}
           disabled={true} // Email is always uneditable
-          />
+        />
 
         <label>Username</label>
         <input
@@ -194,7 +211,6 @@ function ProfilePage() {
           </button>
         )}
       </form>
-
       <button onClick={handleLogout} className="logout-button">
         Log Out
       </button>
