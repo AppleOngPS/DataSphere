@@ -31,7 +31,9 @@ const UserDashboard = () => {
     // Fetch user-related data dynamically
     const fetchUserData = async () => {
       try {
-        const userResponse = await axios.get(`http://localhost:3000/user/${userID}`);
+        const userResponse = await axios.get(
+          `http://localhost:3000/user/${userID}`
+        );
         const user = userResponse.data;
 
         // Store user data in localStorage
@@ -59,11 +61,12 @@ const UserDashboard = () => {
     // Fetch children, bookings, and quizzes
     const fetchData = async () => {
       try {
-        const [childrenResponse, bookingsResponse, quizzesResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/children/user/${userID}`),
-          axios.get(`http://localhost:3000/bookings/user/${userID}`),
-          axios.get(`http://localhost:3000/quizzes`),
-        ]);
+        const [childrenResponse, bookingsResponse, quizzesResponse] =
+          await Promise.all([
+            axios.get(`http://localhost:3000/children/user/${userID}`),
+            axios.get(`http://localhost:3000/bookings/user/${userID}`),
+            axios.get(`http://localhost:3000/quizzes`),
+          ]);
 
         setChildrenData(childrenResponse.data);
         setBookingsData(bookingsResponse.data);
@@ -118,7 +121,10 @@ const UserDashboard = () => {
     try {
       if (editingChildID) {
         // Update child
-        await axios.put(`http://localhost:3000/children/${editingChildID}`, childData);
+        await axios.put(
+          `http://localhost:3000/children/${editingChildID}`,
+          childData
+        );
         setSuccess("Child updated successfully!");
       } else {
         // Add new child
@@ -127,7 +133,9 @@ const UserDashboard = () => {
       }
 
       // Refresh children data
-      const response = await axios.get(`http://localhost:3000/children/user/${userID}`);
+      const response = await axios.get(
+        `http://localhost:3000/children/user/${userID}`
+      );
       setChildrenData(response.data);
 
       resetForm();
@@ -154,7 +162,9 @@ const UserDashboard = () => {
       setSuccess("Child deleted successfully!");
 
       // Refresh children data
-      const response = await axios.get(`http://localhost:3000/children/user/${userID}`);
+      const response = await axios.get(
+        `http://localhost:3000/children/user/${userID}`
+      );
       setChildrenData(response.data);
     } catch (err) {
       setError("Error deleting child.");
@@ -168,7 +178,11 @@ const UserDashboard = () => {
         <div className="dashboard-grid">
           <aside className="sidebar">
             <div className="profile">
-              <img src="profile-placeholder.png" alt="User" className="profile-pic" />
+              <img
+                src="profile-placeholder.png"
+                alt="User"
+                className="profile-pic"
+              />
               <h3>User</h3>
               <p>{localStorage.getItem("userEmail")}</p>
             </div>
@@ -208,10 +222,12 @@ const UserDashboard = () => {
                         <strong>Booking ID:</strong> {booking.bookingID}
                       </p>
                       <p>
-                        <strong>Program Quantity:</strong> {booking.programQuantity}
+                        <strong>Program Quantity:</strong>{" "}
+                        {booking.programQuantity}
                       </p>
                       <p>
-                        <strong>Total Amount:</strong> ${booking.totalAmount.toFixed(2)}
+                        <strong>Total Amount:</strong> $
+                        {booking.totalAmount.toFixed(2)}
                       </p>
                     </div>
                   ))}
@@ -235,20 +251,23 @@ const UserDashboard = () => {
               </div>
             )}
 
-
             {activeSection === "child" && (
               <div>
                 <h1>Child Dashboard</h1>
                 <div className="overview-cards">
                   <button
                     onClick={() => handleChildViewChange("add")}
-                    className={`card purple ${activeChildView === "add" ? "active" : ""}`}
+                    className={`card purple ${
+                      activeChildView === "add" ? "active" : ""
+                    }`}
                   >
                     Add/Edit Child
                   </button>
                   <button
                     onClick={() => handleChildViewChange("delete")}
-                    className={`card orange ${activeChildView === "delete" ? "active" : ""}`}
+                    className={`card orange ${
+                      activeChildView === "delete" ? "active" : ""
+                    }`}
                   >
                     Delete Child
                   </button>
@@ -345,8 +364,14 @@ const UserDashboard = () => {
                           <td>{child.learningStyle}</td>
                           <td>{child.preferredLunch}</td>
                           <td>
-                            <button onClick={() => handleEditChild(child)}>Edit</button>
-                            <button onClick={() => handleDeleteChild(child.childID)}>Delete</button>
+                            <button onClick={() => handleEditChild(child)}>
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteChild(child.childID)}
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       ))}
@@ -359,7 +384,8 @@ const UserDashboard = () => {
             {activeSection === "quiz" && (
               <div>
                 <h1>Quiz Selector</h1>
-                <QuizSelector quizzes={quizData} /> {/* Render QuizSelector with quiz data */}
+                <QuizSelector quizzes={quizData} />{" "}
+                {/* Render QuizSelector with quiz data */}
                 <ChildrenQuiz userID={userID} refresh={childrenData} />
               </div>
             )}
