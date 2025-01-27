@@ -19,7 +19,6 @@
 
 /* Wrapper to Center Content */
 .dashboard-wrapper {
-  max-width: 1400px; /* Reducing the max-width for better centering */
   display: flex;
   flex-direction: column;
 }
