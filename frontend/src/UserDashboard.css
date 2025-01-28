@@ -24,6 +24,26 @@
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;
+  max-width: 1600px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent content overflow */
+  z-index: 1; /* Set a high layer for the wrapper */
+  position: relative; /* Prevent stacking conflicts */
+}
+
+/* Fix for Overlapping Layers */
+.dashboard-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1; /* Push background or other elements behind the dashboard */
 }
 
 /* Grid Layout */
@@ -35,7 +55,7 @@
   width: 100%; /* Allow it to shrink on smaller screens */
   background-color: #ffffff; /* White background for the dashboard */
   border-radius: 15px; /* Rounded corners */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /* Subtle shadow */
   padding: 20px; /* Space inside the grid */
 }
 
