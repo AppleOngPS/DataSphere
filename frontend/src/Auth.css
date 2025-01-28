@@ -25,7 +25,6 @@
   object-fit: contain; /* Ensures proper scaling */
 }
 
-
 .tagline {
   font-size: 18px;
   color: #666;
@@ -115,7 +114,7 @@
 
 .or-section::before,
 .or-section::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
   background-color: #ccc;

@@ -178,12 +178,6 @@ const UserDashboard = () => {
         <div className="dashboard-grid">
           <aside className="sidebar">
             <div className="profile">
-              <img
-                src="profile-placeholder.png"
-                alt="User"
-                className="profile-pic"
-              />
-              <h3>User</h3>
               <p>{localStorage.getItem("userEmail")}</p>
             </div>
             <nav className="menu">

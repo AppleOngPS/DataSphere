@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Auth.css";
 import Footer from "./Footer"; // Import Footer component
 import logo from "./assets/logo.png"; // Import the logo file
+import "./assets/components/nav.css";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -111,7 +112,6 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
 
 // export default LoginPage;
 // eslint-disable-next-line no-unused-vars

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 import logo from "./assets/logo.png"; // Import the logo file
 import Footer from "./Footer"; // Import Footer component
-
+import "./assets/components/nav.css";
 
 function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -22,7 +22,10 @@ function SignUpPage() {
     e.preventDefault();
 
     // Basic validation for contactNumber
-    if (formData.contactNumber.length < 8 || formData.contactNumber.length > 15) {
+    if (
+      formData.contactNumber.length < 8 ||
+      formData.contactNumber.length > 15
+    ) {
       alert("Contact number must be between 8 and 15 characters.");
       return;
     }

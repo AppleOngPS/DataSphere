@@ -5,7 +5,6 @@ body {
   font-family: "League Spartan", sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
 
   justify-content: flex-start;
   min-height: 100vh;
@@ -28,7 +27,7 @@ body {
 
 body {
   margin: 0;
-  display: flex;
+
   justify-content: center; /* Center the container horizontally */
   align-items: center; /* Center the container vertically */
   min-width: 320px;
@@ -45,7 +44,7 @@ body {
 
 /* .logo {
   max-width: 150px; /* Adjust size as needed */
-  /*margin-bottom: 20px; /* Space between logo and header */
+/*margin-bottom: 20px; /* Space between logo and header */
 
 .header {
   display: flex;

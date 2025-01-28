@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Admin.css";
 import adminProfilePic from "./assets/adminpfp.jpg";
+import Footer from "./Footer";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
