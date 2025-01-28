@@ -553,14 +553,7 @@ const Admin = () => {
 
 const Sidebar = ({ setActiveTab }) => (
   <div className="sidebar">
-    <div className="profile">
-      <img
-        src={adminProfilePic}
-        alt="Admin Profile"
-        className="profile-image"
-      />
-      <p className="profile-name">Admin Name</p>
-    </div>
+    <div className="profile"></div>
 
     <nav className="nav-buttons">
       <button onClick={() => setActiveTab("dashboard")} className="nav-button">
@@ -581,9 +574,8 @@ export default Admin;
 // import React, { useState, useEffect, useRef } from "react";
 // import "./Admin.css";
 // import adminProfilePic from "./assets/adminpfp.jpg";
-// import Chart from "chart.js/auto"; 
-// import ReportUploader from "./assets/components/ReportUploader"; 
-
+// import Chart from "chart.js/auto";
+// import ReportUploader from "./assets/components/ReportUploader";
 
 // const Admin = () => {
 //   const [activeTab, setActiveTab] = useState("dashboard");
@@ -683,7 +675,6 @@ export default Admin;
 //     });
 //   }
 // }, [analyticsData]); // Run the effect whenever analyticsData changes
-
 
 //   // Handle Create, Edit, Update, and Delete for Cards
 //   const handleCreateClick = () =>
