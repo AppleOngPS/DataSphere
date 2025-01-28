@@ -3,18 +3,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh; /* Full viewport height */
+  min-height: 100vh; /* Full viewport height */
   background-color: #f8f8fb;
+  padding: 40px 20px;
   box-sizing: border-box;
-  margin-top: 5%;
 }
 
 /* General Layout for Content */
 .content-centered {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Slight shadow */
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Responsive content area */
 }
 
 /* Wrapper to Center Content */
@@ -26,13 +29,14 @@
 /* Grid Layout */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 250px 1fr; /* Removed the third column */
-  gap: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  grid-template-columns: 250px 1fr; /* Sidebar and content */
+  gap: 20px; /* Space between columns */
+  max-width: 1300px; /* Restrict maximum width */
+  width: 100%; /* Allow it to shrink on smaller screens */
+  background-color: #ffffff; /* White background for the dashboard */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Space inside the grid */
 }
 
 /* Sidebar Styling */
@@ -41,6 +45,7 @@
   background-color: #f9f9f9;
   border-radius: 10px;
   height: auto;
+  margin-right: 10px;
 }
 
 .profile {
@@ -118,14 +123,6 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-}
-
-/* General Layout for Content */
-.content-centered {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Overview Cards Section */

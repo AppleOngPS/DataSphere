@@ -112,7 +112,7 @@ function ProfilePage() {
   };
 
   const Sidebar = () => (
-    <div className="sidebar">
+    <div className="sidebar1">
       <ul>
         <li>
           <i class="fa fa-cog"></i> Overview
