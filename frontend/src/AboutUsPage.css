@@ -110,41 +110,6 @@ p {
   outline: 2px solid #0056b3; /* Add focus outline for accessibility */
 }
 
-.footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #f1f1f1;
-  border-top: 1px solid #ddd;
-}
-
-.footer-nav a {
-  margin: 0 10px;
-}
-
-.social-media {
-  margin: 10px 0;
-}
-
-address {
-  margin: 10px 0;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .testimonial-card {
-    width: calc(45% - 20px); /* Two cards in a row on medium screens */
-  }
-
-  .leadership-team {
-    flex-direction: column; /* Ensure vertical stacking */
-    align-items: center; /* Center align members */
-  }
-
-  .team-info {
-    width: 95%; /* Slightly wider on mobile */
-  }
-}
-
 @media (max-width: 480px) {
   .testimonial-card {
     width: calc(100% - 20px); /* One card in a row on small screens */
