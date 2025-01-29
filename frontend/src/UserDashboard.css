@@ -23,12 +23,10 @@
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 1600px;
   width: 100%;
   background-color: #ffffff;
   border-radius: 15px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent content overflow */
   z-index: 1; /* Set a high layer for the wrapper */
   position: relative; /* Prevent stacking conflicts */
 }
