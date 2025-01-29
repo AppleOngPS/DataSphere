@@ -9,6 +9,12 @@
   position: relative;
 }
 
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 .hero-image {
   width: 100%;
   max-width: 110%; /* Limit the image width to 80% of the container */
@@ -196,7 +202,6 @@ p {
 }
 
 .about-us {
-  padding: 20px;
   font-family: Arial, sans-serif;
 }
 
