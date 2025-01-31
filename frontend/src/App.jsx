@@ -28,7 +28,6 @@ import LoginPage from "./LoginPage";
 import Auth from "./Auth";
 import ProfilePage from "./ProfilePage"; // Import ProfilePage
 import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
-import BookSessionPage from "./BookSession.jsx";
 import VideoCallPage from "./VideoCall.jsx";
 function App() {
   const location = useLocation();
@@ -83,7 +82,6 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/checkout/:cardID" element={<BookingPage />} />
-        <Route path="/book" element={<BookSessionPage />} />
         <Route path="/call/:booking" element={<VideoCallPage />} />
         {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />

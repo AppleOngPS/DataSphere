@@ -19,7 +19,6 @@ const programmeCardController = require("./controllers/programmeCardController")
 const loginController = require("./controllers/loginController");
 const { validateUser, schemas } = require("./middlewares/validateUser");
 const { sendBookingReminders } = require("./controllers/bookingController"); // Correct path
-const bookingRoutes = require("./routes/booking");
 const videoRoutes = require("./routes/video");
 const reportRoutes = require("./routes/reportRoutes");
 
@@ -133,7 +132,6 @@ app.post("/quizzes/:quizID/results", quizController.submitQuizResults); // Submi
 app.get("/quiz-results/user/:userID", quizController.getQuizResultsByUser);
 
 // 1-1 Coaching routes
-app.use("/api/bookings", bookingRoutes);
 app.use("/api/video", videoRoutes);
 
 // Report routes

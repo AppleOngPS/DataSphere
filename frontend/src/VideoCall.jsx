@@ -1,8 +1,9 @@
 // src/pages/VideoCall.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Header.css";
-import logo from "./assets/logo.png"; // Make sure this path is correct
+import Header from "./Header";
+import Navbar from "./assets/components/Navbar";
+import "../src/assets/components/Navbar.jsx";
 
 export default function VideoCall() {
   const dailyRoomUrl = "https://mindsphere.daily.co/Jayden";
