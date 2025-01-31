@@ -1,4 +1,3 @@
-
 const Booking = require("../models/Booking");
 const nodemailer = require("nodemailer");
 
@@ -8,18 +7,18 @@ require("dotenv").config();
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER,  
-    pass: process.env.EMAIL_PASS,  
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
 // Helper function to send an email
 const sendEmail = async (to, subject, text) => {
   const mailOptions = {
-    from: process.env.EMAIL_USER,  // Sender email from .env
-    to,  // Recipient email
-    subject,  // Email subject
-    text,  // Email body
+    from: process.env.EMAIL_USER, // Sender email from .env
+    to, // Recipient email
+    subject, // Email subject
+    text, // Email body
   };
 
   try {
@@ -42,7 +41,8 @@ const sendBookingReminders = async () => {
     }
 
     for (const booking of bookings) {
-      const { bookingID, customerEmail, customerName, serviceName, startDate } = booking;
+      const { bookingID, customerEmail, customerName, serviceName, startDate } =
+        booking;
 
       // Format the startDate
       const formattedDate = new Date(startDate).toLocaleDateString(); // For the date part
@@ -81,7 +81,6 @@ const sendBookingReminders = async () => {
     console.error("Error sending booking reminders:", error);
   }
 };
-
 
 // Function to create a booking
 const createBooking = async (req, res) => {

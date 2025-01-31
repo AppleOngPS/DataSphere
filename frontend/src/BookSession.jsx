@@ -1,14 +1,13 @@
-// src/pages/BookSession.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 
-export default function BookSession() {
+const BookSession = () => {
   const [email, setEmail] = useState("");
   const [reason, setReason] = useState("");
   const [slot, setSlot] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // React Router navigation
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,18 +20,14 @@ export default function BookSession() {
         body: JSON.stringify({ email, reason, slot }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      if (!response.ok) throw new Error(text);
 
-      if (!response.ok) {
-        throw new Error(data.error || "Booking failed");
-      }
-
-      console.log("Booking created!", data);
-
-      // Redirect to video call page
-      navigate(`/video/${data.bookingId}`);
+      const data = JSON.parse(text);
+      console.log("Booking successful:", data);
+      alert("Booking confirmed! Check your email.");
     } catch (err) {
-      console.error("Error:", err.message);
+      console.error("Error:", err);
       setError(err.message);
     }
   };
@@ -62,10 +57,11 @@ export default function BookSession() {
         />
         <button type="submit">Book Now</button>
       </form>
-
       {error && <p style={{ color: "red" }}>{error}</p>}
-
       <Footer />
     </div>
   );
-}
+};
+
+// Ensure this is the default export
+export default BookSession;

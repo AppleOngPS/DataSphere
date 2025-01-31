@@ -1,9 +1,11 @@
 // src/pages/VideoCall.jsx
 import React from "react";
-import Footer from "./Footer";
+import { Link } from "react-router-dom";
+import "./Header.css";
+import logo from "./assets/logo.png"; // Make sure this path is correct
 
 export default function VideoCall() {
-  const dailyRoomUrl = "https://mindsphere.daily.co/Jayden"; // Replace with an actual Daily.co room URL
+  const dailyRoomUrl = "https://mindsphere.daily.co/Jayden";
 
   return (
     <div className="container">

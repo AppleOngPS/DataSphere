@@ -133,7 +133,7 @@ app.post("/quizzes/:quizID/results", quizController.submitQuizResults); // Submi
 app.get("/quiz-results/user/:userID", quizController.getQuizResultsByUser);
 
 // 1-1 Coaching routes
-app.use("/api/booking", bookingRoutes);
+app.use("/api/bookings", bookingRoutes);
 app.use("/api/video", videoRoutes);
 
 // Report routes
