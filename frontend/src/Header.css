@@ -46,7 +46,6 @@
   font-weight: bold;
   cursor: pointer;
   border: none;
-  margin-left: 3rem; /* Adds space between last nav link and button */
 }
 
 .cta-button:hover {

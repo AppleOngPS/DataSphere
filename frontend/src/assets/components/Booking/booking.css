@@ -1,5 +1,4 @@
 /* booking.css */
-/* booking.css */
 /* ===== Global Layout ===== */
 .session-dashboard-container {
   display: grid;
@@ -35,14 +34,10 @@
 .session-sidebar h2 {
   color: #1e293b;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #e2e8f0;
 }
 
 .sidebar-option {
   width: 100%;
-  padding: 0.75rem 1.5rem;
   border-radius: 8px;
   border: none;
   background: none;
@@ -92,6 +87,8 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s ease;
+  background-color: white;
+  color: black;
 }
 
 .dropdown-input:focus {
@@ -101,7 +98,7 @@
 }
 
 .confirm-booking {
-  background: #3b82f6;
+  background: #10b981;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;

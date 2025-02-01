@@ -110,7 +110,7 @@ function ProfilePage() {
       <div className="content">
         {activeSection === "profile" ? (
           <>
-            <h2>User Settings</h2>
+            <h1>User Settings</h1>
             <form onSubmit={handleSubmit} className="profile-form">
               <label>Email</label>
               <input

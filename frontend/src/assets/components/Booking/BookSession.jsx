@@ -73,24 +73,20 @@ const SessionDashboard = () => {
     <div className="session-dashboard-container">
       <div className="sidebar-wrapper">
         <div className="session-sidebar">
-          <h2>Navigation</h2>
           <ul>
-            <li>
-              <button
-                className="sidebar-option"
-                onClick={() => setView("bookSession")}
-              >
-                Book Session
-              </button>
-            </li>
-            <li>
-              <button
-                className="sidebar-option"
-                onClick={() => setView("timeSlots")}
-              >
-                Time Slots
-              </button>
-            </li>
+            <button
+              className="sidebar-option"
+              onClick={() => setView("bookSession")}
+            >
+              Book Session
+            </button>
+
+            <button
+              className="sidebar-option"
+              onClick={() => setView("timeSlots")}
+            >
+              Time Slots
+            </button>
           </ul>
         </div>
       </div>

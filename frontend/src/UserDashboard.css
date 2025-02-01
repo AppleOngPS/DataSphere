@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   width: 100%; /* Responsive content area */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 /* Wrapper to Center Content */
@@ -32,7 +33,6 @@
 /* Fix for Overlapping Layers */
 .dashboard-wrapper::before {
   content: "";
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -51,6 +51,7 @@
   border-radius: 15px; /* Rounded corners */
   /* Subtle shadow */
   padding: 20px; /* Space inside the grid */
+  gap: 40px;
 }
 
 /* Sidebar Styling */
@@ -91,13 +92,15 @@
 }
 
 .menu li:hover {
-  color: #1abc9c; /* Optional: Change color on hover */
+  background: #f1f5f9;
+  color: #3b82f6; /* Optional: Change color on hover */
+  background: none;
+  border: none;
 }
 
 /* Main Content Area */
 .content {
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 10px;
 }
 
