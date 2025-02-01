@@ -383,27 +383,30 @@ textarea:focus {
 
 /* ✅ Learn More Section Styling */
 /* ✅ Style for Learn More Cards */
+/* Ensure the Learn More section displays 3 cards per row */
 .learn-more-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
   gap: 20px;
   justify-content: center;
+  align-items: center;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .learn-card {
   position: relative;
-  width: 280px;
-  height: 160px;
+  width: 100%; /* Adjust based on grid */
+  height: 180px;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
 }
 
 .learn-card:hover {
-  transform: scale(1.10);
+  transform: scale(1.05);
 }
 
 .learn-card img {
@@ -424,8 +427,8 @@ textarea:focus {
 
 .learn-card h3 {
   margin: 0;
-  font-size: 20px;
-  color:white
+  font-size: 18px;
+  color: white;
 }
 
 /* ✅ Modal Pop-up Styling */

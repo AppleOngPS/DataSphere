@@ -224,7 +224,7 @@ const UserDashboard = () => {
           <main className="content-centered">
             {activeSection === "user" && (
               <div>
-                <h1>Hello, {localStorage.getItem("userName")}</h1>
+                {/* <h1>Overview{localStorage.getItem("userName")}</h1> */}
 
                 {/* ✅ Learn More Section */}
                 <h2 className="section-title">Learn More</h2>
