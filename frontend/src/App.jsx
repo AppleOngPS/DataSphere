@@ -28,7 +28,7 @@ import LoginPage from "./LoginPage";
 import Auth from "./Auth";
 import ProfilePage from "./ProfilePage"; // Import ProfilePage
 import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
-import MembershipPage from "./membership";
+// import MembershipPage from "./membership";
 import CreateBooking from "./CreateBooking.jsx";
 import VideoCallPage from "./VideoCall.jsx";
 import Sidebar from "./assets/components/Booking/Sidebar";
@@ -91,7 +91,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetail />} />
         <Route path="/checkout/:cardID" element={<BookingPage />} />
-        <Route path="/membership" element={<MembershipPage />} />
+        {/* <Route path="/membership" element={<MembershipPage />} /> */}
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/book-session" element={<BookSession />} />
         <Route path="/time-slots" element={<TimeSlots />} />
