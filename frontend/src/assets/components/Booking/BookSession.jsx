@@ -20,15 +20,30 @@ const BookSession = ({ onViewChange, onBook }) => {
   const [selectedProgram, setSelectedProgram] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [email, setEmail] = useState("");
 
-  const sendSms = () => {
-    const phoneNumber = "+65 88580833";
-    const link = "https://mindsphere.daily.co/Jayden";
-    console.log(`SMS sent to ${phoneNumber}: Join session at ${link}`);
+  const sendEmail = async (email, link) => {
+    try {
+      const response = await fetch("http://localhost:3000/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, link }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to send confirmation email.");
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send confirmation email. Please check your connection.");
+    }
   };
 
-  const handleConfirm = () => {
-    if (!selectedProgram || !selectedDate || !selectedSlot) {
+  const handleConfirm = async () => {
+    if (!selectedProgram || !selectedDate || !selectedSlot || !email) {
       alert("Please fill all fields");
       return;
     }
@@ -38,11 +53,20 @@ const BookSession = ({ onViewChange, onBook }) => {
       program: selectedProgram,
       date: selectedDate,
       time: selectedSlot,
+      email: email, // Add email to the booking object
     };
 
-    onBook(newBooking);
-    sendSms();
-    onViewChange("timeSlots");
+    try {
+      const link = `https://mindsphere.daily.co/${newBooking.id}`;
+      await sendEmail(email, link);
+      onBook(newBooking); // Update parent state
+      onViewChange("timeSlots"); // Switch view
+      alert("Booking confirmed! Check your email for the session link.");
+    } catch (error) {
+      onBook(newBooking); // Still save the booking even if email fails
+      onViewChange("timeSlots");
+      alert("Booking saved, but failed to send confirmation email.");
+    }
   };
 
   return (
@@ -59,7 +83,6 @@ const BookSession = ({ onViewChange, onBook }) => {
           <option value="Intermediate Program">Intermediate Program</option>
         </select>
 
-        {/* Updated date input with wrapper div */}
         <div className="date-input-container">
           <input
             type="date"
@@ -80,6 +103,14 @@ const BookSession = ({ onViewChange, onBook }) => {
           <option value="2:00 PM">2:00 PM</option>
         </select>
 
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          className="email-input"
+        />
+
         <button className="confirm-booking" onClick={handleConfirm}>
           Confirm
         </button>
@@ -89,6 +120,7 @@ const BookSession = ({ onViewChange, onBook }) => {
 };
 
 const TimeSlots = ({ bookings }) => {
+  // Changed to receive bookings prop
   return (
     <div className="time-slots-section content-top-aligned">
       <h1 className="section-title">Time Slots Booked</h1>
@@ -103,17 +135,9 @@ const TimeSlots = ({ bookings }) => {
 
 const SessionDashboard = () => {
   const [view, setView] = useState("bookSession");
-  const [bookings, setBookings] = useState([
-    { id: 1, program: "Beginner Program", time: "9:00 AM", date: "2023-08-20" },
-    {
-      id: 2,
-      program: "Intermediate Program",
-      time: "2:00 PM",
-      date: "2023-08-21",
-    },
-  ]);
+  const [bookings, setBookings] = useState([]);
 
-  const handleNewBooking = (newBooking) => {
+  const handleBook = (newBooking) => {
     setBookings([...bookings, newBooking]);
   };
 
@@ -128,6 +152,7 @@ const SessionDashboard = () => {
             >
               Book Session
             </button>
+
             <button
               className="sidebar-option"
               onClick={() => setView("timeSlots")}
@@ -140,9 +165,9 @@ const SessionDashboard = () => {
       <div className="content-wrapper">
         <div className="main-session-content large-box">
           {view === "bookSession" ? (
-            <BookSession onViewChange={setView} onBook={handleNewBooking} />
+            <BookSession onViewChange={setView} onBook={handleBook} />
           ) : (
-            <TimeSlots bookings={bookings} />
+            <TimeSlots bookings={bookings} onViewChange={setView} /> // Pass bookings prop
           )}
         </div>
       </div>
