@@ -158,7 +158,7 @@ app.post("/send-email", async (req, res) => {
       <p>Below are the details of the coaching session:</p>
       <p><strong> Here is your booking link: ${"https://mindsphere.daily.co/Jayden"},"</a></p>
       <p>Please click the link above to join your session at the scheduled time.</p>
-      <p>If you have any questions or need to reschedule, feel free to contact us at <a href="https://mindsphere.sg/" style="color: #2563eb; text-decoration: none;">support@example.com</a>.</p>
+      <p>If you have any questions or need to reschedule, feel free to contact us at <a href="https://mindsphere.sg/" style="color: #2563eb; text-decoration: none;">https://mindsphere.sg</a>.</p>
       <p>Best regards,</p>
       <p><strong>MindSphere Team</strong></p>
       <p style="font-size: 12px; color: #666;">This is an automated email. Please do not reply directly to this message.</p>
