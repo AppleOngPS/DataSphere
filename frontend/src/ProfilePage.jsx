@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import Footer from "./Footer.jsx";
+import { format, addHours } from "date-fns";  // ✅ Import date-fns for formatting
+
+
+// ✅ Format Date to Singapore Time (GMT+8)
+const formatDate = (dateString) => {
+  if (!dateString) return "-";
+  return format(addHours(new Date(dateString), 8), "dd MMM yyyy"); // e.g., "02 Feb 2026"
+};
+
 
 function ProfilePage() {
   const [formData, setFormData] = useState({
@@ -12,6 +21,7 @@ function ProfilePage() {
     age: "",
     interest: "",
   });
+  const [membership, setMembership] = useState(null); // Stores membership details
   const [editMode, setEditMode] = useState(false);
   const [activeSection, setActiveSection] = useState("profile"); // Default to Profile Page
 
@@ -39,8 +49,24 @@ function ProfilePage() {
       }
     };
 
+    const fetchMembership = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/memberships/${userId}`);
+        if (!response.ok) throw new Error("Membership not found"); // Handles 404 case
+
+        const membershipData = await response.json();
+
+        console.log("📌 Membership Data:", membershipData); // ✅ Log membership data
+        setMembership(membershipData); // Save the membership details
+      } catch (error) {
+        console.log("No active membership for this user.");
+        setMembership(null); // If no membership, set to null
+      }
+    };
+
     if (userId) {
       fetchData();
+      fetchMembership();
     }
   }, []);
 
@@ -201,17 +227,24 @@ function ProfilePage() {
             <div className="plan-details">
               <h2>Plan Details</h2>
               <div className="plan-card">
-                <h3>Complimentary Plan (1 Year)</h3>
-                <p>
-                  Access to our resources and member rates for all programmes
-                </p>
+                {membership.isActive ? (
+                  <>
+                    <h3>Complimentary Plan (1 Year)</h3>
+                    <p>Access to our resources and member rates for all programmes</p>
+                  </>
+                ) : (
+                  <>
+                    <h3>No membership currently.</h3>
+                    <p>Buy a full-price programme to access our resources and member rates for all programmes.</p>
+                  </>
+                )}
               </div>
             </div>
             <div className="validity-details">
               <h2>Validity</h2>
               <div className="validity-card">
                 <h3>Valid Till</h3>
-                <p>19 February 2026</p>
+                <p>{membership ? formatDate(membership.ValidityEnd) : "-"}</p>
               </div>
             </div>
           </>

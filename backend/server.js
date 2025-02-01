@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cron = require("node-cron");
 const sql = require("mssql");
 const dbConfig = require("./dbConfig");
 const cors = require("cors");
@@ -13,6 +14,7 @@ const bookingDetailsController = require("./controllers/bookingDetailsController
 const programController = require("./controllers/programController");
 const programScheduleController = require("./controllers/programScheduleController");
 const programmeCardController = require("./controllers/programmeCardController");
+const membershipController = require("./controllers/membershipController");
 // const webhookController = require("./controllers/webhookController"); // Import the webhook controller
 // const clerkClientMiddleware = require("./middlewares/clerkClientMiddleware"); // Import custom Clerk middleware
 // const clerkController = require("./controllers/clerkController"); // Clerk-related controllers
@@ -29,6 +31,21 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Schedule a daily cleanup job
+cron.schedule("0 0 * * *", async () => {
+  console.log("🔍 Checking for expired memberships...");
+
+  try {
+    const pool = await sql.connect(dbConfig);
+    await pool.request().query(`
+      DELETE FROM Membership WHERE ValidityEnd < GETDATE()
+    `);
+    console.log("✅ Expired memberships deleted successfully.");
+  } catch (error) {
+    console.error("❌ Error in membership cleanup:", error);
+  }
+});
 
 app.post(
   "/signup",
@@ -136,6 +153,18 @@ app.use("/api/video", videoRoutes);
 
 // Report routes
 app.use("/reports", reportRoutes);
+
+// ✅ Get Membership by User ID
+app.get("/memberships/:id", membershipController.getMembershipByUserId);
+
+// ✅ Create a Membership (Triggered After Booking a Program)
+app.post("/memberships", membershipController.createMembership);
+
+// ✅ Update Membership Validity (Extend Membership)
+app.put("/memberships/:userID", membershipController.updateMembershipValidity);
+
+// ✅ Delete Expired Memberships (Cleanup - Can Be Automated)
+app.delete("/memberships/cleanup", membershipController.cleanupExpiredMemberships);
 
 // Start server and connect to the database
 app.listen(port, async () => {

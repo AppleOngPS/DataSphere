@@ -48,12 +48,13 @@ const CreateBooking = () => {
             console.warn("⚠️ Booking already exists:", response.data.message);
             setStatusMessage("⚠️ Booking already exists.");
             setSuccess(true);
-            return; // ✅ Stop further execution
+          } else {
+            const bookingID = response.data.bookingID;
+            console.log("✅ Booking Created: ID =", bookingID);
           }
-
-          const bookingID = response.data.bookingID;
-          console.log("✅ Booking Created: ID =", bookingID);
-
+        
+          // ✅ Step 2: Create Membership (Always Run This)
+          return createMembership(userID);
         })
         .then(() => {
           setStatusMessage("🎉 Booking successfully created!");
@@ -76,6 +77,39 @@ const CreateBooking = () => {
     }
   }, [userID, scheduleID, totalAmount, children, navigate, isProcessing]); // ✅ Depend on isProcessing
 
+    // ✅ Function to Check and Create Membership
+    const createMembership = async (userID) => {
+      console.log("📌 Checking membership for user:", userID);
+  
+      try {
+        // ✅ Step 1: Check if the user already has an active membership
+        const membershipCheck = await axios.get(`http://localhost:3000/memberships/${userID}`);
+  
+        if (membershipCheck.data?.isActive) {
+          console.log("✅ User already has an active membership. No need to create.");
+          return;
+        }
+  
+        // ✅ Step 2: If no active membership, create one
+        const validityStart = new Date().toISOString().split("T")[0]; // Today's date
+        const validityEnd = new Date();
+        validityEnd.setFullYear(validityEnd.getFullYear() + 1); // Valid for 1 year
+        const formattedValidityEnd = validityEnd.toISOString().split("T")[0];
+  
+        const response = await axios.post("http://localhost:3000/memberships", {
+          userID,
+          validityStart,
+          validityEnd: formattedValidityEnd,
+          discountRate: 0.1, // ✅ Default Discount 10% (0.1)
+        });
+  
+        console.log("✅ Membership Created:", response.data);
+      } catch (error) {
+        console.error("❌ Error checking/creating membership:", error.response?.data || error.message);
+      }
+    };
+
+    
   // ✅ Separate function for creating Booking Details
   const createBookingDetails = async (bookingID, parsedChildren) => {
     console.log("📌 Attempting to create BookingDetails for booking ID:", bookingID);

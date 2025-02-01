@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { format, addHours } from "date-fns"; // ✅ Import date formatting
 import "./WorkshopPage.css";
 import Mindsphere from "./assets/logo.png";
 import Footer from "./Footer";
@@ -8,8 +9,11 @@ const WorkshopPage = () => {
   const [programmes, setProgrammes] = useState([]);
   const [selectedProgramme, setSelectedProgramme] = useState(null);
   const [programmeCards, setProgrammeCards] = useState([]);
+  const [membership, setMembership] = useState(null); // ✅ Stores membership details
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId"); // ✅ Get userID from localStorage
 
+  // ✅ Fetch Programmes
   useEffect(() => {
     const fetchProgrammes = async () => {
       try {
@@ -23,6 +27,28 @@ const WorkshopPage = () => {
     fetchProgrammes();
   }, []);
 
+  // ✅ Fetch Membership Data
+  useEffect(() => {
+    const fetchMembership = async () => {
+      try {
+        if (!userId) return;
+        
+        const response = await fetch(`http://localhost:3000/memberships/${userId}`);
+        if (!response.ok) throw new Error("Membership not found");
+
+        const membershipData = await response.json();
+        console.log("📌 Membership Data:", membershipData); // ✅ Log fetched membership data
+        setMembership(membershipData);
+      } catch (error) {
+        console.log("❌ No active membership for this user.");
+        setMembership(null);
+      }
+    };
+
+    fetchMembership();
+  }, [userId]);
+
+  // ✅ Fetch Programme Cards
   const handleProgrammeClick = async (programme) => {
     setSelectedProgramme(programme);
     try {
@@ -36,15 +62,24 @@ const WorkshopPage = () => {
     }
   };
 
+  // ✅ Apply Membership Discount
+  const getDiscountedPrice = (programPrice) => {
+    if (membership?.isActive) {
+      const discount = membership.DiscountRate || 0; // Default to 0 if no discountRate
+      return (programPrice * (1 - discount)).toFixed(2); // Calculate new price
+    }
+    return programPrice.toFixed(2);
+  };
+
+
+  // ✅ Handle Checkout
   const handleGetStartedButton = (cardID) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
 
     if (!isLoggedIn) {
-      // Redirect to login page if not logged in
       alert("Please log in to proceed to checkout.");
       navigate("/login");
     } else {
-      // Proceed to checkout if logged in
       navigate(`/checkout/${cardID}`);
     }
   };
@@ -114,7 +149,6 @@ const WorkshopPage = () => {
         return <p>{selectedProgramme.description}</p>;
     }
   };
-
   return (
     <div className="workshop">
       <section className="signature-programmes" id="programmes">
@@ -140,17 +174,23 @@ const WorkshopPage = () => {
       {selectedProgramme && (
         <section className="selected-programme">
           <h2>{selectedProgramme.name}</h2>
+          <p>{selectedProgramme.description}</p>
           {renderProgramDescription()}
 
           <div className="workshop-details">
             {programmeCards.map((card) => (
               <div className="workshop-card" key={card.cardID}>
                 <h3>
-                  {card.programPrice ? `$${card.programPrice}` : "Coming Soon"}
+                  {card.programPrice
+                    ? membership?.isActive
+                      ? `Member Price: $${getDiscountedPrice(card.programPrice)}`
+                      : `Standard Price: $${card.programPrice.toFixed(2)}`
+                    : "Coming Soon"}
                 </h3>
+
                 {card.originalPrice && (
                   <div>
-                    <s>Was ${card.originalPrice}</s>
+                    <s>Was ${card.originalPrice.toFixed(2)}</s>
                   </div>
                 )}
                 <div>{card.cardName}</div>
@@ -160,7 +200,8 @@ const WorkshopPage = () => {
                   {card.lunchProvided ? "Lunch provided" : "Lunch not provided"}
                 </div>
                 <div>{card.membershipBenefits}</div>
-                {/* Only display the "Get Started" button if the programPrice is available */}
+
+                {/* ✅ Display "Get Started" only if programPrice exists */}
                 {card.programPrice && (
                   <button onClick={() => handleGetStartedButton(card.cardID)}>
                     Get Started
@@ -172,7 +213,6 @@ const WorkshopPage = () => {
         </section>
       )}
 
-      {/* Rest of the page */}
       <Footer />
     </div>
   );
