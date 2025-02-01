@@ -34,8 +34,9 @@ function App() {
   const location = useLocation();
 
   // Define the routes where the Navbar should be hidden
-  const hideNavbarRoutes = ["/login", "/signup", "/auth"];
-  const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
+  const hideNavbarRoutes = ["/login", "/signup", "/auth", "/checkout"];
+  const shouldShowNavbar = !hideNavbarRoutes.some((route) => location.pathname.startsWith(route));
+  
 
   return (
     <div className="App">
@@ -47,6 +48,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/checkout/:cardID" element={<BookingPage />} />
         {/* Protected Routes */}
         <Route
           path="/adminDashboard"
@@ -82,7 +84,6 @@ function App() {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetail />} />
-        <Route path="/checkout/:cardID" element={<BookingPage />} />
         <Route path="/membership" element={<MembershipPage />} />
         {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />

@@ -257,6 +257,14 @@ const Admin = () => {
                     onChange={handleCardChange}
                     required
                   />
+                 
+                  <input
+                    type="text"
+                    name="programID"
+                    placeholder="Program ID"
+                    onChange={handleCardChange}
+                    required
+                  />
                   <textarea
                     name="description"
                     placeholder="Description"
