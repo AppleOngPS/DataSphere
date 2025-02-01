@@ -9,6 +9,9 @@
   padding: 0 40px;
 }
 
+body {
+  background-color: white;
+}
 /* Left section with logo */
 .auth-left {
   flex: 1;

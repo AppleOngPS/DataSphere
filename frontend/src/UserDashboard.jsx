@@ -1,12 +1,18 @@
 //combi dashboard for user:
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./UserDashboard.css";
 import Footer from "./Footer";
 import QuizSelector from "./assets/components/quizzes/quizselector"; // Import QuizSelector
-import ChildrenQuiz from ".//assets/components/quizzes/children.jsx"; // Import ChildrenQuiz
+import ChildrenQuiz from "./assets/components/quizzes/children.jsx"; // Import ChildrenQuiz
+import pslePic from "./assets/Rethink-PSLE-Rectangle-5.webp";
+import riasecPic from "./assets/job-opportunities.webp"
+import industryPic from "./assets/istockphoto-496402539-612x612.jpg"
+import schoolPic from "./assets/download.jpeg"
+import educationPic from "./assets/education.jpg"
+
 
 const UserDashboard = () => {
   const [activeSection, setActiveSection] = useState("user");
@@ -25,6 +31,7 @@ const UserDashboard = () => {
   const [userID, setUserID] = useState(localStorage.getItem("userId") || 3); // Fetch from localStorage
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -172,6 +179,16 @@ const UserDashboard = () => {
     }
   };
 
+  
+  const openModal = (title, background, link) => {
+    setModalContent({ title, background, link });
+  };
+
+  const closeModal = () => {
+    setModalContent(null);
+  };
+
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-wrapper">
@@ -208,6 +225,55 @@ const UserDashboard = () => {
             {activeSection === "user" && (
               <div>
                 <h1>Hello, {localStorage.getItem("userName")}</h1>
+
+                {/* ✅ Learn More Section */}
+                <h2 className="section-title">Learn More</h2>
+                <div className="learn-more-grid">
+                  {/* PSLE */}
+                  <div className="learn-card" onClick={() => openModal("PSLE", "Understand the importance of PSLE and how it shapes future education paths.", "https://www.seab.gov.sg/psle/")}>
+                    <img src={pslePic} alt="PSLE" />
+                    <div className="overlay">
+                      <h3>PSLE</h3>
+                    </div>
+                  </div>
+
+                  {/* RIASEC */}
+                  <div className="learn-card" onClick={() => openModal("RIASEC", "Explore career interests based on personality traits with the RIASEC model.", "https://www.myskillsfuture.gov.sg")}>
+                    <img src={riasecPic} alt="RIASEC" />
+                    <div className="overlay">
+                      <h3>RIASEC</h3>
+                    </div>
+                  </div>
+
+                  {/* Explore Schools */}
+                  <div className="learn-card" onClick={() => openModal("Explore Schools", "Find out about different schools in Singapore and explore their offerings.", "https://www.myskillsfuture.gov.sg/content/student/en/primary/education-guide/explore-school/school-directory.html?q=&pageNum=1&viewBy=list&sortBy=asc")}>
+                    <img src={schoolPic} alt="Explore Schools" /> {/* Leave image blank */}
+                    <div className="overlay">
+                      <h3>Explore Schools</h3>
+                    </div>
+                  </div>
+
+                  {/* Education Pathway */}
+                  <div className="learn-card" onClick={() => openModal("Education Pathway", "Learn about different education pathways and how they lead to various career opportunities.", "https://www.myskillsfuture.gov.sg/content/student/en/secondary/education-guide/education-landscape/landscape-overview.html")}>
+                    <img src={educationPic} alt="Education Pathway" /> {/* Leave image blank */}
+                    <div className="overlay">
+                      <h3>Education Pathway</h3>
+                    </div>
+                  </div>
+                
+                  {/* Singapore Industries */}
+                  <div className="learn-card" onClick={() => openModal("Singapore Industries", "Discover the diverse industries in Singapore and the career opportunities they offer.", "https://www.myskillsfuture.gov.sg/content/student/en/primary/world-of-work/industry-landscape.html")}>
+                    <img src={industryPic} alt="Singapore Industries" /> {/* Leave image blank */}
+                    <div className="overlay">
+                      <h3>Singapore Industries</h3>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                {/* ✅ Upcoming Bookings */}
+
                 <h2>Upcoming Bookings</h2>
                 <div className="bookings">
                   {bookingsData.map((booking) => (
@@ -385,6 +451,20 @@ const UserDashboard = () => {
             )}
           </main>
         </div>
+        {/* ✅ Modal Pop-up */}
+        {modalContent && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="close-btn" onClick={closeModal}>&times;</button>
+              <h2>{modalContent.title}</h2>
+              <p>{modalContent.background}</p>
+              <a href={modalContent.link} target="_blank" rel="noopener noreferrer">
+                <button className="learn-more-btn">Learn More</button>
+              </a>
+            </div>
+          </div>
+        )}
+
         <Footer />
       </div>
     </div>
