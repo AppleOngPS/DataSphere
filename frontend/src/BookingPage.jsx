@@ -59,8 +59,6 @@ function BookingPage() {
     setSelectedSchedule(selected);
   };
 
-  const singaporeTimeZone = "Asia/Singapore";
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return format(addHours(date, 8), "dd MMM yyyy");

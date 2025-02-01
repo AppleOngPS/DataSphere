@@ -1,4 +1,13 @@
 /* Main Container */
+:root {
+  --input-bg: white;
+}
+
+input {
+  background: var(--input-bg);
+  color: #000; /* Set text color to black */
+}
+
 .dashboard-container {
   display: flex;
   justify-content: center;
@@ -216,10 +225,13 @@ textarea {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: white
+  
 }
 
 textarea {
   resize: vertical;
+  color: #000; /* Set text color to black */
 }
 
 input:focus,
