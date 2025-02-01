@@ -4,6 +4,8 @@ const sql = require("mssql");
 const dbConfig = require("./dbConfig");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const twilio = require("twilio");
+const nodemailer = require("nodemailer");
 const { requireAuth } = require("@clerk/express");
 const { createCheckoutSession } = require("./controllers/checkoutController");
 const userController = require("./controllers/userController");
@@ -133,6 +135,44 @@ app.get("/quiz-results/user/:userID", quizController.getQuizResultsByUser);
 
 // 1-1 Coaching routes
 app.use("/api/video", videoRoutes);
+
+const transporter = nodemailer.createTransport({
+  service: "gmail", // Use your email service
+  auth: {
+    user: "jay12345678910n@gmail.com", // Your email
+    pass: "cxsg twyr vqak qlts", // Your email password
+  },
+});
+
+app.post("/send-email", async (req, res) => {
+  const { email, link } = req.body;
+
+  const mailOptions = {
+    from: "jay12345678910n@gmail.com",
+    to: "jaydentohxm@gmail.com",
+    subject: "Your Booking Confirmation (1-1 Coaching Session)",
+    html: `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px;">
+      <h2 style="color: #2563eb;">Booking Confirmation</h2>
+      <p>Dear Coach,</p>
+      <p>Below are the details of the coaching session:</p>
+      <p><strong> Here is your booking link: ${"https://mindsphere.daily.co/Jayden"},"</a></p>
+      <p>Please click the link above to join your session at the scheduled time.</p>
+      <p>If you have any questions or need to reschedule, feel free to contact us at <a href="https://mindsphere.sg/" style="color: #2563eb; text-decoration: none;">support@example.com</a>.</p>
+      <p>Best regards,</p>
+      <p><strong>MindSphere Team</strong></p>
+      <p style="font-size: 12px; color: #666;">This is an automated email. Please do not reply directly to this message.</p>
+    </div>
+  `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: "Email sent successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to send email" });
+  }
+});
 
 // Report routes
 app.use("/reports", reportRoutes);
