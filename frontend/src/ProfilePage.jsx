@@ -109,8 +109,8 @@ function ProfilePage() {
       {/* Content Section */}
       <div className="content">
         {activeSection === "profile" ? (
-          <>
-            <h2>User Settings</h2>
+          <div className="white-box">
+            <h1>User Settings</h1>
             <form onSubmit={handleSubmit} className="profile-form">
               <label>Email</label>
               <input
@@ -194,7 +194,7 @@ function ProfilePage() {
                 </button>
               )}
             </form>
-          </>
+          </div>
         ) : (
           <>
             <h1>Membership</h1>

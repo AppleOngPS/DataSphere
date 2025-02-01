@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import MindsphereLogo from "./assets/logo.png"; // Ensure the path to the logo is correct
 import "./Footer.css"; // Import the CSS file for styling
+import BookSession from "./assets/components/Booking/BookSession";
 
 const Footer = () => {
   return (
@@ -8,9 +10,9 @@ const Footer = () => {
       <section className="values">
         <h2 className="values-title">Integrity. Innovation. Inclusivity.</h2>
         <p className="values-subtitle">Where learning meets achievement.</p>
-        <button className="contact-button">
+        <Link to="/book-session" className="contact-button">
           Speak With Our Friendly Team Now
-        </button>
+        </Link>
       </section>
 
       <footer className="footer">

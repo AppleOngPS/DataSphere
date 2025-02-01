@@ -3,84 +3,149 @@
 .profile-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
-  padding: 40px;
   gap: 20px;
 }
 
-/* Sidebar */
-.sidebar {
-  grid-template-rows: repeat(2, auto);
-  gap: 10px;
-  padding: 0;
-  border: none;
+.profile-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Sidebar Container */
+.sidebar1 {
+  background: white;
+  padding: 2rem 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.sidebar h3 {
-  width: 200px;
-  padding: 12px 16px;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 600;
+.sidebar1 h2 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.sidebar1 ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 20px;
+}
+
+.sidebar-item {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  cursor: pointer;
-  color: #444;
-  transition: all 0.3s ease-in-out;
-  border: 1px solid transparent;
-}
-
-.sidebar h3:hover {
-  border: 1px solid #16a085;
-  color: #16a085;
-}
-
-.sidebar h3.active {
-  background-color: #16a085;
-  color: white;
   border: none;
+  background: none;
+  color: #64748b;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  list-style: none;
+}
+
+.sidebar-item:hover {
+  background: #f1f5f9;
+  color: #3b82f6;
+}
+
+.sidebar-item i {
+  width: 20px;
+  font-size: 1.1rem;
 }
 
 /* Main Content */
 .content {
-  flex: 1;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  max-width: 800px;
+  grid-column: 2;
+  grid-row: 1;
+  padding: 2rem;
+  overflow: auto;
+  min-height: calc(100vh - 80px);
+}
+
+/* ProfilePage.css */
+.white-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
 }
 
 /* Form Styling */
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1.5rem;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 4rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .profile-form label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  display: block;
+  font-weight: 500;
+  color: #1e293b;
 }
 
 .profile-form input,
 .profile-form select {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
   width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  background-color: white;
-  color: black;
-  transition: border-color 0.3s ease-in-out;
+  color: #000000;
+  margin-bottom: 1rem;
 }
 
 .profile-form input:focus,
 .profile-form select:focus {
-  border-color: #16a085;
   outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.profile-form input {
+  background: white;
+}
+
+.profile-form input[type="checkbox"] {
+  appearance: none; /* Remove default checkbox styling */
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid #64748b; /* Neutral border color */
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: none; /* Remove any transitions */
+  background: transparent; /* Transparent background */
+}
+
+.profile-form input[type="checkbox"]:hover {
+  border-color: #64748b; /* Keep the same border color on hover */
+}
+
+.profile-form input[type="checkbox"]:checked {
+  background-color: transparent; /* Transparent background when checked */
+  border-color: #64748b; /* Neutral border color when checked */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' viewBox='0 0 16 16'%3e%3cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0 .733.733 0 0 1 0 1.047l-7 7a.733.733 0 0 1-1.047 0l-3.5-3.5a.733.733 0 0 1 0-1.047.733.733 0 0 1 1.047 0L6 10.22l6.736-6.25z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Buttons */
@@ -106,8 +171,27 @@ button {
 .logout-button {
   background-color: #e74c3c;
   color: white;
+  margin-bottom: 20px;
 }
 
 button:hover {
   opacity: 0.85;
+}
+
+/* ===== Membership Section ===== */
+.plan-details,
+.validity-details {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.plan-card,
+.validity-card {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
 }

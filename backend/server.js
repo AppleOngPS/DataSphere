@@ -18,11 +18,9 @@ const programmeCardController = require("./controllers/programmeCardController")
 // const clerkController = require("./controllers/clerkController"); // Clerk-related controllers
 const loginController = require("./controllers/loginController");
 const { validateUser, schemas } = require("./middlewares/validateUser");
-const { sendBookingReminders } = require('./controllers/bookingController');  // Correct path
-
+const { sendBookingReminders } = require("./controllers/bookingController"); // Correct path
+const videoRoutes = require("./routes/video");
 const reportRoutes = require("./routes/reportRoutes");
-
-
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -52,8 +50,6 @@ app.get("/users/lunch", userController.getLunchById);
 app.get("/users/:userID/role", userController.getRoleById);
 app.put("/users/:id/subscribe", userController.updateSubscriptionStatus); // Make sure it's correctly imported
 
-
-
 // Child Routes (No Authentication Required)
 app.get("/children/user/:userID", childController.getChildrenByUserID);
 app.post("/children/:userID", childController.createChild);
@@ -64,7 +60,6 @@ app.delete("/children/:id", childController.deleteChild);
 app.post("/bookings", bookingController.createBooking);
 app.get("/bookings/user/:userID", bookingController.getAllBookingsForUser);
 app.delete("/bookings/:bookingID", bookingController.deleteBooking);
-
 
 // BookingDetails Routes (No Authentication Required)
 app.post("/bookingDetails", bookingDetailsController.createBookingDetail); // Create a new booking detail
@@ -98,8 +93,6 @@ app.post("/cards", programmeCardController.createProgrammeCard);
 app.put("/cards/:cardID", programmeCardController.updateProgrammeCard);
 app.delete("/cards/:cardID", programmeCardController.deleteProgrammeCard);
 
-
-
 // Route for tracking events
 const trackingController = require("./controllers/TrackingController");
 app.post("/track", trackingController.logUserEvent);
@@ -116,12 +109,15 @@ app.post("/ai/suggestions", async (req, res) => {
     const insights = generateInsights(data);
     res.status(200).json({ suggestion: insights });
   } catch (error) {
-    res.status(500).json({ message: "Error generating insights", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error generating insights", error: error.message });
   }
 });
 
 const generateInsights = (data) => {
-  if (!data.length) return "No data available yet. Encourage more user activity!";
+  if (!data.length)
+    return "No data available yet. Encourage more user activity!";
   const totalEvents = data.length;
   const uniqueUsers = new Set(data.map((item) => item.userID)).size;
 
@@ -135,12 +131,11 @@ app.get("/quizzes/:quizID", quizController.getQuizByID); // Fetch a specific qui
 app.post("/quizzes/:quizID/results", quizController.submitQuizResults); // Submit quiz results
 app.get("/quiz-results/user/:userID", quizController.getQuizResultsByUser);
 
+// 1-1 Coaching routes
+app.use("/api/video", videoRoutes);
 
 // Report routes
 app.use("/reports", reportRoutes);
-
-
-
 
 // Start server and connect to the database
 app.listen(port, async () => {
@@ -148,7 +143,7 @@ app.listen(port, async () => {
     await sql.connect(dbConfig);
     console.log("Database connection established successfully");
     // Trigger the reminder check as soon as the server starts
-  await sendBookingReminders();  // Call the reminder function immediately
+    await sendBookingReminders(); // Call the reminder function immediately
   } catch (err) {
     console.error("Database connection error:", err);
     process.exit(1); // Exit with code 1 indicating an error

@@ -30,6 +30,10 @@ import ProfilePage from "./ProfilePage"; // Import ProfilePage
 import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
 import MembershipPage from "./membership";
 import CreateBooking from "./CreateBooking.jsx";
+import VideoCallPage from "./VideoCall.jsx";
+import Sidebar from "./assets/components/Booking/Sidebar";
+import BookSession from "./assets/components/Booking/BookSession";
+import TimeSlots from "./assets/components/Booking/TimeSlots";
 
 function App() {
   const location = useLocation();
@@ -86,7 +90,12 @@ function App() {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsDetail />} />
+        <Route path="/checkout/:cardID" element={<BookingPage />} />
         <Route path="/membership" element={<MembershipPage />} />
+        <Route path="/sidebar" element={<Sidebar />} />
+        <Route path="/book-session" element={<BookSession />} />
+        <Route path="/time-slots" element={<TimeSlots />} />
+        <Route path="/call/:booking" element={<VideoCallPage />} />
         {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />
       </Routes>

@@ -3,7 +3,19 @@ const sql = require("mssql");
 const dbConfig = require("../dbConfig");
 
 class Booking {
-  constructor(bookingID, programQuantity, userID, scheduleID, totalAmount, notified, customerEmail, customerName, Name, bookingDate, startTime) {
+  constructor(
+    bookingID,
+    programQuantity,
+    userID,
+    scheduleID,
+    totalAmount,
+    notified,
+    customerEmail,
+    customerName,
+    Name,
+    bookingDate,
+    startTime
+  ) {
     this.bookingID = bookingID;
     this.programQuantity = programQuantity;
     this.userID = userID;
@@ -147,7 +159,7 @@ class Booking {
         AND ps.startDate = CAST(DATEADD(DAY, 3, GETDATE()) AS DATE)
     `;
     const result = await pool.request().query(query);
-    return result.recordset;  // Return the result of the query
+    return result.recordset; // Return the result of the query
   }
 
   // Mark a booking as notified
