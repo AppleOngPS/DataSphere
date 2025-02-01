@@ -42,7 +42,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <Link to="/signUp" className="nav-item">
+        <Link to="/signup" className="nav-item">
           Get Started Today
         </Link>
 
