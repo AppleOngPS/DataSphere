@@ -1,12 +1,21 @@
 const BookingDetails = require("../models/BookingDetails");
 
 const createBookingDetail = async (req, res) => {
+  console.log("📩 Incoming request for BookingDetails:", req.body); // ✅ Debug log
+
   try {
-    const bookingDetailsID = await BookingDetails.createBookingDetail(req.body);
-    res.status(201).json({ bookingDetailsID });
+    const { bookingID, childID, pricePerChild } = req.body;
+
+    if (!bookingID || !childID || !pricePerChild) {
+      return res.status(400).json({ error: "Missing required fields in request body" });
+    }
+
+    const bookingDetailsID = await BookingDetails.createBookingDetail({ bookingID, childID, pricePerChild });
+
+    res.status(201).json({ success: true, bookingDetailsID });
   } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: "Error creating booking detail" });
+    console.error("❌ Error in BookingDetails creation:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 

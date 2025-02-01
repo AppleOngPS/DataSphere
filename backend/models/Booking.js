@@ -17,58 +17,65 @@ class Booking {
     this.startTime = startTime;
   }
 
-  // Create a new booking with scheduleID and check slot availability
+  // ✅ Prevent Creating Duplicate Booking for the Same User and Schedule
   static async createBooking(data) {
     const pool = await sql.connect(dbConfig);
 
+    // Check if booking already exists for this user and schedule
+    const existingBooking = await pool
+        .request()
+        .input("userID", sql.Int, data.userID)
+        .input("scheduleID", sql.Int, data.scheduleID)
+        .query("SELECT bookingID FROM booking WHERE userID = @userID AND scheduleID = @scheduleID");
+
+    if (existingBooking.recordset.length > 0) {
+        console.log("🔹 Booking already exists:", existingBooking.recordset[0].bookingID);
+        return { success: false, bookingID: existingBooking.recordset[0].bookingID }; // ✅ Return existing ID
+    }
+
     // Check slot availability
     const slotCheck = await pool
-      .request()
-      .input("scheduleID", sql.Int, data.scheduleID)
-      .query(
-        "SELECT slots, slotCount FROM ProgramSchedule WHERE scheduleID = @scheduleID"
-      );
+        .request()
+        .input("scheduleID", sql.Int, data.scheduleID)
+        .query("SELECT slots, slotCount FROM ProgramSchedule WHERE scheduleID = @scheduleID");
 
     if (slotCheck.recordset.length === 0) {
-      throw new Error("Schedule not found");
+        throw new Error("Schedule not found");
     }
 
     const { slots, slotCount } = slotCheck.recordset[0];
 
     if (slotCount + data.programQuantity > slots) {
-      throw new Error("Not enough available slots");
+        throw new Error("Not enough available slots");
     }
 
-    // Calculate total amount based on quantity and program price
+    // Calculate total amount
     const totalAmount = data.programQuantity * data.programPrice;
 
     // Create booking
     const result = await pool
-      .request()
-      .input("programQuantity", sql.Int, data.programQuantity)
-      .input("userID", sql.Int, data.userID)
-      .input("scheduleID", sql.Int, data.scheduleID)
-      .input("totalAmount", sql.Decimal(10, 2), totalAmount)
-      .query(
-        `INSERT INTO booking (programQuantity, userID, scheduleID, totalAmount)
-         VALUES (@programQuantity, @userID, @scheduleID, @totalAmount);
-         SELECT SCOPE_IDENTITY() AS bookingID;`
-      );
+        .request()
+        .input("programQuantity", sql.Int, data.programQuantity)
+        .input("userID", sql.Int, data.userID)
+        .input("scheduleID", sql.Int, data.scheduleID)
+        .input("totalAmount", sql.Decimal(10, 2), totalAmount/100)
+        .query(
+            `INSERT INTO booking (programQuantity, userID, scheduleID, totalAmount)
+             VALUES (@programQuantity, @userID, @scheduleID, @totalAmount);
+             SELECT SCOPE_IDENTITY() AS bookingID;`
+        );
 
     const bookingID = result.recordset[0].bookingID;
 
-    // Update slotCount in ProgramSchedule
+    // Update slot count
     await pool
-      .request()
-      .input("scheduleID", sql.Int, data.scheduleID)
-      .input("newSlotCount", sql.Int, slotCount + data.programQuantity)
-      .query(
-        "UPDATE ProgramSchedule SET slotCount = @newSlotCount WHERE scheduleID = @scheduleID"
-      );
+        .request()
+        .input("scheduleID", sql.Int, data.scheduleID)
+        .input("newSlotCount", sql.Int, slotCount + data.programQuantity)
+        .query("UPDATE ProgramSchedule SET slotCount = @newSlotCount WHERE scheduleID = @scheduleID");
 
-    return bookingID;
-  }
-
+    return { success: true, bookingID };
+}
   // Get all bookings for a specific user with schedule details
   static async getAllBookingsForUser(userID) {
     const pool = await sql.connect(dbConfig);

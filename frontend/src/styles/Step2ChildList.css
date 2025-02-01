@@ -1,0 +1,128 @@
+/* Child List */
+.child-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  width: 100%;
+}
+
+/* Child Entry */
+.child-entry {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f9fa;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Child Name Styling */
+.child-name {
+  flex-grow: 1; /* Allows the name to take up available space */
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Button Container */
+.child-buttons {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Edit and Delete Buttons */
+.edit-button, .delete-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Edit Button */
+.edit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+/* Delete Button */
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Add Child Button */
+.add-child-button {
+  background-color: #bf9000;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-child-button:hover {
+  background-color: #a67c00;
+}
+
+/* Next Button */
+.next-button {
+  background-color: #2d3e50;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.next-button:hover {
+  background-color: #1f2d40;
+}
+
+/* Prevent clicking "Next" if no children are added */
+.next-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .child-entry {
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .child-buttons {
+      gap: 5px;
+  }
+}

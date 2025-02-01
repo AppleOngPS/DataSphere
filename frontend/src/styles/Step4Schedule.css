@@ -1,0 +1,63 @@
+/* Step 4: Schedule Selection */
+
+.schedule-selection {
+  width: 100%;
+  max-width: 650px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.next-button, .back-button {
+  width: 48%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.next-button {
+  background-color: #2d3e50;
+  color: white;
+}
+
+.next-button:hover {
+  background-color: #1f2d40;
+}
+
+.back-button {
+  background-color: #ccc;
+  color: black;
+}
+
+.back-button:hover {
+  background-color: #aaa;
+}

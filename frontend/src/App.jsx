@@ -18,7 +18,7 @@ import Blog from "./Blog"; // Import Blog
 import BlogDetail from "./BlogDetail"; // Import BlogDetail for individual blog posts
 import News from "./News"; // Import News
 import NewsDetail from "./NewsDetail"; // Import NewsDetail for individual news articles
-import BookingPage from "./BookingPage";
+import BookingPage from "./components/BookingPage.jsx";
 import CalendarPage from "./Calendar";
 import AdminPage from "./Admin"; // Import AdminPage
 import UserDashboard from "./UserDashboard";
@@ -29,12 +29,13 @@ import Auth from "./Auth";
 import ProfilePage from "./ProfilePage"; // Import ProfilePage
 import ProtectedRoute from "./ProtectedRoute"; // Import ProtectedRoute
 import MembershipPage from "./membership";
+import CreateBooking from "./CreateBooking.jsx";
 
 function App() {
   const location = useLocation();
 
   // Define the routes where the Navbar should be hidden
-  const hideNavbarRoutes = ["/login", "/signup", "/auth", "/checkout"];
+  const hideNavbarRoutes = ["/login", "/signup", "/auth", "/checkout", "/createBooking"];
   const shouldShowNavbar = !hideNavbarRoutes.some((route) => location.pathname.startsWith(route));
   
 
@@ -75,6 +76,7 @@ function App() {
           }
         />
         {/* Other Pages */}
+        <Route path="/createBooking" element={<CreateBooking />} />
         <Route path="/home" element={<Home />} />
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/workshops" element={<WorkshopPage />} />

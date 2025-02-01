@@ -172,6 +172,10 @@ input {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+div.checkout-container div.card {
+  color: #000 !important;  /* Ensure it applies */
+}
+
 .card.purple {
   background-color: #8a4af3;
 }
