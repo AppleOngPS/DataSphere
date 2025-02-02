@@ -6,7 +6,7 @@ import "./homepage.css"; // Ensure this CSS aligns with your design style
 import homeImage from "./assets/home.png"; // Import the main image
 import Footer from "./Footer"; // Import the Footer component
 import WatsonChat from "./WatsonChat"; // Import WatsonChat
-
+import BackToTop from "./assets/components/BackToTop";
 
 // Import each logo (replace with actual paths if available)
 import fundigoLogo from "./assets/fundigo.png";
@@ -29,10 +29,13 @@ const Homepage = () => (
       <p>
         Learn Impactful Speaking Skills From Seasoned Speakers
         <h2>We make it longer lasting</h2>
-        <a href="https://api.whatsapp.com/send/?phone=6581804413&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
-  <button className="cta-button">Learn How</button>
-</a>
-
+        <a
+          href="https://api.whatsapp.com/send/?phone=6581804413&text&type=phone_number&app_absent=0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="cta-button">Learn How</button>
+        </a>
       </p>
     </div>
 
@@ -194,7 +197,8 @@ const Homepage = () => (
             <blockquote>
               <p>
                 &quot;From the time they joined, the growth has been amazing.
-                Improving confidence, boosting grades—it all feels like magic.&quot;
+                Improving confidence, boosting grades—it all feels like
+                magic.&quot;
               </p>
               <p className="testimonial-author">Becky Nelson</p>
               <div className="rating">
@@ -208,8 +212,10 @@ const Homepage = () => (
       {/* Add Footer component here */}
       <Footer />
     </div>
-      {/* Add WatsonChat here */}
-      <WatsonChat />
+    {/* Add WatsonChat here */}
+    <BackToTop />
+    {/* Add WatsonChat here */}
+    <WatsonChat />
   </div>
 );
 

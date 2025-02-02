@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./booking.css";
 import Footer from "../../../Footer";
@@ -43,7 +43,7 @@ const BookSession = ({ onViewChange, onBook }) => {
   };
 
   const handleConfirm = async () => {
-    if (!selectedProgram || !selectedDate || !selectedSlot || !email) {
+    if (!selectedProgram || !selectedDate || !selectedSlot) {
       alert("Please fill all fields");
       return;
     }
@@ -53,7 +53,6 @@ const BookSession = ({ onViewChange, onBook }) => {
       program: selectedProgram,
       date: selectedDate,
       time: selectedSlot,
-      email: email, // Add email to the booking object
     };
 
     try {
@@ -79,8 +78,33 @@ const BookSession = ({ onViewChange, onBook }) => {
           className="dropdown-input"
         >
           <option value="">Select Program</option>
-          <option value="Beginner Program">Beginner Program</option>
-          <option value="Intermediate Program">Intermediate Program</option>
+          <option value="Beginner Program">
+            Skill-Based Coaching Programs - Beginner Program
+          </option>
+          <option value="Intermediate Program">
+            Skill-Based Coaching Programs - Intermediate Program
+          </option>
+          <option value="Intermediate Program">
+            Skill-Based Coaching Programs - Advance Program
+          </option>
+          <option value="Intermediate Program">
+            Goal-Oriented Coaching Programs - Beginner Program
+          </option>
+          <option value="Intermediate Program">
+            Goal-Oriented Coaching Programs - Intermediate Program
+          </option>
+          <option value="Intermediate Program">
+            Goal-Oriented Coaching Programs - Advance Program
+          </option>
+          <option value="Intermediate Program">
+            Personal Development Coaching - Beginner Program
+          </option>
+          <option value="Intermediate Program">
+            Personal Development Coaching - Intermediate Program
+          </option>
+          <option value="Intermediate Program">
+            Personal Development Coaching - Advance Program
+          </option>
         </select>
 
         <div className="date-input-container">
@@ -102,14 +126,6 @@ const BookSession = ({ onViewChange, onBook }) => {
           <option value="11:00 AM">11:00 AM</option>
           <option value="2:00 PM">2:00 PM</option>
         </select>
-
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          className="email-input"
-        />
 
         <button className="confirm-booking" onClick={handleConfirm}>
           Confirm
@@ -135,10 +151,19 @@ const TimeSlots = ({ bookings }) => {
 
 const SessionDashboard = () => {
   const [view, setView] = useState("bookSession");
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState(() => {
+    // Load bookings from localStorage on initial render
+    const savedBookings = localStorage.getItem("bookings");
+    return savedBookings ? JSON.parse(savedBookings) : [];
+  });
+
+  // Save bookings to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+  }, [bookings]);
 
   const handleBook = (newBooking) => {
-    setBookings([...bookings, newBooking]);
+    setBookings((prev) => [...prev, newBooking]);
   };
 
   return (

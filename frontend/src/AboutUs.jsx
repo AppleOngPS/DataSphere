@@ -4,7 +4,6 @@ import "./AboutUsPage.css"; // Import your styles here
 import "./assets/components/nav.css"; // Import Navbar CSS
 import Footer from "./Footer";
 import GuyLogo from "./assets/homepageguy1.jpg";
-import Mindsphere from "./assets/logo.png";
 
 const AboutUsPage = () => {
   return (
