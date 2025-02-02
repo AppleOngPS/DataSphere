@@ -212,7 +212,7 @@ const Homepage = () => (
       {/* Add Footer component here */}
       <Footer />
     </div>
-    {/* Add WatsonChat here */}
+    {/* BackToTop here */}
     <BackToTop />
     {/* Add WatsonChat here */}
     <WatsonChat />

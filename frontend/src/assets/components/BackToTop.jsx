@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./BackToTop.css";
-import { FaArrowUp } from "react-icons/fa"; // Import arrow icon from FontAwesome
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -34,7 +33,7 @@ const BackToTop = () => {
     <div className="back-to-top">
       {isVisible && (
         <button onClick={scrollToTop} className="back-to-top-button">
-          <FaArrowUp /> {/* Use the arrow icon */}
+          ↑
         </button>
       )}
     </div>

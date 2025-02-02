@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./WorkshopPage.css";
 import Mindsphere from "./assets/logo.png";
 import Footer from "./Footer";
+import BackToTop from "./assets/components/BackToTop";
 
 const WorkshopPage = () => {
   const [programmes, setProgrammes] = useState([]);
@@ -174,6 +175,8 @@ const WorkshopPage = () => {
 
       {/* Rest of the page */}
       <Footer />
+      {/* BackToTop here */}
+      <BackToTop />
     </div>
   );
 };
