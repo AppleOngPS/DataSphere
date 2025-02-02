@@ -5,7 +5,6 @@ import "./csr.css"; // Import your CSS for styling
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import MindsphereLogo from "./assets/logo.png"; // Ensure the path to the logo is correct
-import "./Footer.css"; // Import the CSS file for styling
 import FadeInSection from "./FadeInSection";
 
 const CSRPage = () => {
