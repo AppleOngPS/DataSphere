@@ -15,7 +15,7 @@ Currently, two official plugins are available:
 
 ## 👥 Team Members
 
-**🌟 Team Nexus**
+**🌟 Team Datasphere**
 
 - Jayden Toh Xuan Ming
 - Aiman
@@ -28,7 +28,7 @@ Currently, two official plugins are available:
 ## 📌 Project Description
 
 **Problem Statement**  
-Modern client onboarding processes often suffer from fragmented workflows and poor user engagement.
+Increase Efficiency of Client onboarding process (Sponser: Fintech)
 
 **Our Solution**  
 A comprehensive platform featuring:  
@@ -41,27 +41,27 @@ A comprehensive platform featuring:
 🔹 Interactive quiz system for users
 
 **Key Outcomes**  
-✅ 50% reduction in onboarding time  
-✅ 40% improvement in user engagement  
+✅ Reduction in onboarding time  
+✅ Improvement in user engagement  
 ✅ Real-time analytics for administrators
 
 ---
 
 ## ✨ Feature Highlights
 
-### 𝔸 Aiman
+### Aiman
 
 🎖️ **Membership Tier System**  
 📚 **Interactive Learn More Section**
 
-### 𝕁 Jayden Toh Xuan Ming
+### Jayden Toh Xuan Ming
 
 📧 Coach Email Integration  
 📸 1:1 Video Coaching (Webcam API)  
 🔼 Dynamic Back-to-Top Button  
 🎥 UI Animations (Fade Effects)
 
-### 𝔸 Apple
+### Apple
 
 🔔 Smart Notification System:
 
@@ -69,12 +69,12 @@ A comprehensive platform featuring:
 - 🆕 Program updates
 - ✨ New content alerts
 
-### 𝕁 Jasmine
+### Jasmine
 
 📊 Google Analytics Integration  
 ❓ Interactive Quiz Module
 
-### 𝔼 Ethan
+### Ethan
 
 🤖 AI-Powered Chatbot Assistant
 
@@ -108,7 +108,7 @@ Get your project up and running in a few simple steps!
 
 - Node.js (v18+ recommended)
 - npm (v9+ recommended)
-- Git
+- Github
 
 ---
 

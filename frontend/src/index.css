@@ -2,20 +2,19 @@
 @import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap");
 
 body {
-    margin: 0;
-    padding: 0;
-    width: 100vw; /* Ensures full width */
-    min-height: 100vh; /* Full height */
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden; /* Prevents unwanted horizontal scroll */
-  }
-  
+  margin: 0;
+  padding: 0;
+  width: 100vw; /* Ensures full width */
+  min-height: 100vh; /* Full height */
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* Prevents unwanted horizontal scroll */
+}
+
 body {
   align-items: stretch; /* Ensures elements fill the width */
   justify-content: flex-start; /* Removes unwanted centering */
 }
-  
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -34,7 +33,6 @@ body {
 
 body {
   margin: 0;
-  justify-content: center; /* Center the container horizontally */
   min-width: 320px;
   min-height: 100vh; /* Full height of viewport for centering */
 }
@@ -46,7 +44,6 @@ body {
   min-height: 100vh; /* Full height of viewport for centering */
   align-items: center;
 }
-
 
 .container {
   display: flex;

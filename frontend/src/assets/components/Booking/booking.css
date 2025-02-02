@@ -169,7 +169,7 @@
 }
 
 .confirm-booking {
-  background: #10b981;
+  background-color: #d4b45f;
   color: white;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -180,7 +180,7 @@
 }
 
 .confirm-booking:hover {
-  background: #2563eb;
+  background-color: #d4b45f;
   transform: translateY(-1px);
 }
 
@@ -200,7 +200,7 @@
 }
 
 .join-button {
-  background: #10b981;
+  background-color: #d4b45f;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -211,7 +211,7 @@
 }
 
 .join-button:hover {
-  background: #059669;
+  background-color: #d4b45f;
 }
 
 /* ===== Responsive Design ===== */
