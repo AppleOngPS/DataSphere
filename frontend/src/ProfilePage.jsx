@@ -28,6 +28,7 @@ function ProfilePage() {
   useEffect(() => {
     const userId = localStorage.getItem("userId"); // Retrieve userID from localStorage
 
+
     // Fetch user data from the server using userId
     const fetchData = async () => {
       try {
@@ -44,6 +45,14 @@ function ProfilePage() {
           age: data.age || "",
           interest: data.interest || "",
         });
+
+        // Send user login data to Google Analytics
+        gtag('event', 'user_login', {
+          'userName': data.userName,
+          'userAge': data.age,
+          'userInterest': data.interest,
+        });
+
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

@@ -26,6 +26,8 @@ const { sendBookingReminders } = require("./controllers/bookingController"); // 
 const videoRoutes = require("./routes/video");
 const reportRoutes = require("./routes/reportRoutes");
 
+const { fetchAnalyticsData, fetchUserFlowData } = require("./analytics");  // Import the function from analytics.js
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -112,11 +114,32 @@ app.post("/cards", programmeCardController.createProgrammeCard);
 app.put("/cards/:cardID", programmeCardController.updateProgrammeCard);
 app.delete("/cards/:cardID", programmeCardController.deleteProgrammeCard);
 
-// Route for tracking events
-const trackingController = require("./controllers/TrackingController");
-app.post("/track", trackingController.logUserEvent);
-app.post("/track/:id", trackingController.logUserEvent);
-app.get("/analytics", trackingController.getTrackingData);
+// API endpoint to fetch analytics data
+app.get('/api/analytics', async (req, res) => {
+  try {
+    const data = await fetchAnalyticsData();  // Call the fetch function
+    res.json(data);  // Send the fetched data as a response
+  } catch (error) {
+    console.error("Error fetching analytics data:", error);
+    res.status(500).json({ error: 'Error fetching analytics data' });  // Send an error response
+  }
+});
+
+// // Route to fetch user flow data (page views by page path)
+// app.get('/api/user-flow', async (req, res) => {
+//   try {
+//     const data = await fetchUserFlowData();
+//     res.json(data);  // Send the user flow data as JSON
+//   } catch (error) {
+//     res.status(500).json({ error: 'Error fetching user flow data' });
+//   }
+// });
+
+// // Route for tracking events
+// const trackingController = require("./controllers/TrackingController");
+// app.post("/track", trackingController.logUserEvent);
+// app.post("/track/:id", trackingController.logUserEvent);
+// app.get("/analytics", trackingController.getTrackingData);
 
 // AI Suggestions Route
 app.post("/ai/suggestions", async (req, res) => {
