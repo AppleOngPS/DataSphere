@@ -12,7 +12,6 @@
 .logo {
   display: flex;
   align-items: center;
-  margin-right: auto; /* Pushes the navigation links further to the right */
 }
 
 .logo-image {
