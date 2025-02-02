@@ -7,7 +7,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const twilio = require("twilio");
 const nodemailer = require("nodemailer");
-const { requireAuth } = require("@clerk/express");
 const { createCheckoutSession } = require("./controllers/checkoutController");
 const userController = require("./controllers/userController");
 const childController = require("./controllers/childController");

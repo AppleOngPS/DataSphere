@@ -35,11 +35,11 @@ const UserDashboard = () => {
   const navigate = useNavigate();
 
   // Initialize Google Analytics
-  const { logPageView, logCustomEvent } = useGoogleAnalytics();
+  // const { logPageView, logCustomEvent } = useGoogleAnalytics();
 
   useEffect(() => {
     // Track page view when the user dashboard is loaded
-    logPageView("User Dashboard");
+    // logPageView("User Dashboard");
 
     // Fetch user-related data dynamically
     const fetchUserData = async () => {
@@ -91,7 +91,7 @@ const UserDashboard = () => {
 
     fetchUserData();
     fetchData();
-  }, [userID, logPageView]);
+  }, [userID]);
 
   const handleSectionChange = (section) => {
     setActiveSection(section);

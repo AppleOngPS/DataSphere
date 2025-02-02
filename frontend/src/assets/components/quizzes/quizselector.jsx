@@ -12,7 +12,7 @@ import "./quizselector.css";
 const QuizSelector = () => {
   const [selectedCategory, setSelectedCategory] = useState(""); // Track selected category
   const [isLocked, setIsLocked] = useState(false); // Lock the dropdown after selection
-  const { logCustomEvent } = useGoogleAnalytics(); // Use Google Analytics hook
+  // const { logCustomEvent } = useGoogleAnalytics(); // Use Google Analytics hook
 
   const handleSelection = (event) => {
     const category = event.target.value;
