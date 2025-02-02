@@ -6,22 +6,26 @@ import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import MindsphereLogo from "./assets/logo.png"; // Ensure the path to the logo is correct
 import "./Footer.css"; // Import the CSS file for styling
+import FadeInSection from "./FadeInSection";
 
 const CSRPage = () => {
   return (
     <>
-      <section className="core-values">
-        <h2 className="core-values-title">
-          Integrity. Innovation. Inclusivity.
-        </h2>
-        <p className="core-values-subtitle">
-          Where learning meets achievement.
-        </p>
-        <Link to="/book-session" className="contact-button">
-          Speak With Our Friendly Team Now
-        </Link>
-      </section>
-
+      {/* Trusted by local companies section (with fade-in effect) */}
+      <FadeInSection>
+        <section className="core-values">
+          <h2 className="core-values-title">
+            Integrity. Innovation. Inclusivity.
+          </h2>
+          <p className="core-values-subtitle">
+            Where learning meets achievement.
+          </p>
+          <Link to="/book-session" className="contact-button">
+            Speak With Our Friendly Team Now
+          </Link>
+        </section>
+        {/* Trusted by local companies section (with fade-in effect) */}
+      </FadeInSection>
       <footer className="footer">
         <img
           src={MindsphereLogo}
