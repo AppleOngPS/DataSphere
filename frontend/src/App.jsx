@@ -164,11 +164,11 @@ function App() {
 }
 
 // Wrapper to initialize Google Analytics and page tracking
-function GoogleAnalyticsWrapper({ children }) {
-  useGoogleAnalytics(); // Make sure to call the hook
-  usePageTracking(); // Make sure to call the hook
+const GoogleAnalyticsWrapper = ({ children }) => {
+  useGoogleAnalytics(); // Ensure this is not conditionally called
   return children;
-}
+};
+
 
 export default function Root() {
   return (
