@@ -4,6 +4,7 @@ import "./WorkshopPage.css";
 import Mindsphere from "./assets/logo.png";
 import Footer from "./Footer";
 import BackToTop from "./assets/components/BackToTop";
+import FadeInSection from "./FadeInSection"; // Import the FadeInSection component
 
 const WorkshopPage = () => {
   const [programmes, setProgrammes] = useState([]);
@@ -41,11 +42,9 @@ const WorkshopPage = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
 
     if (!isLoggedIn) {
-      // Redirect to login page if not logged in
       alert("Please log in to proceed to checkout.");
       navigate("/login");
     } else {
-      // Proceed to checkout if logged in
       navigate(`/checkout/${cardID}`);
     }
   };
@@ -118,64 +117,82 @@ const WorkshopPage = () => {
 
   return (
     <div className="workshop">
-      <section className="signature-programmes" id="programmes">
-        <h2>Our Signature Programmes</h2>
-        <p>Select each programme to find out more</p>
-        <div className="programme-cards">
-          {programmes.map((programme) => (
-            <div
-              className="programme-card"
-              key={programme.programID}
-              onClick={() => handleProgrammeClick(programme)}
-            >
-              <img
-                src={programme.imagePath || Mindsphere}
-                alt={programme.name}
-              />
-              <p>{programme.name}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {selectedProgramme && (
-        <section className="selected-programme">
-          <h2>{selectedProgramme.name}</h2>
-          {renderProgramDescription()}
-
-          <div className="workshop-details">
-            {programmeCards.map((card) => (
-              <div className="workshop-card" key={card.cardID}>
-                <h3>
-                  {card.programPrice ? `$${card.programPrice}` : "Coming Soon"}
-                </h3>
-                {card.originalPrice && (
-                  <div>
-                    <s>Was ${card.originalPrice}</s>
-                  </div>
-                )}
-                <div>{card.cardName}</div>
-                <div>Class size: {card.classSize}</div>
-                <div>Duration: {card.duration}</div>
-                <div>
-                  {card.lunchProvided ? "Lunch provided" : "Lunch not provided"}
+      {/* Wrap the center content with FadeInSection */}
+      <FadeInSection>
+        <section className="signature-programmes" id="programmes">
+          <h2>Our Signature Programmes</h2>
+          <p>Select each programme to find out more</p>
+          <div className="programme-cards">
+            {programmes.map((programme) => (
+              <FadeInSection key={programme.programID}>
+                {" "}
+                {/* Wrap each card with FadeInSection */}
+                <div
+                  className="programme-card"
+                  onClick={() => handleProgrammeClick(programme)}
+                >
+                  <img
+                    src={programme.imagePath || Mindsphere}
+                    alt={programme.name}
+                  />
+                  <p>{programme.name}</p>
                 </div>
-                <div>{card.membershipBenefits}</div>
-                {/* Only display the "Get Started" button if the programPrice is available */}
-                {card.programPrice && (
-                  <button onClick={() => handleGetStartedButton(card.cardID)}>
-                    Get Started
-                  </button>
-                )}
-              </div>
+              </FadeInSection>
             ))}
           </div>
         </section>
+      </FadeInSection>
+
+      {selectedProgramme && (
+        <FadeInSection>
+          {" "}
+          {/* Wrap the selected programme section with FadeInSection */}
+          <section className="selected-programme">
+            <h2>{selectedProgramme.name}</h2>
+            {renderProgramDescription()}
+
+            <div className="workshop-details">
+              {programmeCards.map((card) => (
+                <FadeInSection key={card.cardID}>
+                  {" "}
+                  {/* Wrap each card with FadeInSection */}
+                  <div className="workshop-card">
+                    <h3>
+                      {card.programPrice
+                        ? `$${card.programPrice}`
+                        : "Coming Soon"}
+                    </h3>
+                    {card.originalPrice && (
+                      <div>
+                        <s>Was ${card.originalPrice}</s>
+                      </div>
+                    )}
+                    <div>{card.cardName}</div>
+                    <div>Class size: {card.classSize}</div>
+                    <div>Duration: {card.duration}</div>
+                    <div>
+                      {card.lunchProvided
+                        ? "Lunch provided"
+                        : "Lunch not provided"}
+                    </div>
+                    <div>{card.membershipBenefits}</div>
+                    {card.programPrice && (
+                      <button
+                        onClick={() => handleGetStartedButton(card.cardID)}
+                      >
+                        Get Started
+                      </button>
+                    )}
+                  </div>
+                </FadeInSection>
+              ))}
+            </div>
+          </section>
+        </FadeInSection>
       )}
 
       {/* Rest of the page */}
       <Footer />
-      {/* BackToTop here */}
       <BackToTop />
     </div>
   );

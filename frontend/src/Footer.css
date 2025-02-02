@@ -1,7 +1,6 @@
 /* Blue Section Styling - Full Width */
 .values {
   width: 100vw; /* Full viewport width */
-  margin-left: calc(50% - 50vw); /* Center full-width section */
   display: flex;
   flex-direction: column;
   align-items: center; /* Center horizontally */
