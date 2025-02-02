@@ -4,6 +4,7 @@ import { format, addHours } from "date-fns"; // ✅ Import date formatting
 import "./WorkshopPage.css";
 import Mindsphere from "./assets/logo.png";
 import Footer from "./Footer";
+import BackToTop from "./assets/components/BackToTop";
 
 const WorkshopPage = () => {
   const [programmes, setProgrammes] = useState([]);
@@ -214,6 +215,8 @@ const WorkshopPage = () => {
       )}
 
       <Footer />
+      {/* BackToTop here */}
+      <BackToTop />
     </div>
   );
 };
