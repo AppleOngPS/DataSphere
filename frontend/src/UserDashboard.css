@@ -415,7 +415,7 @@ textarea:focus {
   object-fit: cover;
 }
 
-.learn-card .overlay {
+.learn-card .overlay-class {
   position: absolute;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);

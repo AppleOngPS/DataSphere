@@ -232,7 +232,7 @@ const UserDashboard = () => {
                   {/* PSLE */}
                   <div className="learn-card" onClick={() => openModal("PSLE", "Understand the importance of PSLE and how it shapes future education paths.", "https://www.seab.gov.sg/psle/")}>
                     <img src={pslePic} alt="PSLE" />
-                    <div className="overlay">
+                    <div className="overlay-class">
                       <h3>PSLE</h3>
                     </div>
                   </div>
@@ -240,7 +240,7 @@ const UserDashboard = () => {
                   {/* RIASEC */}
                   <div className="learn-card" onClick={() => openModal("RIASEC", "Explore career interests based on personality traits with the RIASEC model.", "https://www.myskillsfuture.gov.sg")}>
                     <img src={riasecPic} alt="RIASEC" />
-                    <div className="overlay">
+                    <div className="overlay-class">
                       <h3>RIASEC</h3>
                     </div>
                   </div>
@@ -248,7 +248,7 @@ const UserDashboard = () => {
                   {/* Explore Schools */}
                   <div className="learn-card" onClick={() => openModal("Explore Schools", "Find out about different schools in Singapore and explore their offerings.", "https://www.myskillsfuture.gov.sg/content/student/en/primary/education-guide/explore-school/school-directory.html?q=&pageNum=1&viewBy=list&sortBy=asc")}>
                     <img src={schoolPic} alt="Explore Schools" /> {/* Leave image blank */}
-                    <div className="overlay">
+                    <div className="overlay-class">
                       <h3>Explore Schools</h3>
                     </div>
                   </div>
@@ -256,7 +256,7 @@ const UserDashboard = () => {
                   {/* Education Pathway */}
                   <div className="learn-card" onClick={() => openModal("Education Pathway", "Learn about different education pathways and how they lead to various career opportunities.", "https://www.myskillsfuture.gov.sg/content/student/en/secondary/education-guide/education-landscape/landscape-overview.html")}>
                     <img src={educationPic} alt="Education Pathway" /> {/* Leave image blank */}
-                    <div className="overlay">
+                    <div className="overlay-class">
                       <h3>Education Pathway</h3>
                     </div>
                   </div>
@@ -264,7 +264,7 @@ const UserDashboard = () => {
                   {/* Singapore Industries */}
                   <div className="learn-card" onClick={() => openModal("Singapore Industries", "Discover the diverse industries in Singapore and the career opportunities they offer.", "https://www.myskillsfuture.gov.sg/content/student/en/primary/world-of-work/industry-landscape.html")}>
                     <img src={industryPic} alt="Singapore Industries" /> {/* Leave image blank */}
-                    <div className="overlay">
+                    <div className="overlay-class">
                       <h3>Singapore Industries</h3>
                     </div>
                   </div>
