@@ -60,7 +60,7 @@ const BookSession = ({ onViewChange, onBook }) => {
       await sendEmail(email, link);
       onBook(newBooking); // Update parent state
       onViewChange("timeSlots"); // Switch view
-      alert("Booking confirmed! Check your email for the session link.");
+      alert("Booking confirmed!");
     } catch (error) {
       onBook(newBooking); // Still save the booking even if email fails
       onViewChange("timeSlots");
@@ -78,31 +78,31 @@ const BookSession = ({ onViewChange, onBook }) => {
           className="dropdown-input"
         >
           <option value="">Select Program</option>
-          <option value="Beginner Program">
+          <option value="Skill-Based Coaching Programs - Beginner Program">
             Skill-Based Coaching Programs - Beginner Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Skill-Based Coaching Programs - Intermediate Program">
             Skill-Based Coaching Programs - Intermediate Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Skill-Based Coaching Programs - Advance Program">
             Skill-Based Coaching Programs - Advance Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Goal-Oriented Coaching Programs - Beginner Program">
             Goal-Oriented Coaching Programs - Beginner Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Goal-Oriented Coaching Programs - Intermediate Program">
             Goal-Oriented Coaching Programs - Intermediate Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Goal-Oriented Coaching Programs - Advance Program">
             Goal-Oriented Coaching Programs - Advance Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Personal Development Coaching - Beginner Program">
             Personal Development Coaching - Beginner Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Personal Development Coaching - Intermediate Program">
             Personal Development Coaching - Intermediate Program
           </option>
-          <option value="Intermediate Program">
+          <option value="Personal Development Coaching - Advance Program">
             Personal Development Coaching - Advance Program
           </option>
         </select>
