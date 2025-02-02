@@ -6,6 +6,14 @@ import "../styles/Step4Schedule.css";
 function Step4Schedule({ selectedSchedule, setSelectedSchedule, setStep }) {
   const { cardID } = useParams(); // Ensure cardID is fetched from URL
   const [schedules, setSchedules] = useState([]);
+    useEffect(() => {
+      document.body.classList.add("custom-body");
+  
+      return () => {
+        document.body.classList.remove("custom-body"); // Cleanup when leaving page
+      };
+    }, []);
+  
 
   useEffect(() => {
     const fetchSchedules = async () => {

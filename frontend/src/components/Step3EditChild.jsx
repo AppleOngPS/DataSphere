@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "../styles/Step3EditChild.css";
+import { useEffect } from "react";
 
 function Step3EditChild({ children, setChildren, setStep, editingChildIndex }) {
+    useEffect(() => {
+      document.body.classList.add("custom-body");
+  
+      return () => {
+        document.body.classList.remove("custom-body"); // Cleanup when leaving page
+      };
+    }, []);
   const childToEdit = children[editingChildIndex];
 
   const [updatedChild, setUpdatedChild] = useState({

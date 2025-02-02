@@ -4,6 +4,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import { useEffect } from "react";
 import QuizSelector from "./assets/components/quizzes/quizselector.jsx"; // Import QuizSelector
 import usePageTracking from "./usePageTracking";
 import useGoogleAnalytics from "./js/useGoogleAnalytics";
@@ -34,6 +35,7 @@ import VideoCallPage from "./VideoCall.jsx";
 import Sidebar from "./assets/components/Booking/Sidebar";
 import BookSession from "./assets/components/Booking/BookSession";
 import TimeSlots from "./assets/components/Booking/TimeSlots";
+import BackShots from "./assets/components/BackToTop.jsx"
 
 function App() {
   const location = useLocation();
@@ -41,7 +43,10 @@ function App() {
   // Define the routes where the Navbar should be hidden
   const hideNavbarRoutes = ["/login", "/signup", "/auth", "/checkout", "/createBooking"];
   const shouldShowNavbar = !hideNavbarRoutes.some((route) => location.pathname.startsWith(route));
-  
+
+  const hiddenPages = ["/checkout", "/login", "/signup"];
+
+
 
   return (
     <div className="App">
@@ -99,6 +104,7 @@ function App() {
         {/* Add ProfilePage Route */}
         <Route path="/Calendar" element={<Calendar />} />
       </Routes>
+      {!hiddenPages.includes(location.pathname) && <BackShots />} {/* ✅ Conditionally render */}
     </div>
   );
 }

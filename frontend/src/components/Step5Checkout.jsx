@@ -9,6 +9,14 @@ function Step5Checkout({ children, selectedSchedule, setStep }) {
   const [schedules, setSchedules] = useState([]);
   const { cardID } = useParams();
 
+    useEffect(() => {
+      document.body.classList.add("custom-body");
+  
+      return () => {
+        document.body.classList.remove("custom-body"); // Cleanup when leaving page
+      };
+    }, []);
+    
   useEffect(() => {
     const fetchProgrammeCard = async () => {
       try {

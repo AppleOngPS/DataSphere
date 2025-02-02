@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import "../styles/BookingPage.css";
 import Step1ChildForm from "./Step1ChildForm";
 import Step2ChildList from "./Step2ChildList";
@@ -11,6 +12,14 @@ function BookingPage() {
   const [children, setChildren] = useState([]); // ✅ Ensuring `children` is always an array
   const [editingChildIndex, setEditingChildIndex] = useState(null);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  useEffect(() => {
+    document.body.classList.add("custom-body");
+
+    return () => {
+      document.body.classList.remove("custom-body"); // Cleanup when leaving page
+    };
+  }, []);
+
 
   return (
     <div className="checkout-container">

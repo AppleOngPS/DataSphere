@@ -1,7 +1,15 @@
 import React from "react";
 import "../styles/Step2ChildList.css";
+import { useEffect } from "react";
 
 function Step2ChildList({ children, setChildren, setStep, setEditingChildIndex }) {
+    useEffect(() => {
+      document.body.classList.add("custom-body");
+  
+      return () => {
+        document.body.classList.remove("custom-body"); // Cleanup when leaving page
+      };
+    }, []);
   
   const handleDeleteChild = async (childID) => {
     try {

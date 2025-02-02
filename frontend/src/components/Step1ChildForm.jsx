@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import "../styles/Step1ChildForm.css";
+import { useEffect } from "react";
 
 function Step1ChildForm({ children = [], setChildren, setStep }) {
+    useEffect(() => {
+      document.body.classList.add("custom-body");
+  
+      return () => {
+        document.body.classList.remove("custom-body"); // Cleanup when leaving page
+      };
+    }, []);
+    
   const [newChild, setNewChild] = useState({
     name: "",
     school: "",
